@@ -7,34 +7,34 @@ const sendEmail = require('../utils/sendEmail');
 // @route       POST api/auth
 // @description Authenticate user and get token
 // @access      Public
-exports.login = asyncHandler(async (req, res) => {
+exports.login = asyncHandler(async (req, res, next) => {
   const { email, password } = req.body;
 
   if (!email || !password) {
     return next(new ErrorResponse('please provide an email and password', 400));
   }
 
-  try {
-    //see if user exists
-    const user = await User.findOne({ email: email }).select('+password');
-    if (!user) {
-      return next(
-        new ErrorResponse('please provide a valid email and password', 401)
-      );
-    }
-
-    //match password
-    const isMatch = await user.matchPassword(password);
-    if (!isMatch) {
-      return next(
-        new ErrorResponse('please provide a valid email and password', 401)
-      );
-    }
-    sendTokenResponse(user, 200, res);
-  } catch (err) {
-    console.log(err.message);
-    res.status(500).send('server error');
+  // try {
+  //see if user exists
+  const user = await User.findOne({ email: email }).select('+password');
+  if (!user) {
+    return next(
+      new ErrorResponse('please provide a valid email and password', 401)
+    );
   }
+
+  //match password
+  const isMatch = await user.matchPassword(password);
+  if (!isMatch) {
+    return next(
+      new ErrorResponse('please provide a valid email and password', 401)
+    );
+  }
+  sendTokenResponse(user, 200, res);
+  // } catch (err) {
+  //   console.log(err.message);
+  //   res.status(500).send('server error');
+  // }
 });
 
 // @route       POST api/auth/register

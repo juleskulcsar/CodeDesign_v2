@@ -4,11 +4,11 @@ const Schema = mongoose.Schema;
 const PostSchema = new Schema({
   user: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'user'
+    ref: 'User'
   },
   profile: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'profile',
+    ref: 'Profile',
     required: true
   },
   portfolioImages: [
@@ -32,7 +32,7 @@ const PostSchema = new Schema({
   profilePhoto: {
     user: {
       type: Schema.Types.ObjectId,
-      ref: 'users'
+      ref: 'User'
     }
   },
   name: {
@@ -43,7 +43,7 @@ const PostSchema = new Schema({
     {
       user: {
         type: Schema.Types.ObjectId,
-        ref: 'users'
+        ref: 'User'
       }
     }
   ],
@@ -51,7 +51,7 @@ const PostSchema = new Schema({
     {
       user: {
         type: Schema.Types.ObjectId,
-        ref: 'users'
+        ref: 'User'
       }
     }
   ],
@@ -59,7 +59,7 @@ const PostSchema = new Schema({
     {
       user: {
         type: Schema.Types.ObjectId,
-        ref: 'users'
+        ref: 'User'
       },
       text: {
         type: String,
@@ -83,4 +83,4 @@ const PostSchema = new Schema({
   }
 });
 
-module.exports = Posts = mongoose.model('posts', PostSchema);
+module.exports = mongoose.model('Post', PostSchema);

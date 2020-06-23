@@ -4,9 +4,9 @@ const jwt = require('jsonwebtoken');
 const crypto = require('crypto');
 
 const UserSchema = new mongoose.Schema({
-  name: {
+  registeras: {
     type: String,
-    required: true
+    required: [true, 'Please register as a designer or developer']
   },
   email: {
     type: String,
@@ -71,4 +71,4 @@ UserSchema.methods.getResetPasswordToken = function() {
   return resetToken;
 };
 
-module.exports = User = mongoose.model('user', UserSchema);
+module.exports = mongoose.model('User', UserSchema);

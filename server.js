@@ -24,6 +24,7 @@ connectDB();
 
 //route files
 const auth = require('./routes/auth');
+const profile = require('./routes/profile');
 
 const app = express();
 
@@ -67,6 +68,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 //mount routers
 app.use('/api/auth', auth);
+app.use('/api/profile', profile);
 
 app.use(errorHandler);
 

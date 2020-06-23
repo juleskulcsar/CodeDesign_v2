@@ -1,23 +1,23 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const PostSchema = new Schema({
+const JobSchema = new Schema({
   user: {
     type: Schema.Types.ObjectId,
-    ref: 'users'
+    ref: 'User'
   },
   profile: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'profile',
+    ref: 'Profile',
     required: true
   },
   title: {
     type: String,
-    required: true
+    required: [true, 'Please add a job title']
   },
   description: {
     type: String,
-    required: true
+    required: [true, 'Please add a job description']
   },
   name: {
     type: String
@@ -25,7 +25,7 @@ const PostSchema = new Schema({
   profilePhoto: {
     user: {
       type: Schema.Types.ObjectId,
-      ref: 'users'
+      ref: 'User'
     }
   },
   date: {
@@ -34,4 +34,4 @@ const PostSchema = new Schema({
   }
 });
 
-module.exports = Post = mongoose.model('post', PostSchema);
+module.exports = mongoose.model('Job', JobSchema);
