@@ -11,7 +11,12 @@ exports.login = asyncHandler(async (req, res, next) => {
   const { email, password } = req.body;
 
   if (!email || !password) {
-    return next(new ErrorResponse('please provide an email and password', 400));
+    return next(
+      new ErrorResponse(
+        'Oopsy daisy: please provide an email and password',
+        400
+      )
+    );
   }
 
   // try {
@@ -19,7 +24,10 @@ exports.login = asyncHandler(async (req, res, next) => {
   const user = await User.findOne({ email: email }).select('+password');
   if (!user) {
     return next(
-      new ErrorResponse('please provide a valid email and password', 401)
+      new ErrorResponse(
+        'Oopsy daisy: please provide a valid email and password',
+        401
+      )
     );
   }
 
@@ -27,7 +35,10 @@ exports.login = asyncHandler(async (req, res, next) => {
   const isMatch = await user.matchPassword(password);
   if (!isMatch) {
     return next(
-      new ErrorResponse('please provide a valid email and password', 401)
+      new ErrorResponse(
+        'Oopsy daisy: please provide a valid email and password',
+        401
+      )
     );
   }
   sendTokenResponse(user, 200, res);
@@ -47,7 +58,10 @@ exports.register = asyncHandler(async (req, res, next) => {
     let user = await User.findOne({ email });
     if (user) {
       return next(
-        new ErrorResponse('A user with this email address already exists', 400)
+        new ErrorResponse(
+          'Oopsy daisy: a user with this email address already exists',
+          400
+        )
       );
     }
     // new User() method just creates a User instance. Does not save the user
@@ -122,7 +136,7 @@ exports.updateUserPassword = asyncHandler(async (req, res, next) => {
 
   //check current password
   if (!(await user.matchPassword(req.body.currentPassword))) {
-    next(new ErrorResponse('password is incorrect'), 401);
+    next(new ErrorResponse('Oopsy daisy: password is incorrect'), 401);
   }
 
   user.password = req.body.newPassword;
@@ -143,7 +157,7 @@ exports.forgotPassword = asyncHandler(async (req, res, next) => {
   const user = await User.findOne({ email: req.body.email });
 
   if (!user) {
-    next(new ErrorResponse('No user with that email'), 404);
+    next(new ErrorResponse('Oopsy daisy: no user with that email'), 404);
   }
 
   //get reset token
@@ -177,7 +191,7 @@ exports.forgotPassword = asyncHandler(async (req, res, next) => {
     user.resetPasswordExpire = undefined;
 
     await user.save({ validateBeforeSave: false });
-    return next(new ErrorResponse('email could not be sent'), 500);
+    return next(new ErrorResponse('Oopsy daisy: email could not be sent'), 500);
   }
 
   res.status(200).json({
@@ -202,7 +216,7 @@ exports.resetPassword = asyncHandler(async (req, res, next) => {
   });
 
   if (!user) {
-    return next(new ErrorResponse('invalid token'), 400);
+    return next(new ErrorResponse('Oopsy daisy: invalid token'), 400);
   }
 
   //set new pass

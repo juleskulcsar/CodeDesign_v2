@@ -19,7 +19,7 @@ exports.getMyProfile = asyncHandler(async (req, res, next) => {
   console.log('profile: ', profile);
 
   if (!profile) {
-    return next(new ErrorResponse('No profile found', 400));
+    return next(new ErrorResponse('Oopsy daisy: no profile found', 400));
   }
 
   res.json(profile);
@@ -102,7 +102,7 @@ exports.uploadProfilePhoto = asyncHandler(async (req, res, next) => {
   let profile = await Profile.findOne({ user: req.user.id });
 
   if (!profile) {
-    return next(new ErrorResponse('No profile found', 400));
+    return next(new ErrorResponse('Oopsy daisy: no profile found', 400));
   }
   if (profile) {
     //update profile
@@ -136,7 +136,7 @@ exports.getProfileById = asyncHandler(async (req, res, next) => {
   }).populate('user', ['name']);
 
   if (!profile) {
-    return next(new ErrorResponse('No profile found', 400));
+    return next(new ErrorResponse('Oopsy daisy: no profile found', 400));
   }
 
   const posts = await Post.find({
@@ -198,7 +198,9 @@ exports.getUserRepos = asyncHandler(async (req, res) => {
     if (error) console.log(error);
 
     if (response.statusCode !== 200) {
-      return res.status(400).json({ msg: 'No Github profile found' });
+      return res
+        .status(400)
+        .json({ msg: 'Oopsy daisy: no Github profile found' });
     }
 
     res.json(JSON.parse(body));
