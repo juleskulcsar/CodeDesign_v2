@@ -28,8 +28,6 @@ exports.addJob = asyncHandler(async (req, res) => {
 // @desc     Get all jobs
 // @access   Private
 exports.getAllJobs = asyncHandler(async (req, res) => {
-  // const posts = await Post.find().sort({ date: -1 });
-  // res.json(posts);
   res.status(200).json(res.advancedResults);
 });
 
@@ -38,10 +36,6 @@ exports.getAllJobs = asyncHandler(async (req, res) => {
 // @access   Private
 exports.getJobById = asyncHandler(async (req, res, next) => {
   const job = await Job.findById(req.params.id);
-  //   .populate({
-  //     path: 'profile',
-  //     select: ['_id']
-  //   });
 
   // Check for ObjectId format and job
   if (!req.params.id.match(/^[0-9a-fA-F]{24}$/) || !job) {

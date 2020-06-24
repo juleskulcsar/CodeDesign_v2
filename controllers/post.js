@@ -33,24 +33,7 @@ exports.uploadPost = asyncHandler(async (req, res) => {
 // @access   Private
 exports.getAllPosts = asyncHandler(async (req, res) => {
   res.status(200).json(res.advancedResults);
-  //   const portfolios = await Portfolios.find().sort({ date: -1 });
-  // .populate('user');
-  // console.log('portfolios in get all portfolios: ', portfolios);
-  //   res.json(portfolios);
 });
-
-// @route    GET api/portfolio/myportfolios
-// @desc     Get all my portfolios
-// @access   Private
-// router.get('/myportfolios', auth, async (req, res) => {
-//   try {
-//     const portfolios = await Portfolios.find().sort({ date: -1 });
-//     res.json(portfolios);
-//   } catch (err) {
-//     console.error(err.message);
-//     res.status(500).send('Server Error');
-//   }
-// });
 
 // @route    GET api/post/:id
 // @desc     Get post by ID
@@ -62,7 +45,6 @@ exports.getPostById = asyncHandler(async (req, res, next) => {
   if (!req.params.id.match(/^[0-9a-fA-F]{24}$/) || !post) {
     return next(new ErrorResponse(`Oopsy daisy: post not found`, 404));
   }
-
   res.json(post);
 });
 
@@ -88,7 +70,6 @@ exports.deletePost = asyncHandler(async (req, res) => {
   }
 
   await post.remove();
-
   res.json({ msg: 'Post removed' });
 });
 

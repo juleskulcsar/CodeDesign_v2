@@ -19,7 +19,6 @@ exports.login = asyncHandler(async (req, res, next) => {
     );
   }
 
-  // try {
   //see if user exists
   const user = await User.findOne({ email: email }).select('+password');
   if (!user) {
@@ -42,10 +41,6 @@ exports.login = asyncHandler(async (req, res, next) => {
     );
   }
   sendTokenResponse(user, 200, res);
-  // } catch (err) {
-  //   console.log(err.message);
-  //   res.status(500).send('server error');
-  // }
 });
 
 // @route       POST api/auth/register
@@ -54,31 +49,26 @@ exports.login = asyncHandler(async (req, res, next) => {
 exports.register = asyncHandler(async (req, res, next) => {
   const { name, email, registeras, password } = req.body;
 
-  try {
-    let user = await User.findOne({ email });
-    if (user) {
-      return next(
-        new ErrorResponse(
-          'Oopsy daisy: a user with this email address already exists',
-          400
-        )
-      );
-    }
-    // new User() method just creates a User instance. Does not save the user
-    user = new User({
-      name,
-      email,
-      registeras,
-      password
-    });
-
-    await user.save();
-
-    sendTokenResponse(user, 200, res);
-  } catch (err) {
-    console.log(err.message);
-    res.status(500).send('server error');
+  let user = await User.findOne({ email });
+  if (user) {
+    return next(
+      new ErrorResponse(
+        'Oopsy daisy: a user with this email address already exists',
+        400
+      )
+    );
   }
+  // new User() method just creates a User instance. Does not save the user
+  user = new User({
+    name,
+    email,
+    registeras,
+    password
+  });
+
+  await user.save();
+
+  sendTokenResponse(user, 200, res);
 });
 
 // @route       GET api/auth/logout
@@ -143,11 +133,6 @@ exports.updateUserPassword = asyncHandler(async (req, res, next) => {
   await user.save();
 
   sendTokenResponse(user, 200, res);
-
-  //   res.status(200).json({
-  //     success: true,
-  //     data: user
-  //   });
 });
 
 //@route         POST api/auth/forgotpassword
@@ -233,6 +218,7 @@ exports.resetPassword = asyncHandler(async (req, res, next) => {
   });
 });
 
+//helper
 //get token from model, create cookie and send response
 const sendTokenResponse = (user, statusCode, res) => {
   //create token

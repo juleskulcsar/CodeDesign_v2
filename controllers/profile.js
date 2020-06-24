@@ -74,28 +74,23 @@ exports.createProfile = asyncHandler(async (req, res, next) => {
   if (linkedin) profileFields.social.linkedin = linkedin;
   if (instagram) profileFields.social.instagram = instagram;
 
-  try {
-    let profile = await Profile.findOne({ user: req.user.id });
-    let user = await User.findById(req.user.id).select('-password');
+  let profile = await Profile.findOne({ user: req.user.id });
+  let user = await User.findById(req.user.id).select('-password');
 
-    if (profile) {
-      //update profile
-      profile = await Profile.findOneAndUpdate(
-        { user: req.user.id },
-        { $set: profileFields },
-        { new: true }
-      );
-      return res.json(profile);
-    }
-
-    //create profile
-    profile = new Profile(profileFields);
-    await profile.save();
-    res.json(profile);
-  } catch (err) {
-    console.log(err.message);
-    res.status(500).send('Server error');
+  if (profile) {
+    //update profile
+    profile = await Profile.findOneAndUpdate(
+      { user: req.user.id },
+      { $set: profileFields },
+      { new: true }
+    );
+    return res.json(profile);
   }
+
+  //create profile
+  profile = new Profile(profileFields);
+  await profile.save();
+  res.json(profile);
 });
 
 // @route       POST api/profile/profilephoto
@@ -104,7 +99,6 @@ exports.createProfile = asyncHandler(async (req, res, next) => {
 
 exports.uploadProfilePhoto = asyncHandler(async (req, res, next) => {
   const url = process.env.s3Url + req.file.filename;
-  // try {
   let profile = await Profile.findOne({ user: req.user.id });
 
   if (!profile) {
@@ -120,9 +114,6 @@ exports.uploadProfilePhoto = asyncHandler(async (req, res, next) => {
     return res.json(profile);
   }
   await profile.save();
-  // } catch (err) {
-  //   console.log('error in POST /profilephoto; ', err);
-  // }
 });
 
 // @route       GET api/profile
@@ -136,7 +127,6 @@ exports.getAllProfiles = asyncHandler(async (req, res, next) => {
 // @description get profile by user ID
 // @access      Public
 exports.getProfileById = asyncHandler(async (req, res, next) => {
-  // try {
   const profile = await Profile.findOne({
     user: req.params.user_id
   }).populate('user', ['registeras']);
@@ -148,7 +138,6 @@ exports.getProfileById = asyncHandler(async (req, res, next) => {
   const posts = await Post.find({
     user: req.params.user_id
   });
-
   const jobs = await Job.find({
     user: req.params.user_id
   });
@@ -157,13 +146,6 @@ exports.getProfileById = asyncHandler(async (req, res, next) => {
   profile.jobs = jobs;
 
   res.json(profile);
-  // } catch (err) {
-  //   console.log(err.message);
-  //   if (err.kind == 'ObjectId') {
-  //     return res.status(400).json({ msg: 'Profile not found' });
-  //   }
-  //   res.status(500).send('Server error');
-  // }
 });
 
 // @route       DELETE api/profile
@@ -178,10 +160,6 @@ exports.deleteProfile = asyncHandler(async (req, res) => {
   //remove user
   await User.findOneAndRemove({ _id: req.user.id });
   res.json({ msg: 'User deleted' });
-  // } catch (err) {
-  //   console.log(err.message);
-  //   res.status(500).send('Server error');
-  // }
 });
 
 // @route       GET api/profile/github/:username
@@ -189,7 +167,6 @@ exports.deleteProfile = asyncHandler(async (req, res) => {
 // @access      Public
 
 exports.getUserRepos = asyncHandler(async (req, res) => {
-  // try {
   const options = {
     uri: `https://api.github.com/users/${
       req.params.username
@@ -211,8 +188,4 @@ exports.getUserRepos = asyncHandler(async (req, res) => {
 
     res.json(JSON.parse(body));
   });
-  // } catch (err) {
-  //   console.log(err.message);
-  //   res.status(500).send('Server error');
-  // }
 });
