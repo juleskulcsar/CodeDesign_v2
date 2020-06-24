@@ -28,7 +28,12 @@ router.post(
   s3.upload,
   uploadProfilePhoto
 );
-router.get('/', protect, advancedResults(Profile, 'posts'), getAllProfiles);
+router.get(
+  '/',
+  protect,
+  advancedResults(Profile, 'posts jobs'),
+  getAllProfiles
+);
 router.get('/user/:user_id', protect, getProfileById);
 router.delete('/', protect, deleteProfile);
 router.get('/github/:username', protect, getUserRepos);

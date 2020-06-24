@@ -11,7 +11,7 @@ const PostSchema = new Schema({
     ref: 'Profile',
     required: true
   },
-  portfolioImages: [
+  postImage: [
     {
       type: String,
       required: true
@@ -19,21 +19,18 @@ const PostSchema = new Schema({
   ],
   title: {
     type: String,
-    required: true
+    required: [true, 'Please add a post title']
   },
   description: {
     type: String,
-    required: true
+    required: [true, 'Please add a post description']
   },
   technologies: {
     type: [String],
-    required: true
+    required: [true, 'Please add technologies or tools used']
   },
-  profilePhoto: {
-    user: {
-      type: Schema.Types.ObjectId,
-      ref: 'User'
-    }
+  avatar: {
+    type: String
   },
   name: {
     type: String,
@@ -63,7 +60,7 @@ const PostSchema = new Schema({
       },
       text: {
         type: String,
-        required: true
+        required: [true, 'Please add a comment before submitting']
       },
       name: {
         type: String

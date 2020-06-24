@@ -16,11 +16,18 @@ exports.getMyProfile = asyncHandler(async (req, res, next) => {
     user: req.user.id
   }).populate('User', ['registeras']);
 
-  console.log('profile: ', profile);
-
   if (!profile) {
     return next(new ErrorResponse('Oopsy daisy: no profile found', 400));
   }
+
+  const posts = await Post.find({
+    user: req.user.id
+  });
+  const jobs = await Job.find({
+    user: req.user.id
+  });
+  profile.posts = posts;
+  profile.jobs = jobs;
 
   res.json(profile);
 });
@@ -70,7 +77,6 @@ exports.createProfile = asyncHandler(async (req, res, next) => {
   try {
     let profile = await Profile.findOne({ user: req.user.id });
     let user = await User.findById(req.user.id).select('-password');
-    // let portfolio = await Portfolios.find({ user: req.user.id });
 
     if (profile) {
       //update profile
@@ -133,7 +139,7 @@ exports.getProfileById = asyncHandler(async (req, res, next) => {
   // try {
   const profile = await Profile.findOne({
     user: req.params.user_id
-  }).populate('user', ['name']);
+  }).populate('user', ['registeras']);
 
   if (!profile) {
     return next(new ErrorResponse('Oopsy daisy: no profile found', 400));

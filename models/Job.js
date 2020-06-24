@@ -8,8 +8,7 @@ const JobSchema = new Schema({
   },
   profile: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Profile',
-    required: true
+    ref: 'Profile'
   },
   title: {
     type: String,
@@ -22,11 +21,8 @@ const JobSchema = new Schema({
   name: {
     type: String
   },
-  profilePhoto: {
-    user: {
-      type: Schema.Types.ObjectId,
-      ref: 'User'
-    }
+  avatar: {
+    type: String
   },
   date: {
     type: Date,
