@@ -5,19 +5,16 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { login } from '../../actions/auth';
 import { Input } from '../common/Input';
+import {
+  H2_Styled,
+  Paragraph,
+  Title,
+  Form,
+  TextContainer,
+  FormContainer
+} from '../common/SignIn-SignUp';
 import backgroundImage from './image/loginBackground.png';
-import loginImage from './image/login.png';
 import PasswordInput from '../common/PasswordInput';
-
-const Form = styled.form`
-  width: 100%;
-  max-width: 400px;
-  padding: 16px;
-  box-sizing: border-box;
-  color: gray;
-  border-radius: 4px;
-  /* margin-top: 20%; */
-`;
 
 const BackgroundImage = styled.div`
   background-image: url(${backgroundImage});
@@ -28,49 +25,11 @@ const BackgroundImage = styled.div`
   padding: 5%;
 `;
 
-const TextContainer = styled.div`
-  padding: 3%;
-  width: 100%;
-  max-width: 400px;
-  float: right;
-  text-align: left;
-  height: 500px;
-  margin-top: -80px;
-`;
-
-const SigninContainer = styled.div`
-  float: left;
-  width: 100%;
-  max-width: 400px;
-`;
-
-const SignIn = styled.h2`
-  padding: 16px 16px 16px 16px;
-  margin-top: 40%;
-  color: #bfbdbc;
-  font-size: 2em;
-`;
-
-const Paragraph = styled.p`
-  padding: 1px 16px 16px 16px;
-  color: #bfbdbc;
-  line-height: 1.6;
-`;
-
 const StyledLink = styled(Link)`
   color: #f16350;
   text-decoration: none;
   font-size: 1.2em;
   font-weight: bold;
-`;
-
-const Title = styled.h1`
-  padding: 16px 16px 1px 16px;
-  margin-top: 10%;
-  font-size: 3em;
-  font-weight: bold;
-  color: white;
-  font-size: 4em;
 `;
 
 const Login = ({ login, isAuthenticated }) => {
@@ -114,8 +73,8 @@ const Login = ({ login, isAuthenticated }) => {
             <span style={{ color: '#F16350' }}>-------</span>
           </Paragraph>
         </TextContainer>
-        <SigninContainer>
-          <SignIn className='large text-primary'>Sign In</SignIn>
+        <FormContainer>
+          <H2_Styled>Sign In</H2_Styled>
           <Form onSubmit={e => onSubmit(e)}>
             <Input
               type='text'
@@ -137,7 +96,7 @@ const Login = ({ login, isAuthenticated }) => {
             Don't have an account yet?
             <StyledLink to='/register'> Sign Up</StyledLink>
           </Paragraph>
-        </SigninContainer>
+        </FormContainer>
       </BackgroundImage>
     </Fragment>
   );

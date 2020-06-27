@@ -4,8 +4,47 @@ import { Link, Redirect } from 'react-router-dom';
 import { setAlert } from '../../actions/alert';
 import { register } from '../../actions/auth';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
+import { Input } from '../common/Input';
+import {
+  H2_Styled,
+  Paragraph,
+  Title,
+  Form,
+  TextContainer,
+  FormContainer
+} from '../common/SignIn-SignUp';
+import backgroundImage from './image/loginBackground.png';
+import PasswordInput from '../common/PasswordInput';
 
-// import axios from 'axios';
+const BackgroundImage = styled.div`
+  background-image: url(${backgroundImage});
+  background-size: cover;
+  height: 80vh;
+  max-height: 100vh;
+  color: white;
+  padding: 5%;
+`;
+
+const StyledLink = styled(Link)`
+  color: #f16350;
+  text-decoration: none;
+  font-size: 1.2em;
+  font-weight: bold;
+`;
+
+const StyledSelect = styled.select`
+  padding: 4px 8px;
+  border: 1px solid gray;
+  border-radius: 4px;
+  font-size: 1em;
+  margin-bottom: 8px;
+  width: 100%;
+  box-sizing: border-box;
+  height: 40px;
+  background: transparent;
+  color: #bfbdbc;
+`;
 
 const Register = ({ setAlert, register, isAuthenticated }) => {
   const [formData, setFormData] = useState({
@@ -13,41 +52,20 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
     email: '',
     registeras: '',
     password: '',
-    password2: ''
+    conformPassword: ''
   });
 
-  //   console.log('formData: ', formData);
-  const { name, email, registeras, password, password2 } = formData;
-
+  const { name, email, registeras, password, confirmPassword } = formData;
   const onChange = e => {
     return setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const onSubmit = async e => {
     e.preventDefault();
-    if (password !== password2) {
+    if (password !== confirmPassword) {
       setAlert('Passwords do not match', 'danger');
-      // console.log('Passwords do not match', 'danger');
     } else {
       register({ name, email, registeras, password });
-      // console.log('success');
-      //   const newUser = {
-      //     name,
-      //     email,
-      //     password
-      //   };
-      //   try {
-      //     const config = {
-      //       headers: {
-      //         'Content-Type': 'application/json'
-      //       }
-      //     };
-      //     const body = JSON.stringify(newUser);
-      //     const res = await axios.post('/api/users', body, config);
-      //     console.log('res.data: ', res.data);
-      //   } catch (error) {
-      //     console.error(error.response.data);
-      //   }
     }
   };
 
@@ -57,60 +75,74 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
 
   return (
     <Fragment>
-      <h1 className='large text-primary'>Sign Up</h1>
-      <p className='lead'>
-        <i className='fas fa-user'></i> Create Your Account
-      </p>
-      <form className='form' onSubmit={e => onSubmit(e)}>
-        <div className='form-group'>
-          <input
-            type='text'
-            placeholder='Name'
-            name='name'
-            value={name}
-            onChange={e => onChange(e)}
-            required
-          />
-        </div>
-        <div className='form-group'>
-          <input
-            type='email'
-            placeholder='Email Address'
-            name='email'
-            value={email}
-            onChange={e => onChange(e)}
-            required
-          />
-          <small className='form-text'>
-            This site uses Gravatar so if you want a profile image, use a
-            Gravatar email
-          </small>
-        </div>
-        <div className='form-group'>
-          <input
-            type='password'
-            placeholder='Password'
-            name='password'
-            value={password}
-            onChange={e => onChange(e)}
-            minLength='6'
-          />
-        </div>
-        <div className='form-group'>
-          <input
-            type='password'
-            placeholder='Confirm Password'
-            name='password2'
-            value={password2}
-            onChange={e => onChange(e)}
-            minLength='6'
-          />
-        </div>
-        <input type='submit' className='btn btn-primary' value='Register' />
-      </form>
-      <p className='my-1'>
-        Already have an account? <Link to='/login'>Sign In</Link>
-      </p>
+      <BackgroundImage>
+        <TextContainer>
+          <Title>
+            <i className='fas fa-terminal'></i>
+            code
+            <span style={{ color: '#F16350' }}>D</span>esign
+          </Title>
+          <Paragraph>
+            Join CodeDesign's community and find designers and/or developers to
+            work with or new projects to work on
+          </Paragraph>
+          <Paragraph>
+            Create a free acount and start sharing your work, apply for jobs,
+            browse community portfolios and connect with other users
+          </Paragraph>
+          <Paragraph>
+            <span style={{ color: '#F16350' }}>-------</span>
+          </Paragraph>
+        </TextContainer>
+        <FormContainer>
+          <H2_Styled>Sign Up</H2_Styled>
+          <Form onSubmit={e => onSubmit(e)}>
+            <Input
+              type='text'
+              placeholder='name'
+              name='name'
+              value={name}
+              onChange={e => onChange(e)}
+              required
+            />
+            <Input
+              type='email'
+              placeholder='email'
+              name='email'
+              value={email}
+              onChange={e => onChange(e)}
+              required
+            />
+            <StyledSelect
+              name='registeras'
+              value={registeras}
+              onChange={e => onChange(e)}
+            >
+              <option value='0'>* register as: </option>
+              <option value='designer'>I'm a designer</option>
+              <option value='developer'>I'm a developer</option>
+            </StyledSelect>
+            <PasswordInput
+              name='password'
+              value={password}
+              onChange={e => onChange(e)}
+              minLength='6'
+            />
+            <PasswordInput
+              name='confirmPassword'
+              value={confirmPassword}
+              onChange={e => onChange(e)}
+              minLength='6'
+              confirmPass
+            />
+            <Input type='submit' value='Sign Up'></Input>
+          </Form>
+          <Paragraph>
+            Already have an account?
+            <StyledLink to='/'> Sign in</StyledLink>
+          </Paragraph>
+        </FormContainer>
+      </BackgroundImage>
     </Fragment>
   );
 };

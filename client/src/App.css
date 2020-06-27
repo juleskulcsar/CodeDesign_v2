@@ -1,5 +1,7 @@
 body {
-  background: #070606;
+  /* background: #070606; */
+  background: #1c1b1a;
+  color: gray;
   box-sizing: border-box;
   padding: 10px;
   font-family: 'Raleway', sans-serif;

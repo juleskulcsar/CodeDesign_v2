@@ -1,17 +1,17 @@
 import React, { useState } from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { Input } from './Input';
 
 const PasswordInputWrapper = styled.div`
   display: flex;
-  ~ div {
+  /* ~ div {
     margin-bottom: 8px;
-  }
+  } */
 `;
 
-const PasswordInputStyled = styled(Input).attrs(() => ({
+const PasswordInputStyled = styled(Input).attrs(props => ({
   type: 'password',
-  placeholder: 'password'
+  placeholder: props.confirmPass ? 'confirm password' : 'password'
 }))`
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
