@@ -11,7 +11,8 @@ import {
   Title,
   Form,
   TextContainer,
-  FormContainer
+  FormContainer,
+  Container
 } from '../common/SignIn-SignUp';
 import backgroundImage from './image/loginBackground.png';
 import PasswordInput from '../common/PasswordInput';
@@ -19,10 +20,14 @@ import PasswordInput from '../common/PasswordInput';
 const BackgroundImage = styled.div`
   background-image: url(${backgroundImage});
   background-size: cover;
-  height: 80vh;
+  height: 100vh;
   max-height: 100vh;
   color: white;
   padding: 5%;
+
+  @media (max-width: 780px) {
+    background-image: none;
+  }
 `;
 
 const StyledLink = styled(Link)`
@@ -55,48 +60,49 @@ const Login = ({ login, isAuthenticated }) => {
   return (
     <Fragment>
       <BackgroundImage>
-        <TextContainer>
-          <Title>
-            <i className='fas fa-terminal'></i>
-            code
-            <span style={{ color: '#F16350' }}>D</span>esign
-          </Title>
-          <Paragraph>
-            Join CodeDesign's community and find designers and/or developers to
-            work with or new projects to work on
-          </Paragraph>
-          <Paragraph>
-            Create a free acount and start sharing your work, apply for jobs,
-            browse community portfolios and connect with other users
-          </Paragraph>
-          <Paragraph>
-            <span style={{ color: '#F16350' }}>-------</span>
-          </Paragraph>
-        </TextContainer>
-        <FormContainer>
-          <H2_Styled>Sign In</H2_Styled>
-          <Form onSubmit={e => onSubmit(e)}>
-            <Input
-              type='text'
-              name='email'
-              placeholder='email'
-              value={email}
-              required
-              onChange={e => onChange(e)}
-            />
-            <PasswordInput
-              name='password'
-              value={password}
-              onChange={e => onChange(e)}
-              minLength='6'
-            />
-            <Input type='submit' value='Login'></Input>
-          </Form>
-          <Paragraph>
-            Don't have an account yet?
-            <StyledLink to='/register'> Sign Up</StyledLink>
-          </Paragraph>
-        </FormContainer>
+        <Container>
+          <TextContainer>
+            <Title>
+              code
+              <span style={{ color: '#F16350' }}>D</span>esign
+            </Title>
+            <Paragraph>
+              Join CodeDesign's community and find designers and/or developers
+              to work with or new projects to work on
+            </Paragraph>
+            <Paragraph second>
+              Create a free acount and start sharing your work, apply for jobs,
+              browse community portfolios and connect with other users
+            </Paragraph>
+            <Paragraph>
+              <span style={{ color: '#F16350' }}>-------</span>
+            </Paragraph>
+          </TextContainer>
+          <FormContainer>
+            <H2_Styled>Sign In</H2_Styled>
+            <Form onSubmit={e => onSubmit(e)}>
+              <Input
+                type='text'
+                name='email'
+                placeholder='email'
+                value={email}
+                required
+                onChange={e => onChange(e)}
+              />
+              <PasswordInput
+                name='password'
+                value={password}
+                onChange={e => onChange(e)}
+                minLength='6'
+              />
+              <Input type='submit' value='Login'></Input>
+            </Form>
+            <Paragraph>
+              Don't have an account yet?
+              <StyledLink to='/register'> Sign Up</StyledLink>
+            </Paragraph>
+          </FormContainer>
+        </Container>
       </BackgroundImage>
     </Fragment>
   );

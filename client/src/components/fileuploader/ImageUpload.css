@@ -1,0 +1,25 @@
+.image-upload.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.image-upload__preview {
+  width: 15rem;
+  height: 15rem;
+  border: 1px solid #ccc;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.image-upload__preview img {
+  width: 70%;
+  height: 70%;
+  object-fit: cover;
+  border-radius: 10%;
+  border: 1px solid #ccc;
+}

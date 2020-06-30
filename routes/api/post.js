@@ -1,9 +1,9 @@
 const express = require('express');
-const s3 = require('../middleware/s3');
-const fileUpload = require('../middleware/file-upload');
-const advancedResults = require('../middleware/advancedResults');
-const { protect } = require('../middleware/auth');
-const Post = require('../models/Post');
+const s3 = require('../../middleware/s3');
+const fileUpload = require('../../middleware/file-upload');
+const advancedResults = require('../../middleware/advancedResults');
+const { protect } = require('../../middleware/auth');
+const Post = require('../../models/Post');
 
 const {
   uploadPost,
@@ -16,7 +16,7 @@ const {
   unsavePost,
   postComment,
   deletePostComment
-} = require('../controllers/post');
+} = require('../../controllers/post');
 
 const router = express.Router();
 

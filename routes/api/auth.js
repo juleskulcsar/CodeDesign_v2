@@ -2,20 +2,22 @@ const express = require('express');
 const {
   register,
   login,
+  loadUser,
   getMe,
   forgotPassword,
   resetPassword,
   updateUserDetails,
   updateUserPassword,
   logout
-} = require('../controllers/auth');
+} = require('../../controllers/auth');
 
 const router = express.Router();
 
-const { protect } = require('../middleware/auth');
+const { protect } = require('../../middleware/auth');
 
 router.post('/register', register);
 router.post('/', login);
+router.get('/', protect, loadUser);
 router.get('/logout', logout);
 router.get('/me', protect, getMe);
 router.post('/forgotpassword', forgotPassword);

@@ -4,6 +4,19 @@ const asyncHandler = require('../middleware/async');
 const ErrorResponse = require('../utils/errorResponse');
 const sendEmail = require('../utils/sendEmail');
 
+// @route       GET api/auth
+// @description get user
+// @access      Public
+exports.loadUser = asyncHandler(async (req, res) => {
+  try {
+    const user = await User.findById(req.user.id).select('-password');
+    res.json(user);
+  } catch (err) {
+    console.log(err.message);
+    res.status(500).send('Server error');
+  }
+});
+
 // @route       POST api/auth
 // @description Authenticate user and get token
 // @access      Public

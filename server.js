@@ -24,17 +24,17 @@ dotenv.config({ path: './config/config.env' });
 connectDB();
 
 //route files
-const auth = require('./routes/auth');
-const profile = require('./routes/profile');
-const post = require('./routes/post');
-const job = require('./routes/job');
+const auth = require('./routes/api/auth');
+const profile = require('./routes/api/profile');
+const post = require('./routes/api/post');
+const job = require('./routes/api/job');
 
 const app = express();
 
 //body parser
 app.use(express.json());
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+// app.use(bodyParser.urlencoded({ extended: false }));
 
 //cookie parser
 app.use(cookieParser());

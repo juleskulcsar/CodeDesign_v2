@@ -1,14 +1,14 @@
 const express = require('express');
-const advancedResults = require('../middleware/advancedResults');
-const { protect } = require('../middleware/auth');
-const Job = require('../models/Job');
+const advancedResults = require('../../middleware/advancedResults');
+const { protect } = require('../../middleware/auth');
+const Job = require('../../models/Job');
 
 const {
   addJob,
   getAllJobs,
   getJobById,
   deleteJob
-} = require('../controllers/job');
+} = require('../../controllers/job');
 
 const router = express.Router();
 

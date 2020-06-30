@@ -1,6 +1,6 @@
 const express = require('express');
-const s3 = require('../middleware/s3');
-const fileUpload = require('../middleware/file-upload.js');
+const s3 = require('../../middleware/s3');
+const fileUpload = require('../../middleware/file-upload.js');
 
 const {
   getMyProfile,
@@ -10,14 +10,14 @@ const {
   getProfileById,
   deleteProfile,
   getUserRepos
-} = require('../controllers/profile');
+} = require('../../controllers/profile');
 
-const advancedResults = require('../middleware/advancedResults');
-const Profile = require('../models/Profile');
+const advancedResults = require('../../middleware/advancedResults');
+const Profile = require('../../models/Profile');
 
 const router = express.Router();
 
-const { protect } = require('../middleware/auth');
+const { protect } = require('../../middleware/auth');
 
 router.get('/me', protect, getMyProfile);
 router.post('/', protect, createProfile);

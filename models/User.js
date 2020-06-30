@@ -4,6 +4,10 @@ const jwt = require('jsonwebtoken');
 const crypto = require('crypto');
 
 const UserSchema = new mongoose.Schema({
+  name: {
+    type: String,
+    required: [true, 'Please add your name']
+  },
   registeras: {
     type: String,
     required: [true, 'Please register as a designer or developer']

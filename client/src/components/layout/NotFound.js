@@ -8,6 +8,11 @@ const Container = styled.div`
   text-align: center;
   margin: auto;
   width: 50%;
+  height: 100vh;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
 `;
 
 const Button = styled.button`
@@ -22,6 +27,9 @@ const Button = styled.button`
   background: transparent;
   color: #bfbdbc;
   cursor: pointer;
+  :focus {
+    outline: none !important;
+  }
 `;
 
 function goBack() {

@@ -12,7 +12,8 @@ import {
   Title,
   Form,
   TextContainer,
-  FormContainer
+  FormContainer,
+  Container
 } from '../common/SignIn-SignUp';
 import backgroundImage from './image/loginBackground.png';
 import PasswordInput from '../common/PasswordInput';
@@ -24,6 +25,10 @@ const BackgroundImage = styled.div`
   max-height: 100vh;
   color: white;
   padding: 5%;
+
+  @media (max-width: 780px) {
+    background-image: none;
+  }
 `;
 
 const StyledLink = styled(Link)`
@@ -44,6 +49,9 @@ const StyledSelect = styled.select`
   height: 40px;
   background: transparent;
   color: #bfbdbc;
+  :focus {
+    outline: none !important;
+  }
 `;
 
 const Register = ({ setAlert, register, isAuthenticated }) => {
@@ -76,72 +84,75 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
   return (
     <Fragment>
       <BackgroundImage>
-        <TextContainer>
-          <Title>
-            <i className='fas fa-terminal'></i>
-            code
-            <span style={{ color: '#F16350' }}>D</span>esign
-          </Title>
-          <Paragraph>
-            Join CodeDesign's community and find designers and/or developers to
-            work with or new projects to work on
-          </Paragraph>
-          <Paragraph>
-            Create a free acount and start sharing your work, apply for jobs,
-            browse community portfolios and connect with other users
-          </Paragraph>
-          <Paragraph>
-            <span style={{ color: '#F16350' }}>-------</span>
-          </Paragraph>
-        </TextContainer>
-        <FormContainer>
-          <H2_Styled>Sign Up</H2_Styled>
-          <Form onSubmit={e => onSubmit(e)}>
-            <Input
-              type='text'
-              placeholder='name'
-              name='name'
-              value={name}
-              onChange={e => onChange(e)}
-              required
-            />
-            <Input
-              type='email'
-              placeholder='email'
-              name='email'
-              value={email}
-              onChange={e => onChange(e)}
-              required
-            />
-            <StyledSelect
-              name='registeras'
-              value={registeras}
-              onChange={e => onChange(e)}
-            >
-              <option value='0'>* register as: </option>
-              <option value='designer'>I'm a designer</option>
-              <option value='developer'>I'm a developer</option>
-            </StyledSelect>
-            <PasswordInput
-              name='password'
-              value={password}
-              onChange={e => onChange(e)}
-              minLength='6'
-            />
-            <PasswordInput
-              name='confirmPassword'
-              value={confirmPassword}
-              onChange={e => onChange(e)}
-              minLength='6'
-              confirmPass
-            />
-            <Input type='submit' value='Sign Up'></Input>
-          </Form>
-          <Paragraph>
-            Already have an account?
-            <StyledLink to='/'> Sign in</StyledLink>
-          </Paragraph>
-        </FormContainer>
+        <Container>
+          <TextContainer>
+            <Title>
+              code
+              <span style={{ color: '#F16350' }}>D</span>esign
+            </Title>
+            <Paragraph>
+              Join CodeDesign's community and find designers and/or developers
+              to work with or new projects to work on
+            </Paragraph>
+            <Paragraph second>
+              Create a free acount and start sharing your work, apply for jobs,
+              browse community portfolios and connect with other users
+            </Paragraph>
+            <Paragraph>
+              <span style={{ color: '#F16350' }}>-------</span>
+            </Paragraph>
+          </TextContainer>
+          <FormContainer>
+            <H2_Styled>Sign Up</H2_Styled>
+            <Form onSubmit={e => onSubmit(e)}>
+              <Input
+                type='text'
+                placeholder='name'
+                name='name'
+                value={name}
+                onChange={e => onChange(e)}
+                required
+              />
+              <Input
+                type='email'
+                placeholder='email'
+                name='email'
+                value={email}
+                onChange={e => onChange(e)}
+                required
+              />
+              <StyledSelect
+                name='registeras'
+                value={registeras}
+                onChange={e => onChange(e)}
+              >
+                <option value='0'>* register as: </option>
+                <option value='designer'>I'm a designer</option>
+                <option value='developer'>I'm a developer</option>
+              </StyledSelect>
+              <PasswordInput
+                name='password'
+                placeholder='password'
+                value={password}
+                onChange={e => onChange(e)}
+                minLength='6'
+              />
+              <PasswordInput
+                name='confirmPassword'
+                placeholder='confirm password'
+                value={confirmPassword}
+                onChange={e => onChange(e)}
+                minLength='6'
+                confirmPass
+              />
+              <Input type='submit' value='Sign Up'></Input>
+            </Form>
+            <Paragraph>
+              Already have an account?
+              <StyledLink to='/'> Sign in</StyledLink>
+            </Paragraph>
+          </FormContainer>
+        </Container>
       </BackgroundImage>
     </Fragment>
   );

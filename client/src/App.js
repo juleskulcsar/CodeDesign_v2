@@ -2,6 +2,7 @@ import React, { Fragment, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Login from './components/auth/Login';
 import Routes from './components/routing/Routes';
+import Navbar from './components/layout/Navbar';
 //redux
 import { Provider } from 'react-redux';
 import store from './store';
@@ -22,6 +23,7 @@ const App = () => {
     <Provider store={store}>
       <Router>
         <Fragment>
+          <Navbar />
           <Switch>
             <Route exact path='/' component={Login} />
             <Route component={Routes} />

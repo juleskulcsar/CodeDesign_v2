@@ -10,8 +10,8 @@ const PasswordInputWrapper = styled.div`
 `;
 
 const PasswordInputStyled = styled(Input).attrs(props => ({
-  type: 'password',
-  placeholder: props.confirmPass ? 'confirm password' : 'password'
+  type: 'password'
+  // placeholder: props.confirmPass ? 'confirm password' : 'password'
 }))`
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;

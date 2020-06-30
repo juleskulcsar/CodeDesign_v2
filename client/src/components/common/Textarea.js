@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const Input = styled.input`
+const Textarea = styled.input`
   padding: 4px 8px;
   border: 1px solid gray;
   border-radius: 4px;
@@ -8,13 +8,13 @@ const Input = styled.input`
   margin-bottom: 8px;
   width: 100%;
   box-sizing: border-box;
-  height: 40px;
+  height: 100px;
   background: transparent;
   color: #bfbdbc;
-  color: ${props => props.submitProfile ? '#F16350' : '#bfbdbc'};
+  text-align: left;
   :focus {
     outline: none !important;
   }
 `;
 
-export { Input };
+export { Textarea };
