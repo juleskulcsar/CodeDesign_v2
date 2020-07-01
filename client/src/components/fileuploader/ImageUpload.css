@@ -8,12 +8,15 @@
 .image-upload__preview {
   width: 15rem;
   height: 15rem;
-  border: 1px solid #ccc;
-  display: flex;
+  /* border: 1px solid #ccc; */
+  /* display: flex; */
   justify-content: center;
   align-items: center;
   text-align: center;
   margin-bottom: 1rem;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .image-upload__preview img {

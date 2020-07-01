@@ -10,33 +10,21 @@ import CreateProfile from '../profile-form/CreateProfile';
 import profilePhotoDefault from './image/profilephoto.png';
 import { Button } from '../common/Button'
 
-const Dashboard = ({
-  getCurrentProfile,
-  deleteAccount,
-  auth: { user },
-  profile: { profile, loading }
-}) => {
-  useEffect(() => {
-    getCurrentProfile();
-  }, [getCurrentProfile]);
-
-  const image = profilePhotoDefault
-
-  const ProfileTop = styled.div`
+const ProfileTop = styled.div`
     grid-area: top;
     text-align: left;
     width: 100%;
     border-bottom: 1px solid gray;
     padding: 0.5em;
   `
-  const RoundImage = styled.img`
+const RoundImage = styled.img`
     border-radius: 50%;
     object-fit: cover;
     width: 175px;
     height: 175px;
   `
 
-  const H2Styled = styled.h4`
+const H2Styled = styled.h4`
     color: #bfbdbc;
     margin-top: 5px;
 
@@ -45,12 +33,12 @@ const Dashboard = ({
     }
   `;
 
-  const Paragraph = styled.p`
-    color: ${props => props.about ? 'white' : '#EFEFEE'};
+const Paragraph = styled.p`
+    color: ${props => props.about ? 'white' : '#BFBDBC'};
     line-height: 1.6;
   `;
 
-  const ProfileTopDiv = styled.div`
+const ProfileTopDiv = styled.div`
     height: 175px;
     display: inline-block;
     ${props => props.name ? css`
@@ -58,28 +46,28 @@ const Dashboard = ({
           padding-left: 5em;
           ` : css``}
   `
-  const ProfileBottomDiv = styled.div`
+const ProfileBottomDiv = styled.div`
     margin: 1em;
     position: relative;
     top: 5%;
   `
 
-  const Container = styled.div`
-    color: white;
+const Container = styled.div`
+    /* color: white; */
     padding: 5%;
     display: flex;
   `
 
-  const LeftContainer = styled.div`
+const LeftContainer = styled.div`
     float: left;
     width: 100%;
     max-width: 200px;
   `
-  const RightContainer = styled.div`
+const RightContainer = styled.div`
     width: 100%;
     padding-left: 5em;
   `
-  const SocialIcons = styled.div`
+const SocialIcons = styled.div`
     > a {
         position: relative;
         color: #8E8C89;
@@ -109,10 +97,25 @@ const Dashboard = ({
         transform: scaleX(1);
     }
 `
-  const Anchor = styled.a`
+const Anchor = styled.a`
     color: #AD4D2A;
     margin: 0 0.5rem 0 0;
   `
+
+const Dashboard = ({
+  getCurrentProfile,
+  deleteAccount,
+  auth: { user },
+  profile: { profile, loading }
+}) => {
+  useEffect(() => {
+    getCurrentProfile();
+  }, [getCurrentProfile]);
+
+  console.log("profile in dashboard: ", profile)
+
+  let image = profilePhotoDefault;
+  // profile.profile.profilePhoto ? image = profile.profile.profilePhoto : image = profilePhotoDefault
 
   return loading && profile === null ? (
     <Spinner />
@@ -130,7 +133,9 @@ const Dashboard = ({
               <RightContainer >
                 <ProfileTop>
                   <ProfileTopDiv>
-                    <RoundImage src={image} alt='' />
+                    {profile.profilePhoto !== null ? (
+                      <RoundImage src={profile.profilePhoto} alt='' />
+                    ) : (<RoundImage src={image} alt='' />)}
                   </ProfileTopDiv>
                   <ProfileTopDiv name='true'>
                     <H2Styled>{user.name}</H2Styled>

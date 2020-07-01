@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const Textarea = styled.input`
+const Textarea = styled.textarea`
   padding: 4px 8px;
   border: 1px solid gray;
   border-radius: 4px;
@@ -12,6 +12,10 @@ const Textarea = styled.input`
   background: transparent;
   color: #bfbdbc;
   text-align: left;
+  resize: none;
+  vertical-align: top;
+  overflow-wrap: break-word;
+  font-family: 'Raleway', sans-serif;
   :focus {
     outline: none !important;
   }

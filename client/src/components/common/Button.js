@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 const Button = styled.button`
   padding: 4px 8px;
@@ -11,9 +11,12 @@ const Button = styled.button`
   height: 40px;
   background: transparent;
   cursor: pointer;
-  color: #bfbdbc;
+  color: gray;
   :focus {
     outline: none !important;
+  }
+  :hover{
+    color: #AD4D2A;
   }
 `;
 

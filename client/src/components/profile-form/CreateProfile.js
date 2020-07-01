@@ -18,6 +18,7 @@ import {
 } from '../common/SignIn-SignUp';
 import backgroundImage from '../auth/image/loginBackground.png';
 import ImageUpload from '../fileuploader/ImageUpload'
+import profilePhotoDefault from '../dashboard/image/profilephoto.png';
 
 const Container = styled.div`
   background-image: url(${backgroundImage});
@@ -96,7 +97,8 @@ const CreateProfile = ({
     facebook: '',
     linkedin: '',
     youtube: '',
-    instagram: ''
+    instagram: '',
+    profilePhoto: ''
   });
 
   const [displaySocialInputs, toggleSocialInputs] = useState(false);
@@ -112,7 +114,8 @@ const CreateProfile = ({
     facebook,
     linkedin,
     youtube,
-    instagram
+    instagram,
+    profilePhoto
   } = formData;
 
   const onChange = e =>

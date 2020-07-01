@@ -139,7 +139,7 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
                     </StyledList>
                     <StyledList>
                         <StyledLink to='/dashboard'>
-                            <span>dashboard</span>
+                            <span>my-profile</span>
                         </StyledLink>
                     </StyledList>
                     <StyledList>

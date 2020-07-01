@@ -29,7 +29,7 @@ exports.upload = (req, res, next) => {
   })
     .promise()
     .then(data => {
-      console.log(data);
+      console.log('data in s3:', data);
       next();
     })
     .catch(err => {

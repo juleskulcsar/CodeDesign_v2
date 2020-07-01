@@ -5,7 +5,7 @@ import Login from '../auth/Login';
 import Alert from '../layout/Alert';
 import Dashboard from '../dashboard/Dashboard';
 import CreateProfile from '../profile-form/CreateProfile';
-// import EditProfile from '../profile-form/EditProfile';
+import EditProfile from '../profile-form/EditProfile';
 // import AddExperience from '../profile-form/AddExperience';
 // import AddEducation from '../profile-form/AddEducation';
 // import MyPosts from '../profile-form/MyPosts';
@@ -19,7 +19,7 @@ import CreateProfile from '../profile-form/CreateProfile';
 // import PortfolioPage from '../portfolio/PortfolioPage';
 import NotFound from '../layout/NotFound';
 import PrivateRoute from '../routing/PrivateRoute';
-// import ImageUpload from '../FileUploader/ImageUpload';
+import ImageUpload from '../fileuploader/ImageUpload';
 // import PortfolioUpload from '../portfolioUpload/PortfolioUpload';
 
 const Routes = () => {
@@ -36,16 +36,16 @@ const Routes = () => {
         <Route exact path='/user/:id' component={Profile} /> */}
         <PrivateRoute exact path='/dashboard' component={Dashboard} />
         <PrivateRoute exact path='/create-profile' component={CreateProfile} />
-        {/*<PrivateRoute
+        <PrivateRoute
           exact
           path='/dashboard/edit-profile'
           component={EditProfile}
-        /> */}
+        />
+        <PrivateRoute exact path='/upload' component={ImageUpload} />
         {/* <PrivateRoute exact path='/posts' component={Posts} /> */}
         {/* <PrivateRoute exact path='/dashboard/myposts' component={MyPosts} />
         <PrivateRoute exact path='/dashboard/myjobs' component={MyPortfolios} /> */}
         {/* <PrivateRoute exact path='/posts/:id' component={Post} />
-        <PrivateRoute exact path='/upload' component={ImageUpload} />
         <PrivateRoute
           exact
           path='/portfolio-upload'

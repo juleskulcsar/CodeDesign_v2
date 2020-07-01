@@ -4,14 +4,24 @@ import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import styled from 'styled-components'
 import { getProfileById, getCurrentProfile } from '../../actions/profile';
 import { setAlert } from '../../actions/alert';
-import Button from '../button/Button';
+import { Button } from '../common/Button';
 import './ImageUpload.css';
+
+const ImageUploadPreview = styled.div`
+    display: block;
+  margin-left: auto;
+  margin-right: auto;
+`
+function goBack() {
+    window.history.go(0);
+}
 
 const ImageUpload = props => {
     const [file, setFile] = useState();
-    const [image, setImage] = useState();
+    const [profilePhoto, setProfilePhoto] = useState();
     const [previewUrl, setPreviewUrl] = useState();
     const [isValid, setIsValid] = useState(true);
     const [loading, setLoading] = useState(false);
@@ -62,25 +72,25 @@ const ImageUpload = props => {
             .post('/api/profile/profilephoto', formData, config)
             .then(({ data }) => {
                 console.log('data in upload: ', data)
-                setImage(data.image);
+                setProfilePhoto(data.profilePhoto);
             })
             .then(() => dispatch(setAlert('image uploaded', 'success')))
             .then(() => props.history.push('/dashboard'))
             .catch(err => {
                 setIsValid(false);
                 setLoading(false);
-                console.log('error in axios.post /upload: ', err);
+                console.log('error in axios.post /profilephoto: ', err);
             });
     };
 
     return (
         <div className='form-control'>
             <input type='file' accept='.jpg,.png,.jpeg' onChange={pickedHandler} />
-            <p>Select an image. Image must be smaller than 2Mb</p>
+            <p>Image must be smaller than 2Mb</p>
             <div className={`image-upload ${props.center && 'center'}`}>
                 <div className='image-upload__preview'>
                     {previewUrl && <img src={previewUrl} alt='Preview' />}
-                    {!previewUrl && <img src={props.profile.profilePhoto}></img>}
+                    {!previewUrl && <img src={props.profile.profile.profilePhoto}></img>}
                 </div>
                 <Button
                     disabled={loading}
@@ -92,14 +102,14 @@ const ImageUpload = props => {
                     {loading ? 'Submitting....' : 'Submit Image'}
                 </Button>
             </div>
-            <Link className='btn btn-light my-1' to='/dashboard'>
-                Go Back
-      </Link>
+            <Button onClick={goBack}>
+                Close
+            </Button>
             <br />
             {!isValid && (
                 <p>
                     File too large or invalid format. <br /> Please select a valid file
-        </p>
+                </p>
             )}
         </div>
     );

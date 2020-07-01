@@ -1,11 +1,13 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
+import { Button } from '../common/Button';
 
 const StyledLink = styled(Link)`
-  color: #f16350;
+  color: ${props => props.isActive ? '#AD4D2A' : '#f16350'};
   text-decoration: none;
   line-height: 1.6;
+  font-weight: ${props => props.isActive ? 'bold' : 'normal'};
 `;
 
 const StyledDiv = styled.div`
@@ -50,28 +52,34 @@ const StyledList = styled.li`
 `
 
 const DashboardActions = () => {
+  const { pathname } = useLocation();
   return (
     <StyledDiv>
       <StyledUl>
         <StyledList>
-          <StyledLink to='/dashboard/edit-profile'>
+          <StyledLink isActive={pathname === '/dashboard'} to='/dashboard'>
+            about
+          </StyledLink>
+        </StyledList>
+        <StyledList>
+          <StyledLink isActive={pathname === '/dashboard/edit-profile'} to='/dashboard/edit-profile'>
             edit profile
-      </StyledLink>
+          </StyledLink>
         </StyledList>
         <StyledList>
-          <StyledLink to='/dashboard/myposts'>
+          <StyledLink isActive={pathname === '/dashboard/myposts'} to='/dashboard/myposts'>
             my posts
-      </StyledLink>
+          </StyledLink>
         </StyledList>
         <StyledList>
-          <StyledLink to='/dashboard/myjobs'>
+          <StyledLink isActive={pathname === '/dashboard/myjobs'} to='/dashboard/myjobs'>
             my jobs
-      </StyledLink>
+          </StyledLink>
         </StyledList>
         <StyledList>
-          <StyledLink to='/portfolio-upload'>
+          <StyledLink isActive={pathname === '/portfolio-upload'} to='/portfolio-upload'>
             create post
-      </StyledLink>
+          </StyledLink>
         </StyledList>
       </StyledUl>
     </StyledDiv>
