@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import { login } from '../../actions/auth';
 import { Input } from '../common/Input';
 import {
-  H2_Styled,
+  H2Styled,
   Paragraph,
   Title,
   Form,
@@ -79,7 +79,7 @@ const Login = ({ login, isAuthenticated }) => {
             </Paragraph>
           </TextContainer>
           <FormContainer>
-            <H2_Styled>Sign In</H2_Styled>
+            <H2Styled>Sign In</H2Styled>
             <Form onSubmit={e => onSubmit(e)}>
               <Input
                 type='text'

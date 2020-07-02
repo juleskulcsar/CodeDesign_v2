@@ -147,13 +147,10 @@ export const createProfile = (
 
 //upload photo
 export const uploadPhoto = (
-  formData,
-  history,
-  edit = false
+  history
 ) => async dispatch => {
   try {
     dispatch(setAlert('Photo uploaded', 'success'));
-
     history.push('/dashboard');
   } catch (err) {
     dispatch({

@@ -4,10 +4,9 @@ import { Link, withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createProfile, getCurrentProfile, deleteAccount } from '../../actions/profile';
-import ImageUpload from '../fileuploader/ImageUpload';
 import DashboardActions from '../dashboard/DashboardActions';
 import Spinner from '../layout/Spinner';
-// import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import { Input } from '../common/Input';
 import { Button } from '../common/Button';
 import { Textarea } from '../common/Textarea';
@@ -18,7 +17,6 @@ import {
 import {
     RequiredText,
     StyledSelect,
-    StyledLink,
     StyledDiv,
     ProfileTopDiv,
     ProfileBottomDiv,
@@ -28,14 +26,21 @@ import {
     ProfileTop,
     RoundImage,
     Anchor,
-    H2Styled,
+    H4Styled,
     Paragraph
 } from '../common/Edit-Create-Profile';
-import profilePhotoDefault from '../dashboard/image/profilephoto.png';
 import Modal from './Modal'
 
-
-let image = profilePhotoDefault;
+const BackDrop = styled.div`
+    background-color: rgba(28, 27, 26, 0.52);
+    height: 100%;
+    position: fixed;
+    transition: all 1.3s;
+    width: 100%;
+    height: 100vh;
+    text-align: center;
+    z-index: 500;
+`
 
 const EditProfile = ({
     profile: { profile, loading },
@@ -96,18 +101,18 @@ const EditProfile = ({
         facebook,
         linkedin,
         youtube,
-        instagram
+        instagram,
+        profilePhoto
     } = formData;
 
     const onChange = e =>
         setFormData({ ...formData, [e.target.name]: e.target.value });
-
     const onSubmit = e => {
         e.preventDefault();
         createProfile(formData, history, true);
     };
-
-    const openModalHandler = () => {
+    const openModalHandler = (e) => {
+        e.preventDefault();
         setIsShowing(true)
     };
     const closeModalHandler = () => {
@@ -118,12 +123,12 @@ const EditProfile = ({
         <Spinner />
     ) : (
             <Fragment>
-                {isShowing ? <div className="back-drop">
+                {isShowing ? <BackDrop>
                     <Modal
                         show={isShowing}
                         close={closeModalHandler}>
                     </Modal>
-                </div> : null}
+                </BackDrop> : null}
                 <Container>
                     <LeftContainer>
                         <DashboardActions isShowing />
@@ -137,7 +142,7 @@ const EditProfile = ({
                                 <RoundImage src={profile.profilePhoto} alt='' />
                             </ProfileTopDiv>
                             <ProfileTopDiv name='true'>
-                                <H2Styled>{user.name}</H2Styled>
+                                <H4Styled>{user.name}</H4Styled>
                                 <Paragraph>
                                     {profile.specialties}{' '}
                                 </Paragraph>
@@ -163,7 +168,7 @@ const EditProfile = ({
                                 <Form onSubmit={e => onSubmit(e)}>
                                     <Button onClick={openModalHandler}>
                                         change profile picture
-                                </Button>
+                                    </Button>
                                     <StyledDiv>
                                         {user.registeras === 'developer' ? (
                                             <StyledSelect
@@ -321,11 +326,7 @@ const EditProfile = ({
                                             </StyledDiv>
                                         </Fragment>
                                     )}
-                                    <Input type='submit' value='submit' submitProfile />
-
-                                    <Link className='btn btn-light my-1' to='/dashboard'>
-                                        Go Back
-                                </Link>
+                                    <Input type='submit' value='submit' submitProfile='true' />
                                 </Form>
                             </FormContainer>
                         </ProfileBottomDiv>

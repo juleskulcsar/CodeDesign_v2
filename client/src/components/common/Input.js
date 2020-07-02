@@ -15,6 +15,13 @@ const Input = styled.input`
   :focus {
     outline: none !important;
   }
+  input[type=file] {
+  font-size: 100px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
+}
 `;
 
 export { Input };

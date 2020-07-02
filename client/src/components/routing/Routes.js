@@ -41,7 +41,7 @@ const Routes = () => {
           path='/dashboard/edit-profile'
           component={EditProfile}
         />
-        <PrivateRoute exact path='/upload' component={ImageUpload} />
+        <PrivateRoute exact path='/profilephoto' component={ImageUpload} />
         {/* <PrivateRoute exact path='/posts' component={Posts} /> */}
         {/* <PrivateRoute exact path='/dashboard/myposts' component={MyPosts} />
         <PrivateRoute exact path='/dashboard/myjobs' component={MyPortfolios} /> */}

@@ -1,20 +1,72 @@
-import React, { useRef, useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+// import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router';
 import PropTypes from 'prop-types';
 import styled from 'styled-components'
 import { getProfileById, getCurrentProfile } from '../../actions/profile';
 import { setAlert } from '../../actions/alert';
+import { uploadPhoto } from '../../actions/profile';
 import { Button } from '../common/Button';
+import { Paragraph } from '../common/SignIn-SignUp';
+import FileTypeInput from '../common/FileTypeInput'
 import './ImageUpload.css';
 
 const ImageUploadPreview = styled.div`
     display: block;
-  margin-left: auto;
-  margin-right: auto;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 1em;
+    border: 2px solid #F16350;
+    border-radius: 50%;
+    padding: 2px;
+    width: 13rem;
+    height: 13rem;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
 `
+const StyledImg = styled.img`
+    width: 13rem;
+    height: 13rem;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 1px solid #ccc;
+`
+const ImageUploadDiv = styled.div`
+     display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+`
+const UploadButtonWrapper = styled.div`
+    position: relative;
+    overflow: hidden;
+    display: block;
+`
+
+const UploadButton = styled.button`
+    padding: 4px 8px;
+    border: 1px solid gray;
+    border-radius: 4px;
+    font-size: 1em;
+    margin-bottom: 8px;
+    width:100%;
+    box-sizing: border-box;
+    height: 40px;
+    background: transparent;
+    cursor: pointer;
+    color: gray;
+    :focus {
+        outline: none !important;
+    }
+    :hover{
+        color: #AD4D2A;
+    }
+`
+
 function goBack() {
     window.history.go(0);
 }
@@ -63,19 +115,13 @@ const ImageUpload = props => {
         let formData = new FormData();
         formData.append('file', file);
         setLoading(true);
-        const config = {
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        };
         axios
-            .post('/api/profile/profilephoto', formData, config)
+            .post('/api/profile/profilephoto', formData)
             .then(({ data }) => {
-                console.log('data in upload: ', data)
                 setProfilePhoto(data.profilePhoto);
             })
             .then(() => dispatch(setAlert('image uploaded', 'success')))
-            .then(() => props.history.push('/dashboard'))
+            .then(() => props.history.go(0))
             .catch(err => {
                 setIsValid(false);
                 setLoading(false);
@@ -84,34 +130,37 @@ const ImageUpload = props => {
     };
 
     return (
-        <div className='form-control'>
-            <input type='file' accept='.jpg,.png,.jpeg' onChange={pickedHandler} />
-            <p>Image must be smaller than 2Mb</p>
-            <div className={`image-upload ${props.center && 'center'}`}>
-                <div className='image-upload__preview'>
-                    {previewUrl && <img src={previewUrl} alt='Preview' />}
-                    {!previewUrl && <img src={props.profile.profile.profilePhoto}></img>}
-                </div>
+        <>
+            <UploadButtonWrapper>
+                <UploadButton>
+                    select file
+                </UploadButton>
+                <FileTypeInput onChange={pickedHandler} />
+            </UploadButtonWrapper>
+            <Paragraph upload='true'>Image must be smaller than 2Mb</Paragraph>
+            <ImageUploadDiv>
+                <ImageUploadPreview >
+                    {previewUrl && <StyledImg src={previewUrl} alt='Preview' />}
+                    {!previewUrl && <StyledImg src={props.profile.profile.profilePhoto} alt='codeDesign'></StyledImg>}
+                </ImageUploadPreview>
                 <Button
                     disabled={loading}
-                    type='button'
                     onClick={e => {
                         upload(e);
                     }}
                 >
                     {loading ? 'Submitting....' : 'Submit Image'}
                 </Button>
-            </div>
+            </ImageUploadDiv>
             <Button onClick={goBack}>
                 Close
             </Button>
-            <br />
             {!isValid && (
-                <p>
-                    File too large or invalid format. <br /> Please select a valid file
-                </p>
+                <Paragraph>
+                    File too large or invalid format
+                </Paragraph>
             )}
-        </div>
+        </>
     );
 };
 
@@ -124,4 +173,4 @@ const mapStateToProps = state => ({
     profile: state.profile
 });
 
-export default connect(mapStateToProps, { getProfileById })(ImageUpload);
+export default connect(mapStateToProps, { getProfileById })(withRouter(ImageUpload));

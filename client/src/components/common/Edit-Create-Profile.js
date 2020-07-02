@@ -7,9 +7,9 @@ const RequiredText = styled.p`
 `;
 
 const Paragraph = styled.p`
-    color: ${props => props.about ? 'white' : '#BFBDBC'};
-    line-height: 1.6;
-  `;
+  color: ${props => (props.about ? 'white' : '#BFBDBC')};
+  line-height: 1.6;
+`;
 
 const StyledSelect = styled.select`
   padding: 4px 8px;
@@ -40,62 +40,70 @@ const StyledDiv = styled.div`
 `;
 
 const ProfileTopDiv = styled.div`
-    height: 175px;
-    display: inline-block;
-    ${props => props.name ? css`
-          vertical-align: top; 
+  height: 175px;
+  display: inline-block;
+  ${props =>
+    props.name
+      ? css`
+          vertical-align: top;
           padding-left: 5em;
-          ` : css``}
-  `
+        `
+      : css``}
+`;
 const ProfileBottomDiv = styled.div`
-    margin: 1em;
-    position: relative;
-    top: 1%;
-    /* z-index: -1; */
-  `
+  margin: 1em;
+  position: relative;
+  top: 1%;
+  /* z-index: -1; */
+`;
 
 const Container = styled.div`
-    color: white;
-    padding: 5%;
-    display: flex;
-  `
+  color: white;
+  padding: 5%;
+  display: flex;
+`;
 
 const LeftContainer = styled.div`
-    float: left;
-    width: 100%;
-    max-width: 200px;
-    /* z-index: -1; */
-  `
+  float: left;
+  width: 100%;
+  max-width: 200px;
+  /* z-index: -1; */
+`;
 const RightContainer = styled.div`
-    width: 100%;
-    padding-left: 5em;
-  `
+  width: 100%;
+  padding-left: 5em;
+  padding-top: 1em;
+`;
 const ProfileTop = styled.div`
-    grid-area: top;
-    text-align: left;
-    width: 100%;
-    border-bottom: 1px solid gray;
-    padding: 0.5em;
-    z-index: 500;
-  `
+  grid-area: top;
+  text-align: left;
+  width: 100%;
+  border-bottom: 1px solid gray;
+  padding: 0.5em;
+  z-index: 500;
+`;
 const RoundImage = styled.img`
-    border-radius: 50%;
-    object-fit: cover;
-    width: 175px;
-    height: 175px;
-  `
+  border-radius: 50%;
+  border: 2px solid #f16350;
+  object-fit: cover;
+  width: 175px;
+  height: 175px;
+  padding: 2px;
+  background: #8e8c89;
+`;
 const Anchor = styled.a`
-    color: #AD4D2A;
-    margin: 0 0.5rem 0 0;
-  `
-const H2Styled = styled.h4`
-    color: #bfbdbc;
-    margin-top: 5px;
+  color: #f16350;
+  margin: 0 0.5rem 0 0;
+`;
+const H4Styled = styled.h4`
+  color: #bfbdbc;
+  margin-top: 5px;
+  font-size: 20px;
 
-    @media (max-width: 450px) {
-      font-size: 1.5em;
-    }
-  `;
+  @media (max-width: 450px) {
+    font-size: 1.5em;
+  }
+`;
 
 export {
   RequiredText,
@@ -110,6 +118,6 @@ export {
   ProfileTop,
   RoundImage,
   Anchor,
-  H2Styled,
+  H4Styled,
   Paragraph
 };

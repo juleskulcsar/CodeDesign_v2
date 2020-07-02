@@ -1,77 +1,73 @@
-import React, { Fragment, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import styled, { css } from 'styled-components';
 import ImageUpload from '../fileuploader/ImageUpload';
 import { getCurrentProfile } from '../../actions/profile';
-import { Button } from '../common/Button'
-import './Modal.css';
 
 const ModalWrapper = styled.div`
-        position: relative;
-        margin: 0 auto;
-        background: #1C1B1A;
-        border: 1px solid #d0cccc;
-        box-shadow: 0 5px 8px 0 rgba(0,0,0,0.2), 0 7px 20px 0 rgba(0,0,0,0.17);
-        transition: all .8s;
-        width: 500px;
-        max-width: 500px;
-        ${props => props.show ?
-        css` 
+  position: relative;
+  margin: 0 auto;
+  background: #1c1b1a;
+  border: 1px solid #d0cccc;
+  /* box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 7px 20px 0 rgba(0, 0, 0, 0.17); */
+  -webkit-box-shadow: 0px 0px 69px 7px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 0px 0px 69px 7px rgba(0, 0, 0, 0.75);
+  box-shadow: 0px 0px 69px 7px rgba(0, 0, 0, 0.75);
+  transition: all 0.8s;
+  width: 500px;
+  max-width: 500px;
+  ${props =>
+    props.show
+      ? css` 
                 transform: translateY(0vh));
                 opacity: 1;`
-        :
-        css`
-                transform: translateY(-100vh);
-                opacity: 0;
-            `}
-    `
+      : css`
+          transform: translateY(-100vh);
+          opacity: 0;
+        `}
+`;
 const ModalBody = styled.div`
-        padding: 10px 15px;
-        text-align: center;
-    `
-const ModalFooter = styled.div`
-        background: #263238;
-        height: 35px;
-        padding: 15px;
-    `
+  padding: 10px 15px;
+  text-align: center;
+  background: rgb(28, 27, 26);
+  background: linear-gradient(
+    121deg,
+    rgba(28, 27, 26, 1) 50%,
+    rgba(56, 55, 52, 1) 50%
+  );
+`;
 
 const Modal = ({
-    getCurrentProfile,
-    profile: { profile, loading },
-    auth: { user },
-    show,
-    close
+  getCurrentProfile,
+  profile: { profile, loading },
+  auth: { user },
+  show
 }) => {
-    useEffect(() => {
-        getCurrentProfile();
-    }, [getCurrentProfile]);
+  useEffect(() => {
+    getCurrentProfile();
+  }, [getCurrentProfile]);
 
-    return (
-        <>
-            <ModalWrapper show={show}>
-                <ModalBody>
-                    <ImageUpload profile={profile} />
-                </ModalBody>
-                {/* <ModalFooter>
-                    <Button onClick={close}>CLOSE</Button>
-                </ModalFooter> */}
-            </ModalWrapper>
-        </>
-    )
-}
+  return (
+    <>
+      <ModalWrapper show={show}>
+        <ModalBody>
+          <ImageUpload profile={profile} />
+        </ModalBody>
+      </ModalWrapper>
+    </>
+  );
+};
 
 Modal.propTypes = {
-    getCurrentProfile: PropTypes.func.isRequired,
-    auth: PropTypes.object.isRequired,
-    profile: PropTypes.object.isRequired,
+  getCurrentProfile: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired,
+  profile: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
-    auth: state.auth,
-    profile: state.profile
+  auth: state.auth,
+  profile: state.profile
 });
 
-export default connect(mapStateToProps, { getCurrentProfile })(
-    Modal
-);
+export default connect(mapStateToProps, { getCurrentProfile })(Modal);

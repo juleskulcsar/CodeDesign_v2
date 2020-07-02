@@ -1,6 +1,6 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
-const H2_Styled = styled.h2`
+const H2Styled = styled.h2`
   padding: 16px 16px 16px 16px;
   /* margin-top: 35%; */
   color: #bfbdbc;
@@ -12,7 +12,7 @@ const H2_Styled = styled.h2`
 `;
 
 const Paragraph = styled.p`
-  padding: 1px 16px 16px 16px;
+${props => props.upload ? css`margin: 8px;` : css`padding: 1px 16px 16px 16px;`}
   color: #bfbdbc;
   line-height: 1.6;
 
@@ -71,7 +71,7 @@ const Container = styled.div`
 `;
 
 export {
-  H2_Styled,
+  H2Styled,
   Paragraph,
   Title,
   Form,

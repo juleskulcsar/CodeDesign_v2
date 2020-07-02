@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Input } from '../common/Input';
 import {
-  H2_Styled,
+  H2Styled,
   Paragraph,
   Title,
   Form,
@@ -103,7 +103,7 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
             </Paragraph>
           </TextContainer>
           <FormContainer>
-            <H2_Styled>Sign Up</H2_Styled>
+            <H2Styled>Sign Up</H2Styled>
             <Form onSubmit={e => onSubmit(e)}>
               <Input
                 type='text'

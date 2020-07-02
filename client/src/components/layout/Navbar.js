@@ -1,9 +1,17 @@
 import React, { Fragment, useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link as RouterDomLink, useLocation } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { logout } from '../../actions/auth';
+
+const Link = ({ isActive, children, ...props }) => {
+    return (
+        <RouterDomLink {...props}>
+            {children}
+        </RouterDomLink>
+    );
+};
 
 const StyledLink = styled(Link)`
   color: white;
@@ -18,7 +26,8 @@ const StyledLink = styled(Link)`
 
 const LogoLink = styled(Link)`
     float: left;
-    color: #D7D6D5;
+    /* color: #D7D6D5; */
+    color: white;
     text-decoration: none;
 `
 
@@ -67,6 +76,9 @@ const HeaderWrapper = styled.header`
     padding: 0 16px;
     position: fixed;
     top: 0;
+    justify-content: space-between;
+    background: #1C1B1A;
+    opacity: 0.8;
 `;
 
 const StyledUl = styled.ul`
@@ -104,12 +116,21 @@ const StyledList = styled.li`
     }
 `
 
+const StyledNav = styled.nav`
+    background: #2A2927;
+`
+
 
 const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
     const { pathname } = useLocation();
     const [menuOpen, setMenuOpen] = useState(false);
     const authLinks = (
         <HeaderWrapper>
+            <h1>
+                <LogoLink to='/' logo='true'>
+                    code<span style={{ color: '#F16350' }}>D</span>esign
+                </LogoLink>
+            </h1>
             <MobileMenuIcon onClick={() => setMenuOpen(!menuOpen)}>
                 <div />
                 <div />
@@ -118,32 +139,32 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
             <Menu open={menuOpen}>
                 <StyledUl>
                     <StyledList>
-                        <StyledLink to='/designer-profiles'>
+                        <StyledLink isActive={pathname === '/designer-profiles'} to='/designer-profiles'>
                             <span>designers</span>
                         </StyledLink>
                     </StyledList>
                     <StyledList>
-                        <StyledLink to='/profiles'>
+                        <StyledLink isActive={pathname === '/profiles'} to='/profiles'>
                             <span>developers</span>
                         </StyledLink>
                     </StyledList>
                     <StyledList>
-                        <StyledLink to='/posts'>
+                        <StyledLink isActive={pathname === '/posts'} to='/posts'>
                             <span>job-board</span>
                         </StyledLink>
                     </StyledList>
                     <StyledList>
-                        <StyledLink to='/portfolios'>
+                        <StyledLink isActive={pathname === '/portfolios'} to='/portfolios'>
                             <span>posts</span>
                         </StyledLink>
                     </StyledList>
                     <StyledList>
-                        <StyledLink to='/dashboard'>
+                        <StyledLink isActive={pathname === '/dashboard'} to='/dashboard'>
                             <span>my-profile</span>
                         </StyledLink>
                     </StyledList>
                     <StyledList>
-                        <StyledLink onClick={logout} href='#!'>
+                        <StyledLink onClick={logout} to='#!'>
                             <span>Logout</span>
                         </StyledLink>
                     </StyledList>
@@ -153,16 +174,9 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
     );
 
     return (
-        <nav className='navbar bg-dark'>
-            <h1>
-                {isAuthenticated && (
-                    <LogoLink to='/' logo>
-                        code<span style={{ color: '#F16350' }}>D</span>esign
-                    </LogoLink>
-                )}
-            </h1>
+        <StyledNav>
             {<Fragment>{isAuthenticated ? authLinks : null}</Fragment>}
-        </nav>
+        </StyledNav>
     );
 };
 

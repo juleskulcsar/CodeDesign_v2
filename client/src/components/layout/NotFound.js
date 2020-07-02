@@ -1,7 +1,6 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { Paragraph, Title } from '../common/SignIn-SignUp';
-import { Input } from '../common/Input';
 
 const Container = styled.div`
   padding: 3%;

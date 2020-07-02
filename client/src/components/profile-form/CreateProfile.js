@@ -14,11 +14,9 @@ import {
   Paragraph,
   TextContainer,
   FormContainer,
-  H2_Styled
+  H2Styled
 } from '../common/SignIn-SignUp';
 import backgroundImage from '../auth/image/loginBackground.png';
-import ImageUpload from '../fileuploader/ImageUpload'
-import profilePhotoDefault from '../dashboard/image/profilephoto.png';
 
 const Container = styled.div`
   background-image: url(${backgroundImage});
@@ -83,7 +81,7 @@ const CreateProfile = ({
 
   useEffect(() => {
     loadUser();
-  }, [loadUser]);
+  }, []);
 
   const [formData, setFormData] = useState({
     registeras: '',
@@ -115,7 +113,6 @@ const CreateProfile = ({
     linkedin,
     youtube,
     instagram,
-    profilePhoto
   } = formData;
 
   const onChange = e =>
@@ -141,7 +138,7 @@ const CreateProfile = ({
           <StyledLink to='dashboard'> do this later</StyledLink>
         </TextContainer>
         <FormContainer createProfilePage>
-          <H2_Styled>Welcome, {user && user.name}</H2_Styled>
+          <H2Styled>Welcome, {user && user.name}</H2Styled>
           <RequiredText>
             <small>
               <span style={{ color: '#F16350' }}>* = required fields</span>
