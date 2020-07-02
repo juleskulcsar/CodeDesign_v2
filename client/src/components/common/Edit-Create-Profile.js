@@ -90,6 +90,7 @@ const RoundImage = styled.img`
   height: 175px;
   padding: 2px;
   background: #8e8c89;
+  margin-left: 1em;
 `;
 const Anchor = styled.a`
   color: #f16350;

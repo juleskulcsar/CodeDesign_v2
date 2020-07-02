@@ -1,23 +1,19 @@
 import React, { Fragment, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
+import ProfileTopSection from '../profile-form/ProfileTop';
 import { getCurrentProfile, deleteAccount } from '../../actions/profile';
 import Spinner from '../layout/Spinner';
 import DashboardActions from './DashboardActions';
 import CreateProfile from '../profile-form/CreateProfile';
-import profilePhotoDefault from './image/profilephoto.png';
 import { Button } from '../common/Button';
 import {
-  ProfileTopDiv,
   ProfileBottomDiv,
   Container,
   LeftContainer,
   RightContainer,
-  ProfileTop,
-  RoundImage,
   Anchor,
-  H4Styled,
   Paragraph
 } from '../common/Edit-Create-Profile';
 
@@ -62,10 +58,7 @@ const Dashboard = ({
     getCurrentProfile();
   }, [getCurrentProfile]);
 
-  console.log('profile in dashboard: ', profile);
-
-  let image = profilePhotoDefault;
-  // profile.profile.profilePhoto ? image = profile.profile.profilePhoto : image = profilePhotoDefault
+  // console.log('profile in dashboard: ', profile);
 
   return loading && profile === null ? (
     <Spinner />
@@ -81,31 +74,7 @@ const Dashboard = ({
               </Button>
             </LeftContainer>
             <RightContainer>
-              <ProfileTop>
-                <ProfileTopDiv>
-                  {profile.profilePhoto !== null ? (
-                    <RoundImage src={profile.profilePhoto} alt='' />
-                  ) : (
-                    <RoundImage src={image} alt='' />
-                  )}
-                </ProfileTopDiv>
-                <ProfileTopDiv name='true'>
-                  <H4Styled name='true'>{user.name}</H4Styled>
-                  <Paragraph>{profile.specialties} </Paragraph>
-                  <Paragraph>
-                    {profile.location && <span>{profile.location}</span>}
-                  </Paragraph>
-                  {profile.website && (
-                    <Anchor
-                      href={profile.website}
-                      target='_blank'
-                      rel='noopener noreferrer'
-                    >
-                      {profile.website}
-                    </Anchor>
-                  )}
-                </ProfileTopDiv>
-              </ProfileTop>
+              <ProfileTopSection profile={profile} />
               <ProfileBottomDiv>
                 {profile.bio && (
                   <div>
