@@ -107,6 +107,7 @@ const EditProfile = ({
   const onSubmit = e => {
     e.preventDefault();
     createProfile(formData, history, true);
+    history.go(0);
   };
   const openModalHandler = e => {
     e.preventDefault();
@@ -138,7 +139,7 @@ const EditProfile = ({
             <FormContainer createProfilePage='true'>
               <RequiredText>
                 <small>
-                  <span style={{ color: '#F16350' }}>* = required fields</span>
+                  <span style={{ color: '#8E8C89' }}>* = required fields</span>
                 </small>
               </RequiredText>
               <Form onSubmit={e => onSubmit(e)}>
@@ -296,7 +297,11 @@ const EditProfile = ({
                     </StyledDiv>
                   </Fragment>
                 )}
-                <Input type='submit' value='submit' submitProfile='true' />
+                <Input
+                  type='submit'
+                  value='save changes'
+                  submitProfile='true'
+                />
               </Form>
             </FormContainer>
           </ProfileBottomDiv>

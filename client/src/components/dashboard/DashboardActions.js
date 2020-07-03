@@ -14,7 +14,8 @@ const StyledLink = styled(Link)`
 `;
 
 const StyledDiv = styled.div`
-  border-left: 1px solid gray;
+  /* border-left: 1px solid #55524e; */
+  border-left: 1px solid #682e19;
   padding-left: 1em;
   margin-top: 1.5em;
 `;
@@ -57,14 +58,12 @@ const StyledList = styled.li`
 
 const DashboardActions = () => {
   const { pathname } = useLocation();
+
   return (
     <StyledDiv>
       <StyledUl>
         <StyledList>
-          <StyledLink
-            isActive={pathname === '/dashboard/about'}
-            to='/dashboard'
-          >
+          <StyledLink isActive={pathname === '/dashboard'} to='/dashboard'>
             about
           </StyledLink>
         </StyledList>

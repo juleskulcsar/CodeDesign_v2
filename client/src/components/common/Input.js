@@ -10,18 +10,15 @@ const Input = styled.input`
   box-sizing: border-box;
   height: 40px;
   background: transparent;
-  color: #bfbdbc;
-  color: ${props => props.submitProfile ? '#F16350' : '#bfbdbc'};
+  /* color: #bfbdbc; */
+  color: ${props => (props.submitProfile ? '#F16350' : '#bfbdbc')};
+  cursor: ${props => (props.submitProfile ? 'pointer' : 'default')};
   :focus {
     outline: none !important;
   }
-  input[type=file] {
-  font-size: 100px;
-  position: absolute;
-  left: 0;
-  top: 0;
-  opacity: 0;
-}
+  :hover {
+    background: ${props => (props.submitProfile ? '#34170d' : null)};
+  }
 `;
 
 export { Input };

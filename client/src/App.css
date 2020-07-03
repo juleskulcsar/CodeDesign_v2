@@ -4,5 +4,33 @@ body {
   color: gray;
   box-sizing: border-box;
   font-family: 'Raleway', sans-serif;
-  height: 100vh;
+  /* height: 100vh; */
+  /* max-height: 110vh; */
+  /* overflow: scroll; */
+}
+
+#root {
+  max-height: 95vh;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+/* #root::-webkit-scrollbar {
+  display: none;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+} */
+
+#root::-webkit-scrollbar {
+  width: 10px;
+}
+#root::-webkit-scrollbar-track {
+  background: #1c1b1a;
+  background-clip: content-box;
+  border: 4px solid transparent;
+}
+#root::-webkit-scrollbar-thumb {
+  background: #682e19;
+  border-radius: 30px;
+  border: 1px solid rgb(0, 0, 0);
 }

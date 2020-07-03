@@ -9,7 +9,7 @@ const ModalWrapper = styled.div`
   position: relative;
   margin: 0 auto;
   background: #1c1b1a;
-  border: 1px solid #d0cccc;
+  border: 1px solid #1c1b1a;
   /* box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 7px 20px 0 rgba(0, 0, 0, 0.17); */
   -webkit-box-shadow: 0px 0px 69px 7px rgba(0, 0, 0, 0.75);
   -moz-box-shadow: 0px 0px 69px 7px rgba(0, 0, 0, 0.75);
@@ -30,11 +30,11 @@ const ModalWrapper = styled.div`
 const ModalBody = styled.div`
   padding: 10px 15px;
   text-align: center;
-  background: rgb(28, 27, 26);
+  background: rgb(7, 6, 6);
   background: linear-gradient(
     121deg,
-    rgba(28, 27, 26, 1) 50%,
-    rgba(56, 55, 52, 1) 50%
+    rgba(7, 6, 6, 1) 50%,
+    rgba(42, 41, 39, 1) 50%
   );
 `;
 

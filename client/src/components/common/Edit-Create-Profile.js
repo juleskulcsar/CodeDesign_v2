@@ -54,20 +54,20 @@ const ProfileBottomDiv = styled.div`
   margin: 1em;
   position: relative;
   top: 1%;
-  /* z-index: -1; */
 `;
 
 const Container = styled.div`
   color: white;
   padding: 5%;
   display: flex;
+  width: 75%;
+  margin: 0 auto;
 `;
 
 const LeftContainer = styled.div`
   float: left;
   width: 100%;
   max-width: 200px;
-  /* z-index: -1; */
 `;
 const RightContainer = styled.div`
   width: 100%;
@@ -78,7 +78,8 @@ const ProfileTop = styled.div`
   grid-area: top;
   text-align: left;
   width: 100%;
-  border-bottom: 1px solid gray;
+  border-bottom: 1px solid #55524e;
+  /* border-bottom: 1px solid #682e19; */
   padding: 0.5em;
   z-index: 500;
 `;
