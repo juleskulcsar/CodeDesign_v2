@@ -6,6 +6,7 @@ import Alert from '../layout/Alert';
 import Dashboard from '../dashboard/Dashboard';
 import CreateProfile from '../profile-form/CreateProfile';
 import EditProfile from '../profile-form/EditProfile';
+import MyGithub from '../profile-form/MyGithub';
 // import AddExperience from '../profile-form/AddExperience';
 // import AddEducation from '../profile-form/AddEducation';
 // import MyPosts from '../profile-form/MyPosts';
@@ -35,6 +36,7 @@ const Routes = () => {
         <Route exact path='/designer-profiles' component={DesignerProfiles} />
         <Route exact path='/user/:id' component={Profile} /> */}
         <PrivateRoute exact path='/dashboard' component={Dashboard} />
+        <PrivateRoute exact path='/dashboard/github' component={MyGithub} />
         <PrivateRoute exact path='/create-profile' component={CreateProfile} />
         <PrivateRoute
           exact

@@ -10,7 +10,7 @@ const Link = ({ isActive, children, ...props }) => {
 };
 
 const StyledLink = styled(Link)`
-  color: white;
+  /* color: ${p => (p.isActive ? '#9C4526' : 'white')}; */
   padding: 4px 8px;
   display: block;
   text-align: center;
@@ -74,8 +74,6 @@ const HeaderWrapper = styled.div`
   justify-content: space-between;
   background: #1c1b1a;
   opacity: 0.8;
-  z-index: 2;
-  /* border-bottom: 1px solid #383734; */
   border-bottom: 1px solid #682e19;
   border-width: thin;
   z-index: 10;
@@ -91,7 +89,7 @@ const StyledList = styled.li`
   > a {
     position: relative;
     /* color: #bfbdbc; */
-    color: white;
+    color: ${props => (props.isActive ? '#9C4526' : 'white')};
     text-decoration: none;
   }
   > a:hover {
@@ -144,7 +142,7 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
       </MobileMenuIcon>
       <Menu open={menuOpen}>
         <StyledUl>
-          <StyledList>
+          <StyledList isActive={pathname === '/designer-profiles'}>
             <StyledLink
               isActive={pathname === '/designer-profiles'}
               to='/designer-profiles'
@@ -152,22 +150,22 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
               <span>designers</span>
             </StyledLink>
           </StyledList>
-          <StyledList>
+          <StyledList isActive={pathname === '/profiles'}>
             <StyledLink isActive={pathname === '/profiles'} to='/profiles'>
               <span>developers</span>
             </StyledLink>
           </StyledList>
-          <StyledList>
+          <StyledList isActive={pathname === '/posts'}>
             <StyledLink isActive={pathname === '/posts'} to='/posts'>
               <span>job-board</span>
             </StyledLink>
           </StyledList>
-          <StyledList>
+          <StyledList isActive={pathname === '/portfolios'}>
             <StyledLink isActive={pathname === '/portfolios'} to='/portfolios'>
               <span>posts</span>
             </StyledLink>
           </StyledList>
-          <StyledList>
+          <StyledList isActive={pathnameLocation}>
             <StyledLink isActive={pathnameLocation} to='/dashboard'>
               <span>my-profile</span>
             </StyledLink>

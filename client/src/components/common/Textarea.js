@@ -19,6 +19,19 @@ const Textarea = styled.textarea`
   :focus {
     outline: none !important;
   }
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+  t::-webkit-scrollbar-track {
+    background: #1c1b1a;
+    background-clip: content-box;
+    border: 4px solid transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #682e19;
+    border-radius: 30px;
+    border: 1px solid rgb(0, 0, 0);
+  }
 `;
 
 export { Textarea };

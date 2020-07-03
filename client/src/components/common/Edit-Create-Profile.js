@@ -94,8 +94,17 @@ const RoundImage = styled.img`
   margin-left: 1em;
 `;
 const Anchor = styled.a`
-  color: #f16350;
+  color: ${props => (props.reponame ? '#9C4526' : '#f16350')};
   margin: 0 0.5rem 0 0;
+  text-decoration: none;
+  ${props =>
+    props.reponame
+      ? css`
+          :hover {
+            color: gray;
+          }
+        `
+      : null}
 `;
 const H4Styled = styled.h4`
   color: #bfbdbc;

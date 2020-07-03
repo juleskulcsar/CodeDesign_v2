@@ -7,7 +7,7 @@ const Link = ({ isActive, children, ...props }) => {
 };
 
 const StyledLink = styled(Link)`
-  color: ${props => (props.isActive ? 'red' : '#f16350')};
+  /* color: ${props => (props.isActive ? 'red' : '#f16350')}; */
   text-decoration: none;
   line-height: 1.6;
   font-weight: ${props => (props.isActive ? 'bold' : 'normal')};
@@ -29,7 +29,8 @@ const StyledList = styled.li`
   padding: 5px;
   > a {
     position: relative;
-    color: #8e8c89;
+    /* color: #8e8c89; */
+    color: #bdbab7;
     text-decoration: none;
   }
   > a:hover {
@@ -81,6 +82,14 @@ const DashboardActions = () => {
             to='/dashboard/settings'
           >
             settings
+          </StyledLink>
+        </StyledList>
+        <StyledList>
+          <StyledLink
+            isActive={pathname === '/dashboard/github'}
+            to='/dashboard/github'
+          >
+            my github repos
           </StyledLink>
         </StyledList>
         <StyledList>
