@@ -26,6 +26,7 @@ import {
   RightContainer
 } from '../common/Edit-Create-Profile';
 import Modal from './Modal';
+import ImageUpload from '../fileuploader/ImageUpload';
 
 const BackDrop = styled.div`
   background-color: rgba(28, 27, 26, 0.52);

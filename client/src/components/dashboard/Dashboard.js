@@ -14,7 +14,8 @@ import {
   LeftContainer,
   RightContainer,
   Anchor,
-  Paragraph
+  Paragraph,
+  H4Styled
 } from '../common/Edit-Create-Profile';
 
 const SocialIcons = styled.div`
@@ -78,7 +79,7 @@ const Dashboard = ({
               <ProfileBottomDiv>
                 {profile.bio && (
                   <div>
-                    <Paragraph about='true'>About:</Paragraph>
+                    <H4Styled about='true'>About:</H4Styled>
                     <Paragraph>{profile.bio}</Paragraph>
                   </div>
                 )}

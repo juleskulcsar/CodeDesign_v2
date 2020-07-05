@@ -32,6 +32,7 @@ const Textarea = styled.textarea`
     border-radius: 30px;
     border: 1px solid rgb(0, 0, 0);
   }
+  flex: 1 0 auto;
 `;
 
 export { Textarea };

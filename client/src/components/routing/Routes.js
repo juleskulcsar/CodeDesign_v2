@@ -21,7 +21,7 @@ import MyGithub from '../profile-form/MyGithub';
 import NotFound from '../layout/NotFound';
 import PrivateRoute from '../routing/PrivateRoute';
 import ImageUpload from '../fileuploader/ImageUpload';
-// import PortfolioUpload from '../portfolioUpload/PortfolioUpload';
+import PostUpload from '../post-uploader/PostUpload';
 
 const Routes = () => {
   return (
@@ -47,12 +47,12 @@ const Routes = () => {
         {/* <PrivateRoute exact path='/posts' component={Posts} /> */}
         {/* <PrivateRoute exact path='/dashboard/myposts' component={MyPosts} />
         <PrivateRoute exact path='/dashboard/myjobs' component={MyPortfolios} /> */}
-        {/* <PrivateRoute exact path='/posts/:id' component={Post} />
+        {/* <PrivateRoute exact path='/posts/:id' component={Post} />*/}
         <PrivateRoute
           exact
-          path='/portfolio-upload'
-          component={PortfolioUpload}
-        /> */}
+          path='/dashboard/post-upload'
+          component={PostUpload}
+        />
         <Route component={NotFound} />
       </Switch>
     </section>

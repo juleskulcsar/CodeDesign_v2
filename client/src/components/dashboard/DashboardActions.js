@@ -1,6 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link as RouterDomLink, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
+import PostModal from '../post-uploader/PostModal';
+
+const BackDrop = styled.div`
+  background-color: rgba(28, 27, 26, 0.82);
+  /* height: 100%; */
+  position: fixed;
+  transition: all 1.3s;
+  width: 80vw;
+  height: 100vh;
+  /* text-align: center; */
+  z-index: 500;
+`;
 
 const Link = ({ isActive, children, ...props }) => {
   return <RouterDomLink {...props}>{children}</RouterDomLink>;
@@ -59,65 +71,82 @@ const StyledList = styled.li`
 
 const DashboardActions = () => {
   const { pathname } = useLocation();
+  const [isShowing, setIsShowing] = useState(false);
+  const openModalHandler = e => {
+    e.preventDefault();
+    setIsShowing(true);
+  };
+
+  const closeModalHandler = () => {
+    setIsShowing(false);
+  };
 
   return (
-    <StyledDiv>
-      <StyledUl>
-        <StyledList>
-          <StyledLink isActive={pathname === '/dashboard'} to='/dashboard'>
-            about
-          </StyledLink>
-        </StyledList>
-        <StyledList>
-          <StyledLink
-            isActive={pathname === '/dashboard/edit-profile'}
-            to='/dashboard/edit-profile'
-          >
-            edit profile
-          </StyledLink>
-        </StyledList>
-        <StyledList>
-          <StyledLink
-            isActive={pathname === '/dashboard/settings'}
-            to='/dashboard/settings'
-          >
-            settings
-          </StyledLink>
-        </StyledList>
-        <StyledList>
-          <StyledLink
-            isActive={pathname === '/dashboard/github'}
-            to='/dashboard/github'
-          >
-            my github repos
-          </StyledLink>
-        </StyledList>
-        <StyledList>
-          <StyledLink
-            isActive={pathname === '/dashboard/myposts'}
-            to='/dashboard/myposts'
-          >
-            my posts
-          </StyledLink>
-        </StyledList>
-        <StyledList>
-          <StyledLink
-            isActive={pathname === '/dashboard/myjobs'}
-            to='/dashboard/myjobs'
-          >
-            my jobs
-          </StyledLink>
-        </StyledList>
-        <StyledList>
-          <StyledLink
-            isActive={pathname === '/portfolio-upload'}
-            to='/portfolio-upload'
-          >
-            create post
-          </StyledLink>
-        </StyledList>
-      </StyledUl>
-    </StyledDiv>
+    <>
+      {isShowing ? (
+        <BackDrop>
+          <PostModal show={isShowing} close={closeModalHandler}></PostModal>
+        </BackDrop>
+      ) : null}
+      <StyledDiv>
+        <StyledUl>
+          <StyledList>
+            <StyledLink isActive={pathname === '/dashboard'} to='/dashboard'>
+              about
+            </StyledLink>
+          </StyledList>
+          <StyledList>
+            <StyledLink
+              isActive={pathname === '/dashboard/edit-profile'}
+              to='/dashboard/edit-profile'
+            >
+              edit profile
+            </StyledLink>
+          </StyledList>
+          <StyledList>
+            <StyledLink
+              isActive={pathname === '/dashboard/settings'}
+              to='/dashboard/settings'
+            >
+              settings
+            </StyledLink>
+          </StyledList>
+          <StyledList>
+            <StyledLink
+              isActive={pathname === '/dashboard/github'}
+              to='/dashboard/github'
+            >
+              my github repos
+            </StyledLink>
+          </StyledList>
+          <StyledList>
+            <StyledLink
+              isActive={pathname === '/dashboard/myposts'}
+              to='/dashboard/myposts'
+            >
+              my posts
+            </StyledLink>
+          </StyledList>
+          <StyledList>
+            <StyledLink
+              isActive={pathname === '/dashboard/myjobs'}
+              to='/dashboard/myjobs'
+            >
+              my jobs
+            </StyledLink>
+          </StyledList>
+          <StyledList>
+            <StyledLink
+              isActive={pathname === '/dashboard/post-upload'}
+              to='/dashboard/post-upload'
+              onClick={openModalHandler}
+            >
+              create post
+            </StyledLink>
+          </StyledList>
+        </StyledUl>
+      </StyledDiv>
+    </>
   );
 };
 

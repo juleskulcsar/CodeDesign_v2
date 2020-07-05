@@ -146,19 +146,19 @@ export const createProfile = (
 };
 
 //upload photo
-export const uploadPhoto = (
-  history
-) => async dispatch => {
-  try {
-    dispatch(setAlert('Photo uploaded', 'success'));
-    history.push('/dashboard');
-  } catch (err) {
-    dispatch({
-      type: PROFILE_ERROR,
-      payload: { msg: err.response.statusText, status: err.response.status }
-    });
-  }
-};
+// export const uploadPhoto = (
+//   history
+// ) => async dispatch => {
+//   try {
+//     dispatch(setAlert('Photo uploaded', 'success'));
+//     history.push('/dashboard');
+//   } catch (err) {
+//     dispatch({
+//       type: PROFILE_ERROR,
+//       payload: { msg: err.response.statusText, status: err.response.status }
+//     });
+//   }
+// };
 
 // Delete account & profile
 export const deleteAccount = () => async dispatch => {
