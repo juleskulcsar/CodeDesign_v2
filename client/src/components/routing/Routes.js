@@ -48,11 +48,11 @@ const Routes = () => {
         {/* <PrivateRoute exact path='/dashboard/myposts' component={MyPosts} />
         <PrivateRoute exact path='/dashboard/myjobs' component={MyPortfolios} /> */}
         {/* <PrivateRoute exact path='/posts/:id' component={Post} />*/}
-        <PrivateRoute
+        {/* <PrivateRoute
           exact
           path='/dashboard/post-upload'
           component={PostUpload}
-        />
+        /> */}
         <Route component={NotFound} />
       </Switch>
     </section>

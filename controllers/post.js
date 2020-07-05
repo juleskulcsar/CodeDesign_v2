@@ -1,4 +1,6 @@
 const Profile = require('../models/Profile');
+const User = require('../models/User');
+const Post = require('../models/Post');
 const asyncHandler = require('../middleware/async');
 const ErrorResponse = require('../utils/errorResponse');
 
@@ -7,6 +9,7 @@ const ErrorResponse = require('../utils/errorResponse');
 // @access      Private
 exports.uploadPost = asyncHandler(async (req, res) => {
   const url = process.env.s3Url + req.file.filename;
+  const user = await User.findById(req.user.id).select('-password');
   let profile = await Profile.findOne({ user: req.user.id });
 
   const technologies = req.body.technologies
@@ -20,7 +23,7 @@ exports.uploadPost = asyncHandler(async (req, res) => {
     technologies: technologies,
     user: req.user.id,
     avatar: profile.profilePhoto,
-    name: profile.name,
+    name: user.name,
     profile: profile._id
   });
 

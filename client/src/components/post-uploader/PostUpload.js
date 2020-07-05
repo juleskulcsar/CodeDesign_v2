@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { addPost } from '../../actions/post';
@@ -186,4 +187,4 @@ PostUpload.propTypes = {
   addPost: PropTypes.func.isRequired
 };
 
-export default connect(null, { addPost })(PostUpload);
+export default connect(null, { addPost })(withRouter(PostUpload));
