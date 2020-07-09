@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getCurrentProfile } from '../../actions/profile';
@@ -11,6 +11,7 @@ import {
   Paragraph
 } from '../common/Edit-Create-Profile';
 import profilePhotoDefault from '../dashboard/image/profilephoto.png';
+import Spinner from '../layout/Spinner';
 
 const ProfileTopSection = ({
   profile: { profile, loading },
@@ -22,8 +23,11 @@ const ProfileTopSection = ({
   }, [getCurrentProfile]);
 
   let image = profilePhotoDefault;
+  console.log('profile: ', profile);
 
-  return (
+  return loading && profile === null ? (
+    <Spinner />
+  ) : (
     <>
       <ProfileTop>
         <ProfileTopDiv>

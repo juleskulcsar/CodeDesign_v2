@@ -10,7 +10,8 @@ import {
   ACCOUNT_DELETED,
   GET_REPOS,
   GET_PORTFOLIOS,
-  PORTFOLIO_ERROR
+  PORTFOLIO_ERROR,
+  POST_ERROR
 } from './types';
 
 // Get current user's profile
@@ -144,21 +145,6 @@ export const createProfile = (
     });
   }
 };
-
-//upload photo
-// export const uploadPhoto = (
-//   history
-// ) => async dispatch => {
-//   try {
-//     dispatch(setAlert('Photo uploaded', 'success'));
-//     history.push('/dashboard');
-//   } catch (err) {
-//     dispatch({
-//       type: PROFILE_ERROR,
-//       payload: { msg: err.response.statusText, status: err.response.status }
-//     });
-//   }
-// };
 
 // Delete account & profile
 export const deleteAccount = () => async dispatch => {

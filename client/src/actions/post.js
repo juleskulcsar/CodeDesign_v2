@@ -2,6 +2,7 @@ import axios from 'axios';
 import { setAlert } from './alert';
 import {
   GET_POSTS,
+  GET_MY_POSTS,
   GET_POST,
   POST_ERROR,
   UPDATE_POST_LIKES,
@@ -13,6 +14,7 @@ import {
   UPDATE_POST_SAVES,
   UPDATE_POST_UNSAVES,
   GET_PROFILES,
+  GET_PROFILE,
   CLEAR_PROFILE
 } from './types';
 
@@ -47,26 +49,6 @@ export const getPosts = () => async dispatch => {
   try {
     const res = await axios.get('/api/post');
 
-    dispatch({
-      type: GET_POSTS,
-      payload: res.data
-    });
-    dispatch({
-      type: GET_PROFILES,
-      payload: res.data
-    });
-  } catch (err) {
-    dispatch({
-      type: POST_ERROR,
-      payload: { msg: err.response.statusText, status: err.response.status }
-    });
-  }
-};
-
-//get my posts
-export const getMyPosts = () => async dispatch => {
-  try {
-    const res = await axios.get('/api/post/myposts');
     dispatch({
       type: GET_POSTS,
       payload: res.data

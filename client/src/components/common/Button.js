@@ -39,6 +39,27 @@ const Button = styled.button`
           float: right;
         `
       : null}
+      ${props =>
+        props.bttnLight
+          ? css`
+              /* background: linear-gradient(to bottom, #ffffff 5%, #f6f6f6 100%); */
+              background-color: #bfbdbc;
+              border-radius: 6px;
+              border: 1px solid #383734;
+              display: inline-block;
+              cursor: pointer;
+              color: #666666;
+              font-size: 1rem;
+              /* padding: 0.25rem 1.3rem; */
+              text-decoration: none;
+              transition: opacity 0.2s ease-in;
+              outline: none;
+              :hover {
+                background: #f16350;
+                border-color: #f16350;
+              }
+            `
+          : css``}
 `;
 
 export { Button };

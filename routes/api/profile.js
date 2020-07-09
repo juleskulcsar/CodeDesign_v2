@@ -9,7 +9,8 @@ const {
   getAllProfiles,
   getProfileById,
   deleteProfile,
-  getUserRepos
+  getUserRepos,
+  getAllMyPosts
 } = require('../../controllers/profile');
 
 const advancedResults = require('../../middleware/advancedResults');

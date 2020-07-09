@@ -147,7 +147,7 @@ const PostUpload = ({ addPost, history }) => {
               <span style={{ color: '#8E8C89' }}>* = required fields</span>
             </small>
             <Input
-              name='* title'
+              name='title'
               onChange={e => handleChange(e)}
               placeholder='* project title'
             />
