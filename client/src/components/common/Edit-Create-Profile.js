@@ -40,7 +40,7 @@ const StyledDiv = styled.div`
 `;
 
 const ProfileTopDiv = styled.div`
-  height: 175px;
+  /* height: 175px; */
   display: inline-block;
   ${props =>
     props.name

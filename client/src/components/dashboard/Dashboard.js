@@ -18,37 +18,6 @@ import {
   H4Styled
 } from '../common/Edit-Create-Profile';
 
-const SocialIcons = styled.div`
-  > a {
-    position: relative;
-    color: #8e8c89;
-    text-decoration: none;
-    padding-bottom: 0.5em;
-  }
-  > a:hover {
-    color: #ad4d2a;
-  }
-  > a:before {
-    content: '';
-    position: absolute;
-    width: 100%;
-    height: 2px;
-    bottom: 0;
-    left: 0;
-    background-color: #8e8c89;
-    visibility: hidden;
-    -webkit-transform: scaleX(0);
-    transform: scaleX(0);
-    -webkit-transition: all 0.3s ease-in-out 0s;
-    transition: all 0.3s ease-in-out 0s;
-  }
-  > a:hover:before {
-    visibility: visible;
-    -webkit-transform: scaleX(1);
-    transform: scaleX(1);
-  }
-`;
-
 const Dashboard = ({
   getCurrentProfile,
   deleteAccount,
@@ -58,8 +27,6 @@ const Dashboard = ({
   useEffect(() => {
     getCurrentProfile();
   }, [getCurrentProfile]);
-
-  // console.log('profile in dashboard: ', profile);
 
   return loading && profile === null ? (
     <Spinner />
@@ -82,64 +49,6 @@ const Dashboard = ({
                     <H4Styled about='true'>About:</H4Styled>
                     <Paragraph>{profile.bio}</Paragraph>
                   </div>
-                )}
-                {profile.social && (
-                  <SocialIcons>
-                    {profile.website && (
-                      <Anchor
-                        href={profile.website}
-                        target='_blank'
-                        rel='noopener noreferrer'
-                      >
-                        <i className='fas fa-globe fa-2x' />
-                      </Anchor>
-                    )}
-                    {profile.social && profile.social.twitter && (
-                      <Anchor
-                        href={profile.social.twitter}
-                        target='_blank'
-                        rel='noopener noreferrer'
-                      >
-                        <i className='fab fa-twitter fa-2x' />
-                      </Anchor>
-                    )}
-                    {profile.social && profile.social.facebook && (
-                      <Anchor
-                        href={profile.social.facebook}
-                        target='_blank'
-                        rel='noopener noreferrer'
-                      >
-                        <i className='fab fa-facebook fa-2x' />
-                      </Anchor>
-                    )}
-                    {profile.social && profile.social.linkedin && (
-                      <Anchor
-                        href={profile.social.linkedin}
-                        target='_blank'
-                        rel='noopener noreferrer'
-                      >
-                        <i className='fab fa-linkedin fa-2x' />
-                      </Anchor>
-                    )}
-                    {profile.social && profile.social.youtube && (
-                      <Anchor
-                        href={profile.social.youtube}
-                        target='_blank'
-                        rel='noopener noreferrer'
-                      >
-                        <i className='fab fa-youtube fa-2x' />
-                      </Anchor>
-                    )}
-                    {profile.social && profile.social.instagram && (
-                      <Anchor
-                        href={profile.social.instagram}
-                        target='_blank'
-                        rel='noopener noreferrer'
-                      >
-                        <i className='fab fa-instagram fa-2x' />
-                      </Anchor>
-                    )}
-                  </SocialIcons>
                 )}
                 {profile.skills && (
                   <div>

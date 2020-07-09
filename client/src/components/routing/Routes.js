@@ -11,6 +11,7 @@ import MyGithub from '../profile-form/MyGithub';
 // import AddEducation from '../profile-form/AddEducation';
 // import MyPosts from '../profile-form/MyPosts';
 import MyPosts from '../profile-form/MyPosts';
+import MyJobs from '../profile-form/MyJobs';
 // import Profiles from '../profiles/Profiles';
 // import DesignerProfiles from '../profiles/DesignerProfiles';
 // import Profile from '../profile/Profile';
@@ -21,7 +22,6 @@ import MyPosts from '../profile-form/MyPosts';
 import NotFound from '../layout/NotFound';
 import PrivateRoute from '../routing/PrivateRoute';
 import ImageUpload from '../fileuploader/ImageUpload';
-import PostUpload from '../post-uploader/PostUpload';
 
 const Routes = () => {
   return (
@@ -45,7 +45,7 @@ const Routes = () => {
         />
         <PrivateRoute exact path='/profilephoto' component={ImageUpload} />
         {/* <PrivateRoute exact path='/posts' component={Posts} /> */}
-        {/* <PrivateRoute exact path='/dashboard/myposts' component={MyPosts} />*/}
+        <PrivateRoute exact path='/dashboard/my-jobs' component={MyJobs} />
         <PrivateRoute exact path='/dashboard/my-posts' component={MyPosts} />
         {/* <PrivateRoute exact path='/posts/:id' component={Post} />*/}
         {/* <PrivateRoute

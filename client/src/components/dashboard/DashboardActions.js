@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link as RouterDomLink, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import PostModal from '../post-uploader/PostModal';
+import JobModal from '../job/JobModal';
 
 const BackDrop = styled.div`
   background-color: rgba(28, 27, 26, 0.82);
@@ -72,6 +73,8 @@ const StyledList = styled.li`
 const DashboardActions = () => {
   const { pathname } = useLocation();
   const [isShowing, setIsShowing] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
+
   const openModalHandler = e => {
     e.preventDefault();
     setIsShowing(true);
@@ -81,11 +84,25 @@ const DashboardActions = () => {
     setIsShowing(false);
   };
 
+  const openJobModalHandler = e => {
+    e.preventDefault();
+    setIsVisible(true);
+  };
+
+  const closeJobModalHandler = () => {
+    setIsVisible(false);
+  };
+
   return (
     <>
       {isShowing ? (
         <BackDrop>
           <PostModal show={isShowing} close={closeModalHandler}></PostModal>
+        </BackDrop>
+      ) : null}
+      {isVisible ? (
+        <BackDrop>
+          <JobModal visible={isVisible} close={closeJobModalHandler}></JobModal>
         </BackDrop>
       ) : null}
       <StyledDiv>
@@ -142,6 +159,15 @@ const DashboardActions = () => {
               onClick={openModalHandler}
             >
               create post
+            </StyledLink>
+          </StyledList>
+          <StyledList>
+            <StyledLink
+              isActive={pathname === '/dashboard/create-job'}
+              to='/dashboard/create-job'
+              onClick={openJobModalHandler}
+            >
+              create job
             </StyledLink>
           </StyledList>
         </StyledUl>
