@@ -3,17 +3,26 @@ const Profile = require('../models/Profile');
 const User = require('../models/User');
 const asyncHandler = require('../middleware/async');
 const ErrorResponse = require('../utils/errorResponse');
+const { check, validationResult } = require('express-validator');
 
 // @route    POST api/job
 // @desc     Add a job
 // @access   Private
 exports.addJob = asyncHandler(async (req, res) => {
+  const errors = validationResult(req);
+  console.log('errors: ', errors.errors);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
+
   const user = await User.findById(req.user.id).select('-password');
   let profile = await Profile.findOne({ user: req.user.id });
 
   const newJob = new Job({
     title: req.body.title,
     description: req.body.description,
+    jobType: req.body.jobType,
+    location: req.body.location,
     name: user.name,
     avatar: profile.profilePhoto,
     user: req.user.id,

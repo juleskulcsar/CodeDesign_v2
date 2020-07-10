@@ -9,7 +9,7 @@ import {
   GET_PROFILE
 } from './types';
 
-//get posts
+//get jobs
 export const getJobs = () => async dispatch => {
   try {
     const res = await axios.get('/api/job');
@@ -29,7 +29,7 @@ export const getJobs = () => async dispatch => {
   }
 };
 
-//remove post
+//remove job
 export const deleteJob = id => async dispatch => {
   try {
     const res = await axios.delete(`/api/job/${id}`);
@@ -46,8 +46,8 @@ export const deleteJob = id => async dispatch => {
   }
 };
 
-//add post
-export const addJob = formData => async dispatch => {
+//add job
+export const addJob = (formData, history) => async dispatch => {
   const config = {
     headers: {
       'Content-Type': 'application/json'
@@ -61,8 +61,13 @@ export const addJob = formData => async dispatch => {
       payload: res.data
     });
     dispatch(setAlert('job created', 'success'));
-    // history.push('/dashboard');
+    history.push('/dashboard');
   } catch (err) {
+    const errors = err.response.data.errors;
+    if (errors) {
+      errors.forEach(error => dispatch(setAlert(error.msg, 'danger')));
+    }
+
     dispatch({
       type: JOB_ERROR,
       payload: { msg: err.response.statusText, status: err.response.status }
@@ -70,7 +75,7 @@ export const addJob = formData => async dispatch => {
   }
 };
 
-//get post
+//get job
 export const getJob = id => async dispatch => {
   try {
     const res = await axios.get(`/api/job/${id}`);

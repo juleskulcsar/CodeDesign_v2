@@ -55,7 +55,6 @@ const ProfileTopSection = ({
   }, [getCurrentProfile]);
 
   let image = profilePhotoDefault;
-  console.log('profile: ', profile);
 
   return loading && profile === null ? (
     <Spinner />
