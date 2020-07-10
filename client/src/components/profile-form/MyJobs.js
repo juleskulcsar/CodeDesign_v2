@@ -6,6 +6,7 @@ import { getCurrentProfile, deleteAccount } from '../../actions/profile';
 import DashboardActions from '../dashboard/DashboardActions';
 import Spinner from '../layout/Spinner';
 import ProfileTopSection from './ProfileTop';
+import JobItem from '../job/JobItem';
 import { Button } from '../common/Button';
 import {
   ProfileBottomDiv,
@@ -42,7 +43,17 @@ const MyPosts = ({
         </LeftContainer>
         <RightContainer>
           <ProfileTopSection />
-          <ProfileBottomDiv></ProfileBottomDiv>
+          <ProfileBottomDiv>
+            {profile.jobs.map(job => (
+              <JobItem
+                key={job._id}
+                job={job}
+                size={true}
+                showActions={true}
+                showD={false}
+              />
+            ))}
+          </ProfileBottomDiv>
         </RightContainer>
       </Container>
     </Fragment>

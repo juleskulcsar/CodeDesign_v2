@@ -72,7 +72,6 @@ const Post = ({
   auth,
   post: { _id, title, likes, saves, date, postImage },
   showActions,
-
   profile: { profile, loading }
 }) => {
   const saving = saves.filter(save => save.user === auth.user._id);

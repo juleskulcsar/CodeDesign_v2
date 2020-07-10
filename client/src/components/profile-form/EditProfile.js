@@ -25,7 +25,7 @@ import {
   LeftContainer,
   RightContainer
 } from '../common/Edit-Create-Profile';
-import Modal from './Modal';
+import ProfilePhotoModal from './ProfilePhotoModal';
 import ImageUpload from '../fileuploader/ImageUpload';
 
 const BackDrop = styled.div`
@@ -124,7 +124,10 @@ const EditProfile = ({
     <Fragment>
       {isShowing ? (
         <BackDrop>
-          <Modal show={isShowing} close={closeModalHandler}></Modal>
+          <ProfilePhotoModal
+            show={isShowing}
+            close={closeModalHandler}
+          ></ProfilePhotoModal>
         </BackDrop>
       ) : null}
       <Container>

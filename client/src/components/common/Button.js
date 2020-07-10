@@ -7,7 +7,7 @@ const Button = styled.button`
   margin-bottom: 8px;
   width: ${props => (props.deleteAccount ? null : '100%')};
   box-sizing: border-box;
-  height: 40px;
+  /* height: 40px; */
   background: transparent;
   cursor: pointer;
   color: gray;
@@ -60,6 +60,14 @@ const Button = styled.button`
               }
             `
           : css``}
+          ${props =>
+            props.noHeight
+              ? css`
+                  margin-bottom: 0;
+                `
+              : css`
+                  height: 40px;
+                `}
 `;
 
 export { Button };

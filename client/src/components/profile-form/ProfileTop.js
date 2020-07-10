@@ -78,7 +78,9 @@ const ProfileTopSection = ({
                   target='_blank'
                   rel='noopener noreferrer'
                 >
-                  <i className='fas fa-globe fa-2x' />
+                  <small>
+                    <i className='fas fa-globe fa-2x' />
+                  </small>
                 </Anchor>
               )}
               {profile.social && profile.social.twitter && (
@@ -87,7 +89,9 @@ const ProfileTopSection = ({
                   target='_blank'
                   rel='noopener noreferrer'
                 >
-                  <i className='fab fa-twitter fa-2x' />
+                  <small>
+                    <i className='fab fa-twitter fa-2x' />
+                  </small>
                 </Anchor>
               )}
               {profile.social && profile.social.facebook && (
@@ -96,7 +100,9 @@ const ProfileTopSection = ({
                   target='_blank'
                   rel='noopener noreferrer'
                 >
-                  <i className='fab fa-facebook fa-2x' />
+                  <small>
+                    <i className='fab fa-facebook fa-2x' />
+                  </small>
                 </Anchor>
               )}
               {profile.social && profile.social.linkedin && (
@@ -105,7 +111,9 @@ const ProfileTopSection = ({
                   target='_blank'
                   rel='noopener noreferrer'
                 >
-                  <i className='fab fa-linkedin fa-2x' />
+                  <small>
+                    <i className='fab fa-linkedin fa-2x' />
+                  </small>
                 </Anchor>
               )}
               {profile.social && profile.social.youtube && (
@@ -114,7 +122,9 @@ const ProfileTopSection = ({
                   target='_blank'
                   rel='noopener noreferrer'
                 >
-                  <i className='fab fa-youtube fa-2x' />
+                  <small>
+                    <i className='fab fa-youtube fa-2x' />
+                  </small>
                 </Anchor>
               )}
               {profile.social && profile.social.instagram && (
@@ -149,9 +159,9 @@ const ProfileTopSection = ({
 };
 
 ProfileTop.propTypes = {
-  auth: PropTypes.object.isRequired,
-  getCurrentProfile: PropTypes.func.isRequired,
-  profile: PropTypes.object.isRequired
+  // auth: PropTypes.object.isRequired,
+  // getCurrentProfile: PropTypes.func.isRequired,
+  // profile: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({

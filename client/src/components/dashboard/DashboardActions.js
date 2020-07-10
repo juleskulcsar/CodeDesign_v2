@@ -146,8 +146,8 @@ const DashboardActions = () => {
           </StyledList>
           <StyledList>
             <StyledLink
-              isActive={pathname === '/dashboard/myjobs'}
-              to='/dashboard/myjobs'
+              isActive={pathname === '/dashboard/my-jobs'}
+              to='/dashboard/my-jobs'
             >
               my jobs
             </StyledLink>

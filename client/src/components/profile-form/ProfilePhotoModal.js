@@ -38,7 +38,7 @@ const ModalBody = styled.div`
   );
 `;
 
-const Modal = ({
+const ProfilePhotoModal = ({
   getCurrentProfile,
   profile: { profile, loading },
   auth: { user },
@@ -59,7 +59,7 @@ const Modal = ({
   );
 };
 
-Modal.propTypes = {
+ProfilePhotoModal.propTypes = {
   getCurrentProfile: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
   profile: PropTypes.object.isRequired
@@ -70,4 +70,6 @@ const mapStateToProps = state => ({
   profile: state.profile
 });
 
-export default connect(mapStateToProps, { getCurrentProfile })(Modal);
+export default connect(mapStateToProps, { getCurrentProfile })(
+  ProfilePhotoModal
+);
