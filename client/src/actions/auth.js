@@ -8,7 +8,8 @@ import {
   LOGIN_SUCCESS,
   LOGIN_FAIL,
   LOGOUT,
-  CLEAR_PROFILE
+  CLEAR_PROFILE,
+  UPDATE_SUCCESS
 } from './types';
 import setAuthToken from '../utils/setAuthToken';
 
@@ -54,6 +55,41 @@ export const register = ({
     });
 
     dispatch(loadUser());
+    // history.push('/dashboard');
+  } catch (err) {
+    const errors = err.response.data.errors;
+
+    if (errors) {
+      errors.forEach(error => dispatch(setAlert(error.msg, 'danger')));
+    }
+    dispatch({
+      type: REGISTER_FAIL
+    });
+  }
+};
+
+//update user details
+export const updateDetails = (
+  { name, email, registeras },
+  history
+) => async dispatch => {
+  const config = {
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  };
+
+  const body = JSON.stringify({ name, email, registeras });
+  try {
+    const res = await axios.put('/api/auth/updatedetails', body, config);
+
+    dispatch({
+      type: UPDATE_SUCCESS,
+      payload: res.data
+    });
+
+    dispatch(loadUser());
+    history.push('/dashboard');
   } catch (err) {
     const errors = err.response.data.errors;
 

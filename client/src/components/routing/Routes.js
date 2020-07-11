@@ -9,6 +9,7 @@ import EditProfile from '../profile-form/EditProfile';
 import MyGithub from '../profile-form/MyGithub';
 import MyPosts from '../profile-form/MyPosts';
 import MyJobs from '../profile-form/MyJobs';
+import Settings from '../profile-form/Settings';
 // import Profiles from '../profiles/Profiles';
 // import DesignerProfiles from '../profiles/DesignerProfiles';
 // import Profile from '../profile/Profile';
@@ -45,6 +46,7 @@ const Routes = () => {
         <PrivateRoute exact path='/dashboard/my-jobs' component={MyJobs} />
         <PrivateRoute exact path='/dashboard/my-posts' component={MyPosts} />
         <PrivateRoute exact path='/dashboard/my-jobs' component={MyJobs} />
+        <PrivateRoute exact path='/dashboard/settings' component={Settings} />
         {/* <PrivateRoute exact path='/posts/:id' component={Post} />*/}
         {/* <PrivateRoute
           exact

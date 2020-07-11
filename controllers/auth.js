@@ -117,7 +117,8 @@ exports.getMe = asyncHandler(async (req, res, next) => {
 exports.updateUserDetails = asyncHandler(async (req, res, next) => {
   const fieldsToUpdate = {
     name: req.body.name,
-    email: req.body.email
+    email: req.body.email,
+    registeras: req.body.registeras
   };
 
   const user = await User.findByIdAndUpdate(req.user.id, fieldsToUpdate, {
