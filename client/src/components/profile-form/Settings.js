@@ -3,7 +3,11 @@ import React, { Fragment, useState, useEffect } from 'react';
 import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { loadUser, updateDetails } from '../../actions/auth';
+import {
+  loadUser,
+  updateDetails,
+  updateUserPassword
+} from '../../actions/auth';
 import { deleteAccount } from '../../actions/profile';
 import DashboardActions from '../dashboard/DashboardActions';
 import Spinner from '../layout/Spinner';
@@ -17,14 +21,27 @@ import {
   ProfileBottomDiv,
   Container,
   LeftContainer,
-  RightContainer
+  RightContainer,
+  Paragraph
 } from '../common/Edit-Create-Profile';
+import PasswordInput from '../common/PasswordInput';
 
-const Settings = ({ history, auth: { loading, user }, updateDetails }) => {
+const Settings = ({
+  history,
+  auth: { loading, user },
+  updateDetails,
+  updateUserPassword
+}) => {
   const [formData, setFormData] = useState({
     email: '',
     name: '',
     registeras: ''
+  });
+
+  const [formPasswordData, setFormPasswordData] = useState({
+    currentPassword: '',
+    newPassword: '',
+    confirmNewPassword: ''
   });
 
   useEffect(() => {
@@ -38,13 +55,27 @@ const Settings = ({ history, auth: { loading, user }, updateDetails }) => {
   }, [loading, loadUser]);
 
   const { registeras, name, email } = formData;
+  const { currentPassword, newPassword, confirmNewPassword } = formPasswordData;
 
-  const onChange = e =>
+  const onChange = e => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const onPasswordChange = e => {
+    setFormPasswordData({
+      ...formPasswordData,
+      [e.target.name]: e.target.value
+    });
+  };
 
   const onSubmit = e => {
     e.preventDefault();
     updateDetails(formData, history);
+  };
+
+  const onUpdate = e => {
+    e.preventDefault();
+    updateUserPassword(formPasswordData, history);
   };
 
   return loading || user === null ? (
@@ -61,6 +92,7 @@ const Settings = ({ history, auth: { loading, user }, updateDetails }) => {
         <RightContainer>
           <ProfileTopSection />
           <ProfileBottomDiv>
+            <Paragraph>update registration details</Paragraph>
             <FormContainer createProfilePage='true'>
               <RequiredText>
                 <small>
@@ -101,6 +133,38 @@ const Settings = ({ history, auth: { loading, user }, updateDetails }) => {
                   save changes
                 </Button>
               </Form>
+              <Paragraph>update password</Paragraph>
+              <Form>
+                <PasswordInput
+                  name='currentPassword'
+                  placeholder='current password'
+                  value={currentPassword}
+                  onChange={e => onPasswordChange(e)}
+                  minLength='6'
+                />
+                <PasswordInput
+                  name='newPassword'
+                  placeholder='new password'
+                  value={newPassword}
+                  onChange={e => onPasswordChange(e)}
+                  minLength='6'
+                />
+                <PasswordInput
+                  name='confirmNewPassword'
+                  placeholder='confirm new password'
+                  value={confirmNewPassword}
+                  onChange={e => onPasswordChange(e)}
+                  minLength='6'
+                  confirmPass
+                />
+                <Button
+                  type='submit'
+                  value='save new password'
+                  onClick={e => onUpdate(e)}
+                >
+                  update password
+                </Button>
+              </Form>
             </FormContainer>
           </ProfileBottomDiv>
         </RightContainer>
@@ -112,7 +176,8 @@ const Settings = ({ history, auth: { loading, user }, updateDetails }) => {
 Settings.propTypes = {
   auth: PropTypes.object.isRequired,
   loadUser: PropTypes.func.isRequired,
-  updateDetails: PropTypes.func.isRequired
+  updateDetails: PropTypes.func.isRequired,
+  updateUserPassword: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
@@ -121,5 +186,6 @@ const mapStateToProps = state => ({
 
 export default connect(mapStateToProps, {
   loadUser,
-  updateDetails
+  updateDetails,
+  updateUserPassword
 })(withRouter(Settings));

@@ -138,6 +138,8 @@ exports.updateUserDetails = asyncHandler(async (req, res, next) => {
 exports.updateUserPassword = asyncHandler(async (req, res, next) => {
   const user = await User.findById(req.user.id).select('+password');
 
+  console.log('req.body in update pass controller: ', req.body);
+
   //check current password
   if (!(await user.matchPassword(req.body.currentPassword))) {
     next(new ErrorResponse('Oopsy daisy: password is incorrect'), 401);
