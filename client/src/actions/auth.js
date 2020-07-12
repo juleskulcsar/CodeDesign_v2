@@ -7,6 +7,7 @@ import {
   AUTH_ERROR,
   LOGIN_SUCCESS,
   LOGIN_FAIL,
+  PASSWORD_UPDATE_FAIL,
   LOGOUT,
   CLEAR_PROFILE,
   UPDATE_SUCCESS
@@ -57,10 +58,11 @@ export const register = ({
     dispatch(loadUser());
     // history.push('/dashboard');
   } catch (err) {
-    const errors = err.response.data.errors;
+    const errors = err.response.data.error;
 
     if (errors) {
-      errors.forEach(error => dispatch(setAlert(error.msg, 'danger')));
+      dispatch(setAlert(errors, 'danger'));
+      // errors.forEach(error => dispatch(setAlert(error.msg, 'danger')));
     }
     dispatch({
       type: REGISTER_FAIL
@@ -91,10 +93,11 @@ export const updateDetails = (
     dispatch(loadUser());
     history.push('/dashboard');
   } catch (err) {
-    const errors = err.response.data.errors;
+    const errors = err.response.data.error;
 
     if (errors) {
-      errors.forEach(error => dispatch(setAlert(error.msg, 'danger')));
+      dispatch(setAlert(errors));
+      // errors.forEach(error => dispatch(setAlert(error.msg, 'danger')));
     }
     dispatch({
       type: REGISTER_FAIL
@@ -118,6 +121,7 @@ export const updateUserPassword = (
     newPassword,
     confirmNewPassword
   });
+
   try {
     const res = await axios.put('/api/auth/updatepassword', body, config);
 
@@ -128,14 +132,16 @@ export const updateUserPassword = (
 
     dispatch(loadUser());
     history.push('/dashboard');
+    dispatch(setAlert('password updated successfully'));
   } catch (err) {
-    const errors = err.response.data.errors;
-
-    if (errors) {
-      errors.forEach(error => dispatch(setAlert(error.msg, 'danger')));
+    const errors = err.response.data.error;
+    if (err) {
+      dispatch(setAlert(errors));
+      // errors.forEach(error => dispatch(setAlert(error.msg, 'danger')));
     }
     dispatch({
-      type: REGISTER_FAIL
+      type: PASSWORD_UPDATE_FAIL,
+      payload: errors
     });
   }
 };
@@ -150,7 +156,11 @@ export const login = (email, password) => async dispatch => {
 
   const body = JSON.stringify({ email, password });
   try {
-    const res = await axios.post('/api/auth', body, config);
+    const res = await axios.post('/api/auth', body, config, {
+      validateStatus: false
+    });
+
+    console.log('res: ', res);
 
     dispatch({
       type: LOGIN_SUCCESS,
@@ -158,14 +168,19 @@ export const login = (email, password) => async dispatch => {
     });
 
     dispatch(loadUser());
-  } catch (err) {
-    const errors = err.response.data.errors;
-
+  } catch (error) {
+    const errors = error.response.data.error;
+    // if (errors) {
+    //   errors.forEach(error => dispatch(setAlert(error.msg, 'danger')));
+    // }
     if (errors) {
-      errors.forEach(error => dispatch(setAlert(error.msg, 'danger')));
+      dispatch(setAlert(errors, 'danger'));
     }
+
     dispatch({
-      type: LOGIN_FAIL
+      type: LOGIN_FAIL,
+      payload: true
+      // payload: { msg: error.response.statusText, status: error.response.status }
     });
   }
 };

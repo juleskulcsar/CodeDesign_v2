@@ -1,7 +1,7 @@
 import uuid from 'uuid';
 import { SET_ALERT, REMOVE_ALERT } from './types';
 
-//we can do this souble arrow because of thunk
+//we can do this double arrow because of thunk
 export const setAlert = (msg, alertType, timeout = 5000) => dispatch => {
   const id = uuid.v4();
   dispatch({

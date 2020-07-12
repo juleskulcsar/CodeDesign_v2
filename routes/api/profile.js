@@ -1,4 +1,5 @@
 const express = require('express');
+const { check, validationResult } = require('express-validator');
 const s3 = require('../../middleware/s3');
 const fileUpload = require('../../middleware/file-upload.js');
 
@@ -21,7 +22,22 @@ const router = express.Router();
 const { protect } = require('../../middleware/auth');
 
 router.get('/me', protect, getMyProfile);
-router.post('/', protect, createProfile);
+router.post(
+  '/',
+  protect,
+  [
+    check('specialties', 'specialties are required')
+      .not()
+      .isEmpty(),
+    check('skills', 'skills are required')
+      .not()
+      .isEmpty(),
+    check('location', 'location is equired')
+      .not()
+      .isEmpty()
+  ],
+  createProfile
+);
 router.post(
   '/profilephoto',
   protect,

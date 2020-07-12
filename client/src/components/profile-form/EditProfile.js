@@ -138,7 +138,7 @@ const EditProfile = ({
           </Button>
         </LeftContainer>
         <RightContainer>
-          <ProfileTopSection profile={profile} />
+          <ProfileTopSection />
           <ProfileBottomDiv>
             <FormContainer createProfilePage='true'>
               <RequiredText>
@@ -156,6 +156,7 @@ const EditProfile = ({
                       name='specialties'
                       value={specialties}
                       onChange={e => onChange(e)}
+                      required
                     >
                       <option value='0'>* Select specialties</option>
                       <option value='Developer'>Developer</option>
@@ -171,6 +172,7 @@ const EditProfile = ({
                       name='specialties'
                       value={specialties}
                       onChange={e => onChange(e)}
+                      required
                     >
                       <option value='0'>* select specialties</option>
                       <option value='Designer'>Designer</option>
@@ -203,6 +205,7 @@ const EditProfile = ({
                     name='location'
                     value={location}
                     onChange={e => onChange(e)}
+                    required
                   />
                   <small>City & state suggested (eg. Boston, MA)</small>
                 </StyledDiv>
@@ -213,6 +216,7 @@ const EditProfile = ({
                     name='skills'
                     value={skills}
                     onChange={e => onChange(e)}
+                    required
                   />
                   <small>
                     Please use comma separated values (eg.

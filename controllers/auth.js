@@ -1,4 +1,5 @@
 const crypto = require('crypto');
+const { check, validationResult } = require('express-validator');
 const User = require('../models/User');
 const asyncHandler = require('../middleware/async');
 const ErrorResponse = require('../utils/errorResponse');
@@ -21,13 +22,18 @@ exports.loadUser = asyncHandler(async (req, res) => {
 // @description Authenticate user and get token
 // @access      Public
 exports.login = asyncHandler(async (req, res, next) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(401).send({ errors: errors.array() });
+  }
+
   const { email, password } = req.body;
 
   if (!email || !password) {
     return next(
       new ErrorResponse(
         'Oopsy daisy: please provide an email and password',
-        400
+        401
       )
     );
   }
@@ -47,10 +53,7 @@ exports.login = asyncHandler(async (req, res, next) => {
   const isMatch = await user.matchPassword(password);
   if (!isMatch) {
     return next(
-      new ErrorResponse(
-        'Oopsy daisy: please provide a valid email and password',
-        401
-      )
+      new ErrorResponse('Oopsy daisy: please provide a valid password', 401)
     );
   }
   sendTokenResponse(user, 200, res);
@@ -142,7 +145,13 @@ exports.updateUserPassword = asyncHandler(async (req, res, next) => {
 
   //check current password
   if (!(await user.matchPassword(req.body.currentPassword))) {
-    next(new ErrorResponse('Oopsy daisy: password is incorrect'), 401);
+    next(new ErrorResponse('Oopsy daisy: current password is incorrect'), 401);
+  }
+
+  if (req.body.newPassword !== req.body.confirmNewPassword) {
+    return next(
+      new ErrorResponse('Oopsy daisy: please confirm your new passord', 400)
+    );
   }
 
   user.password = req.body.newPassword;

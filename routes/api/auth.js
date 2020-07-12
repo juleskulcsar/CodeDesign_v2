@@ -1,4 +1,5 @@
 const express = require('express');
+const { check, validationResult } = require('express-validator');
 const {
   register,
   login,
@@ -16,7 +17,14 @@ const router = express.Router();
 const { protect } = require('../../middleware/auth');
 
 router.post('/register', register);
-router.post('/', login);
+router.post(
+  '/',
+  [
+    check('email', 'Please add a valid email').isEmail(),
+    check('password', 'Password is required').exists()
+  ],
+  login
+);
 router.get('/', protect, loadUser);
 router.get('/logout', logout);
 router.get('/me', protect, getMe);

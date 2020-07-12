@@ -1,5 +1,6 @@
 const request = require('request');
 const config = require('config');
+const { check, validationResult } = require('express-validator');
 const Profile = require('../models/Profile');
 const User = require('../models/User');
 const Post = require('../models/Post');
@@ -36,6 +37,11 @@ exports.getMyProfile = asyncHandler(async (req, res, next) => {
 // @description Create or update a user profile
 // @access      Private
 exports.createProfile = asyncHandler(async (req, res, next) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
+
   const {
     name,
     profilePhoto,
@@ -78,6 +84,13 @@ exports.createProfile = asyncHandler(async (req, res, next) => {
   let user = await User.findById(req.user.id).select('-password');
 
   if (profile) {
+    if (!profile.location) {
+      return next(new ErrorResponse('location is missing', 400));
+    } else if (!profile.specialties) {
+      return next(new ErrorResponse('select at least one specialty', 400));
+    } else if (profile.skills.length === 0) {
+      return next(new ErrorResponse('add at least one skill', 400));
+    }
     //update profile
     profile = await Profile.findOneAndUpdate(
       { user: req.user.id },
@@ -89,6 +102,15 @@ exports.createProfile = asyncHandler(async (req, res, next) => {
 
   //create profile
   profile = new Profile(profileFields);
+
+  if (!profile.location) {
+    return next(new ErrorResponse('location is missing', 400));
+  } else if (!profile.specialties) {
+    return next(new ErrorResponse('select at least one specialty', 400));
+  } else if (!profile.skills) {
+    return next(new ErrorResponse('add at least one skill', 400));
+  }
+
   await profile.save();
   res.json(profile);
 });

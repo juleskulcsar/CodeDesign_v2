@@ -133,10 +133,12 @@ export const createProfile = (
       history.push('/dashboard');
     }
   } catch (err) {
-    const errors = err.response.data.errors;
+    console.log(err);
+    const errors = err.response.data.error;
 
     if (errors) {
-      errors.forEach(error => dispatch(setAlert(error.msg, 'danger')));
+      dispatch(setAlert(errors, 'danger'));
+      // errors.forEach(error => dispatch(setAlert(error.msg, 'danger')));
     }
 
     dispatch({

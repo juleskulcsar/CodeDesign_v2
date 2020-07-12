@@ -37,7 +37,17 @@ const StyledLink = styled(Link)`
   font-weight: bold;
 `;
 
-const Login = ({ login, isAuthenticated }) => {
+const ErrorMessage = styled.div`
+  position: fixed;
+  padding: 0.8rem;
+  margin: 4rem 0;
+  /* opacity: 0.9; */
+  background: #ad4d2a;
+  color: white;
+  z-index: 500;
+`;
+
+const Login = ({ login, isAuthenticated, error }) => {
   const [formData, setFormData] = useState({
     email: '',
     password: ''
@@ -79,6 +89,11 @@ const Login = ({ login, isAuthenticated }) => {
             </Paragraph>
           </TextContainer>
           <FormContainer>
+            {error === true ? (
+              <ErrorMessage>
+                please enter a valid email and/or password
+              </ErrorMessage>
+            ) : null}
             <H2Styled>Sign In</H2Styled>
             <Form onSubmit={e => onSubmit(e)}>
               <Input
@@ -110,11 +125,13 @@ const Login = ({ login, isAuthenticated }) => {
 
 Login.propTypes = {
   login: PropTypes.func.isRequired,
-  isAuthenticated: PropTypes.bool
+  isAuthenticated: PropTypes.bool,
+  error: PropTypes.bool
 };
 
 const mapStateToProps = state => ({
-  isAuthenticated: state.auth.isAuthenticated
+  isAuthenticated: state.auth.isAuthenticated,
+  error: state.auth.error
 });
 
 export default connect(mapStateToProps, { login })(Login);

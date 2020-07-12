@@ -5,6 +5,7 @@ import {
   AUTH_ERROR,
   LOGIN_SUCCESS,
   LOGIN_FAIL,
+  PASSWORD_UPDATE_FAIL,
   LOGOUT,
   ACCOUNT_DELETED,
   UPDATE_SUCCESS
@@ -14,7 +15,8 @@ const initialState = {
   token: localStorage.getItem('token'),
   isAuthenticated: null,
   loading: true,
-  user: null
+  user: null,
+  error: false
 };
 
 export default function(state = initialState, action) {
@@ -46,6 +48,15 @@ export default function(state = initialState, action) {
     case REGISTER_FAIL:
     case AUTH_ERROR:
     case LOGIN_FAIL:
+      return {
+        ...state,
+        error: payload
+      };
+    case PASSWORD_UPDATE_FAIL:
+      return {
+        ...state,
+        error: payload
+      };
     case LOGOUT:
     case ACCOUNT_DELETED:
       localStorage.removeItem('token');

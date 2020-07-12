@@ -28,7 +28,7 @@ const Container = styled.div`
   @media (max-width: 780px) {
     background-image: none;
   }
-`
+`;
 const RequiredText = styled.p`
   padding: 0 0 0 16px;
   margin: 0;
@@ -73,12 +73,7 @@ const Title = styled.h1`
   }
 `;
 
-const CreateProfile = ({
-  createProfile,
-  history,
-  auth: { user }
-}) => {
-
+const CreateProfile = ({ createProfile, history, auth: { user } }) => {
   useEffect(() => {
     loadUser();
   }, []);
@@ -112,7 +107,7 @@ const CreateProfile = ({
     facebook,
     linkedin,
     youtube,
-    instagram,
+    instagram
   } = formData;
 
   const onChange = e =>
@@ -130,11 +125,10 @@ const CreateProfile = ({
           <Title>Create profile</Title>
           <Paragraph>
             Let's get some information to make your profile stand out.
-            </Paragraph>
+          </Paragraph>
           <Paragraph>
-            The
-            more information you add, the more discoverability you gain.
-            </Paragraph>
+            The more information you add, the more discoverability you gain.
+          </Paragraph>
           <StyledLink to='dashboard'> do this later</StyledLink>
         </TextContainer>
         <FormContainer createProfilePage>
@@ -156,31 +150,29 @@ const CreateProfile = ({
                   <option value='Developer'>Developer</option>
                   <option value='Student or Learning'>
                     Student or Learning
-                    </option>
+                  </option>
                   <option value='Instructor'>Instructor or Teacher</option>
                   <option value='Intern'>Intern</option>
                   <option value='Other'>Other</option>
                 </StyledSelect>
               ) : (
-                  <StyledSelect
-                    name='specialties'
-                    value={specialties}
-                    onChange={e => onChange(e)}
-                  >
-                    <option value='0'>* select specialties</option>
-                    <option value='Designer'>Designer</option>
-                    <option value='Student or Learning'>
-                      Student or Learning
-                    </option>
-                    <option value='Instructor'>Instructor or Teacher</option>
-                    <option value='Intern'>Intern</option>
-                    <option value='Other'>Other</option>
-                  </StyledSelect>
-                )}
+                <StyledSelect
+                  name='specialties'
+                  value={specialties}
+                  onChange={e => onChange(e)}
+                >
+                  <option value='0'>* select specialties</option>
+                  <option value='Designer'>Designer</option>
+                  <option value='Student or Learning'>
+                    Student or Learning
+                  </option>
+                  <option value='Instructor'>Instructor or Teacher</option>
+                  <option value='Intern'>Intern</option>
+                  <option value='Other'>Other</option>
+                </StyledSelect>
+              )}
 
-              <small>
-                Give us an idea of where you are at in your career
-                </small>
+              <small>Give us an idea of where you are at in your career</small>
             </StyledDiv>
             <StyledDiv>
               <Input
@@ -192,7 +184,7 @@ const CreateProfile = ({
               />
               <small className='form-text'>
                 Could be your own or a company website
-                </small>
+              </small>
             </StyledDiv>
             <StyledDiv>
               <Input
@@ -201,10 +193,11 @@ const CreateProfile = ({
                 name='location'
                 value={location}
                 onChange={e => onChange(e)}
+                required
               />
               <small className='form-text'>
                 City & state suggested (eg. Boston, MA)
-                </small>
+              </small>
             </StyledDiv>
             <StyledDiv>
               <Input
@@ -213,11 +206,11 @@ const CreateProfile = ({
                 name='skills'
                 value={skills}
                 onChange={e => onChange(e)}
+                required
               />
               <small className='form-text'>
-                Please use comma separated values (eg.
-                HTML,CSS,JavaScript,PHP)
-                </small>
+                Please use comma separated values (eg. HTML,CSS,JavaScript,PHP)
+              </small>
             </StyledDiv>
             <StyledDiv>
               <Input
@@ -230,7 +223,7 @@ const CreateProfile = ({
               <small className='form-text'>
                 If you want your latest repos and a Github link, include your
                 username
-                </small>
+              </small>
             </StyledDiv>
             <StyledDiv>
               <Textarea
@@ -241,7 +234,7 @@ const CreateProfile = ({
               ></Textarea>
               <small className='form-text'>
                 Tell us a little about yourself
-                </small>
+              </small>
             </StyledDiv>
 
             <StyledDiv>
@@ -251,7 +244,7 @@ const CreateProfile = ({
                 className='btn btn-light'
               >
                 Add Social Network Links
-                </Button>
+              </Button>
               <small className='form-text'>Optional</small>
             </StyledDiv>
 
