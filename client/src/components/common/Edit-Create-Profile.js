@@ -92,6 +92,10 @@ const RoundImage = styled.img`
   padding: 2px;
   background: #8e8c89;
   margin-left: 1em;
+  @media (max-width: 768px) {
+    width: 70px;
+    height: 70px;
+  }
 `;
 const Anchor = styled.a`
   color: ${props => (props.reponame ? '#9C4526' : '#f16350')};
@@ -106,7 +110,7 @@ const Anchor = styled.a`
         `
       : null}
 `;
-const H4Styled = styled.h4`
+const H4Styled = styled.h2`
   color: #bfbdbc;
   margin-top: 5px;
   font-size: 20px;

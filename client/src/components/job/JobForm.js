@@ -9,6 +9,7 @@ import { Input } from '../common/Input';
 import { Paragraph } from '../common/Edit-Create-Profile';
 import { Form } from '../common/SignIn-SignUp';
 import { Button } from '../common/Button';
+import TextEditor from '../richText/TextEditor';
 
 const RequiredText = styled.p`
   padding: 0 0 0 16px;
@@ -36,6 +37,10 @@ const JobForm = ({ addJob, history }) => {
   const [description, setDescription] = useState('');
   const [jobType, setJobType] = useState('');
   const [location, setLocation] = useState('');
+
+  const updateDescription = arg => {
+    setDescription(arg);
+  };
 
   const onSumbit = e => {
     e.preventDefault();
@@ -78,18 +83,24 @@ const JobForm = ({ addJob, history }) => {
           name='title'
           placeholder='* job title'
           value={title}
-          onChange={e => setTitle(e.target.value)}
+          onChange={e => {
+            e.preventDefault();
+            setTitle(e.target.value);
+          }}
+          onClick={e => {
+            e.preventDefault();
+          }}
           required
         ></Input>
-        <Textarea
-          name='description'
+        <TextEditor
           cols='30'
           rows='5'
+          name='description'
           placeholder='* job description'
-          value={description}
-          onChange={e => setDescription(e.target.value)}
+          description={description}
+          updateDescription={updateDescription}
           required
-        ></Textarea>
+        />
         <StyledSelect
           name='jobType'
           required

@@ -156,7 +156,7 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
             </StyledLink>
           </StyledList>
           <StyledList isActive={pathname === '/posts'}>
-            <StyledLink isActive={pathname === '/posts'} to='/posts'>
+            <StyledLink isActive={pathname === '/jobs'} to='/jobs'>
               <span>job-board</span>
             </StyledLink>
           </StyledList>

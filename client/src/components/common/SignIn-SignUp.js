@@ -12,7 +12,14 @@ const H2Styled = styled.h2`
 `;
 
 const Paragraph = styled.p`
-${props => props.upload ? css`margin: 8px;` : css`padding: 1px 16px 16px 16px;`}
+  ${props =>
+    props.upload
+      ? css`
+          margin: 8px;
+        `
+      : css`
+          padding: 1px 16px 16px 16px;
+        `}
   color: #bfbdbc;
   line-height: 1.6;
 
@@ -36,7 +43,7 @@ const Title = styled.h1`
 
 const Form = styled.form`
   width: 100%;
-  max-width: 400px;
+  max-width: 500px;
   padding: 16px;
   box-sizing: border-box;
   color: gray;
@@ -60,7 +67,7 @@ const FormContainer = styled.div`
   width: 100%;
   max-width: 400px;
   position: relative;
-top: ${props => props.createProfilePage ? null : '20%'};
+  top: ${props => (props.createProfilePage ? null : '20%')};
   @media (max-width: 780px) {
     top: -70px;
   }

@@ -14,7 +14,8 @@ const ModalWrapper = styled.div`
   -moz-box-shadow: 0px 0px 69px 7px rgba(0, 0, 0, 0.75);
   box-shadow: 0px 0px 69px 7px rgba(0, 0, 0, 0.75);
   transition: all 0.8s;
-  width: fit-content;
+  /* width: fit-content; */
+  max-width: 500px;
   ${props =>
     props.visible
       ? css` 

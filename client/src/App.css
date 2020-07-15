@@ -8,8 +8,9 @@ body {
 }
 
 #root {
-  max-height: 95vh;
-  overflow-y: scroll;
+  height: 98vh;
+  max-height: 98vh;
+  /* overflow-y: scroll; */
   overflow-x: hidden;
 }
 

@@ -13,8 +13,8 @@ import Settings from '../profile-form/Settings';
 // import Profiles from '../profiles/Profiles';
 // import DesignerProfiles from '../profiles/DesignerProfiles';
 // import Profile from '../profile/Profile';
-// import Posts from '../posts/Posts';
-// import Post from '../post/Post';
+import AllJobs from '../job/AllJobs';
+import Job from '../job/JobPage';
 // import Posts from '../post/Posts';
 // import PortfolioPage from '../portfolio/PortfolioPage';
 import NotFound from '../layout/NotFound';
@@ -42,17 +42,12 @@ const Routes = () => {
           component={EditProfile}
         />
         <PrivateRoute exact path='/profilephoto' component={ImageUpload} />
-        {/* <PrivateRoute exact path='/posts' component={Posts} /> */}
+        <PrivateRoute exact path='/jobs' component={AllJobs} />
         <PrivateRoute exact path='/dashboard/my-jobs' component={MyJobs} />
         <PrivateRoute exact path='/dashboard/my-posts' component={MyPosts} />
         <PrivateRoute exact path='/dashboard/my-jobs' component={MyJobs} />
         <PrivateRoute exact path='/dashboard/settings' component={Settings} />
-        {/* <PrivateRoute exact path='/posts/:id' component={Post} />*/}
-        {/* <PrivateRoute
-          exact
-          path='/dashboard/post-upload'
-          component={PostUpload}
-        /> */}
+        <PrivateRoute exact path='/job/:id' component={Job} />
         <Route component={NotFound} />
       </Switch>
     </section>
