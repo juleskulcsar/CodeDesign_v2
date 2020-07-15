@@ -95,10 +95,18 @@ export default class TextEditor extends React.Component {
     this.setState({ editable: !this.state.editable });
   };
 
+  pastePlainText = e => {
+    e.preventDefault();
+
+    const text = e.clipboardData.getData('text/plain');
+    document.execCommand('insertHTML', false, text);
+  };
+
   render = () => {
     return (
       <div>
         <StyledContentEditable
+          onPaste={this.pastePlainText}
           tagName='pre'
           html={this.state.html} // innerHTML of the editable div
           disabled={!this.state.editable} // use true to disable edition
