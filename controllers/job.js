@@ -44,7 +44,12 @@ exports.getAllJobs = asyncHandler(async (req, res) => {
 // @desc     Get job by ID
 // @access   Private
 exports.getJobById = asyncHandler(async (req, res, next) => {
-  const job = await Job.findById(req.params.id);
+  const job = await Job.findById(req.params.id).populate('profile', [
+    'profilePhoto',
+    'displayName',
+    'location',
+    'website'
+  ]);
 
   // Check for ObjectId format and job
   if (!req.params.id.match(/^[0-9a-fA-F]{24}$/) || !job) {

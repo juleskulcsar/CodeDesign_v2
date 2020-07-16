@@ -9,11 +9,11 @@ import JobItem from './JobItem';
 const AllJobsContainer = styled.div`
   position: relative;
   top: 5em;
-  width: 80%;
+  width: 60%;
   margin: 0 auto;
 `;
 
-const AllJobs = ({ getJobs, job: { jobs, loading } }) => {
+const AllJobs = ({ auth, getJobs, job: { jobs, _id, user, loading } }) => {
   useEffect(() => {
     getJobs();
   }, [getJobs]);
@@ -21,14 +21,14 @@ const AllJobs = ({ getJobs, job: { jobs, loading } }) => {
   return loading ? (
     <Spinner />
   ) : (
-    <AllJobsContainer>
-      {jobs.data.map(job => (
-        <div key={job._id}>
-          <JobItem key={job._id} job={job} size={true} />
-        </div>
-      ))}
-    </AllJobsContainer>
-  );
+      <AllJobsContainer>
+        {jobs.data.map(job => (
+          <div key={job._id}>
+            <JobItem key={job._id} job={job} size={true} />
+          </div>
+        ))}
+      </AllJobsContainer>
+    );
 };
 
 AllJobs.propTypes = {

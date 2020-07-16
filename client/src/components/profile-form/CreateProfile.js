@@ -81,6 +81,7 @@ const CreateProfile = ({ createProfile, history, auth: { user } }) => {
   const [formData, setFormData] = useState({
     registeras: '',
     website: '',
+    displayName: '',
     location: '',
     specialties: '',
     skills: '',
@@ -98,6 +99,7 @@ const CreateProfile = ({ createProfile, history, auth: { user } }) => {
 
   const {
     website,
+    displayName,
     location,
     specialties,
     skills,
@@ -173,6 +175,18 @@ const CreateProfile = ({ createProfile, history, auth: { user } }) => {
               )}
 
               <small>Give us an idea of where you are at in your career</small>
+            </StyledDiv>
+            <StyledDiv>
+              <Input
+                type='text'
+                placeholder='display name'
+                name='displayName'
+                value={displayName}
+                onChange={e => onChange(e)}
+              />
+              <small className='form-text'>
+                How you want your name to be displayed
+              </small>
             </StyledDiv>
             <StyledDiv>
               <Input

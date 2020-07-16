@@ -9,7 +9,7 @@ import ReactHtmlParser, {
   convertNodeToElement,
   htmlparser2
 } from 'react-html-parser';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { deleteJob } from '../../actions/job';
 import { Button } from '../common/Button';
 import {
@@ -18,99 +18,124 @@ import {
   H4Styled,
   RoundImage
 } from '../common/Edit-Create-Profile';
+import {
+  JobItemContainer,
+  JobItemBottom,
+  JobDescriptionDiv,
+  JobItemLeftContainer,
+  JobItemRightContainer
+} from '../common/JobItemContainer';
 
 const Link = ({ isActive, children, ...props }) => {
   return <RouterDomLink {...props}>{children}</RouterDomLink>;
 };
-
-const JobItemContainer = styled.div`
-  border-bottom: 1px solid #55524e;
-  display: flex;
-  margin-top: 2em;
-  flex: 1;
+const UserDetails = styled.div`
+  display: block;
+  padding-left: 3em;
   @media (max-width: 768px) {
-    display: block;
-  }
-`;
-
-const JobItemBottom = styled.div`
-  display: flex;
-  justify-content: space-between;
-  margin-top: 2em;
-`;
-
-const JobDescriptionDiv = styled.div`
-  color: #bfbdbc;
-  line-height: 1.6;
-`;
-
-const JobItemLeftContainer = styled.div`
-  justify-content: center;
-  text-align: center;
-`;
-
-const JobItemRightContainer = styled.div`
-  width: 100%;
-`;
+      padding-left: 1em;
+    }
+`
 
 const JobItem = ({
-  deleteJob,
-  auth,
-  job: { _id, title, description, jobType, location, name, avatar, user, date },
+  job: { jobs, _id, title, description, jobType, location, user, date, profile, loading },
   size,
-  locationDetails
+  locationDetails,
+  extended
 }) => {
+
   const MAX_LENGTH = 250;
-  return (
-    <JobItemContainer>
-      <JobItemLeftContainer>
-        <Link to={`/user/${user}`}>
-          <RoundImage src={avatar} alt='' />
-        </Link>
-        <StyledLink>
-          <Paragraph>{name}</Paragraph>
-        </StyledLink>
-      </JobItemLeftContainer>
-      <JobItemRightContainer>
-        <H4Styled>{title}</H4Styled>
-        {locationDetails ? (
-          <>
-            <Paragraph>job type: {jobType}</Paragraph>
-            <Paragraph>location: {location}</Paragraph>
-          </>
-        ) : null}
-        {size ? (
-          <JobDescriptionDiv>
-            {ReactHtmlParser(ReactHtmlParser(description)).slice(0, MAX_LENGTH)}
-            ....
-            <StyledLink to={`/job/${_id}`}>more </StyledLink>
-          </JobDescriptionDiv>
-        ) : (
+  return loading ? (
+    <Spinner />
+  ) : (extended === true ? (
+    <>
+      <JobItemContainer details={true}>
+        <JobItemLeftContainer details={true}>
+          <Link to={`/user/${user}`}>
+            <RoundImage details={true} src={profile.profilePhoto} alt='' />
+          </Link>
+          <UserDetails>
+            <Paragraph details={true}>{profile.displayName}</Paragraph>
+            <Paragraph >{profile.location}</Paragraph>
+            <Paragraph>{profile.website}</Paragraph>
+          </UserDetails>
+        </JobItemLeftContainer>
+        <JobItemRightContainer details={true}>
+          <H4Styled>{title}</H4Styled>
+          {locationDetails ? (
+            <>
+              <Paragraph>job type - {' '} <span style={{ color: '#AD4D2A', fontWeight: 'bold' }}>{' '}{jobType}</span></Paragraph>
+              <Paragraph>location - {' '} <span style={{ color: '#AD4D2A', fontWeight: 'bold' }}>{' '}{location}</span></Paragraph>
+            </>
+          ) : null}
           <JobDescriptionDiv>
             {ReactHtmlParser(ReactHtmlParser(description))}
           </JobDescriptionDiv>
-        )}
-        <JobItemBottom>
-          <Paragraph>
-            <span style={{ color: '#8E8C89' }}>
-              {' '}
-              Posted on <Moment format='YYYY/MM/DD'>{date}</Moment>
-            </span>
-          </Paragraph>
-          {!auth.loading && user === auth.user._id && (
-            <Button
-              noHeight='true'
-              noBorder='true'
-              small='true'
-              onClick={e => deleteJob(_id)}
-            >
-              <i className='fas fa-trash-alt'></i> delete this job
-            </Button>
-          )}
-        </JobItemBottom>
-      </JobItemRightContainer>
-    </JobItemContainer>
-  );
+          <JobItemBottom>
+            <Paragraph>
+              <span style={{ color: '#8E8C89' }}>
+                {' '}
+                Posted on <Moment format='YYYY/MM/DD'>{date}</Moment>
+              </span>
+            </Paragraph>
+            {/* {!auth.loading && user === auth.user._id && (
+              <Button
+                noHeight='true'
+                noBorder='true'
+                small='true'
+                onClick={e => { deleteJob(_id); getJobs(); }}
+              >
+                <i className='fas fa-trash-alt'></i> delete this job
+              </Button>
+            )} */}
+          </JobItemBottom>
+        </JobItemRightContainer>
+      </JobItemContainer>
+    </>
+  ) : (
+      <>
+        <JobItemContainer>
+          <JobItemLeftContainer>
+            <Link to={`/user/${user}`}>
+              <RoundImage src={profile.profilePhoto} alt='' />
+            </Link>
+            <Paragraph>{profile.displayName}</Paragraph>
+          </JobItemLeftContainer>
+          <JobItemRightContainer>
+            <H4Styled>{title}</H4Styled>
+            {locationDetails ? (
+              <>
+                <Paragraph>job type: {jobType}</Paragraph>
+                <Paragraph>location: {location}</Paragraph>
+              </>
+            ) : null}
+            <JobDescriptionDiv>
+              {ReactHtmlParser(ReactHtmlParser(description)).slice(0, MAX_LENGTH)}
+              ....
+            <StyledLink to={`/job/${_id}`}>more </StyledLink>
+            </JobDescriptionDiv>
+            <JobItemBottom>
+              <Paragraph>
+                <span style={{ color: '#8E8C89' }}>
+                  {' '}
+                  Posted on <Moment format='YYYY/MM/DD'>{date}</Moment>
+                </span>
+              </Paragraph>
+              {/* {!auth.loading && user === auth.user._id && (
+                <Button
+                  noHeight='true'
+                  noBorder='true'
+                  small='true'
+                  onClick={e => deleteJob(_id)}
+                >
+                  <i className='fas fa-trash-alt'></i> delete this job
+              </Button>
+              )} */}
+            </JobItemBottom>
+          </JobItemRightContainer>
+        </JobItemContainer>
+      </>
+    ));
 };
 
 JobItem.propTypes = {

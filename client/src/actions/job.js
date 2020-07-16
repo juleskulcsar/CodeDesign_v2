@@ -6,7 +6,8 @@ import {
   DELETE_JOB,
   ADD_JOB,
   GET_JOB,
-  GET_PROFILE
+  GET_PROFILE,
+  CLEAR_JOB
 } from './types';
 
 //get jobs
@@ -77,6 +78,7 @@ export const addJob = (formData, history) => async dispatch => {
 
 //get job
 export const getJob = id => async dispatch => {
+  dispatch({ type: CLEAR_JOB });
   try {
     const res = await axios.get(`/api/job/${id}`);
     dispatch({

@@ -21,6 +21,7 @@ export const GET_JOB = 'GET_JOB';
 export const JOB_ERROR = 'JOB_ERROR';
 export const DELETE_JOB = 'DELETE_JOB';
 export const ADD_JOB = 'ADD_JOB';
+export const CLEAR_JOB = 'CLEAR_JOB';
 export const GET_POSTS = 'GET_POSTS';
 export const GET_POST = 'GET_POST';
 export const POST_ERROR = 'POST_ERROR';

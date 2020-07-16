@@ -43,7 +43,7 @@ exports.createProfile = asyncHandler(async (req, res, next) => {
   }
 
   const {
-    name,
+    displayName,
     profilePhoto,
     website,
     location,
@@ -61,7 +61,7 @@ exports.createProfile = asyncHandler(async (req, res, next) => {
   //build profile object
   const profileFields = {};
   profileFields.user = req.user.id;
-  if (name) profileFields.name = name;
+  if (displayName) profileFields.displayName = displayName;
   if (profilePhoto) profileFields.profilePhoto = profilePhoto;
   if (website) profileFields.website = website;
   if (location) profileFields.location = location;

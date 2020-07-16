@@ -11,6 +11,9 @@ import ReactHtmlParser, {
 } from 'react-html-parser';
 import styled from 'styled-components';
 import { deleteJob } from '../../actions/job';
+import {
+  getCurrentProfile,
+} from '../../actions/profile';
 import { Button } from '../common/Button';
 import { Paragraph, StyledLink, H4Styled } from '../common/Edit-Create-Profile';
 
@@ -39,45 +42,52 @@ const MyJobItem = ({
   job: { _id, title, description, jobType, location, name, user, date },
   showAction,
   size,
+  getCurrentProfile,
   profile: { profile, loading }
 }) => {
+  useEffect(() => {
+    getCurrentProfile();
+  }, [getCurrentProfile])
+
   const MAX_LENGTH = 250;
   return loading ? (
     <Spinner />
   ) : (
-    <JobItemContainer>
-      <H4Styled>{title}</H4Styled>
-      {size ? (
-        <JobDescriptionDiv>
-          {ReactHtmlParser(ReactHtmlParser(description)).slice(0, MAX_LENGTH)}
-          ....
-          <StyledLink to={`/job/${_id}`}>more </StyledLink>
-        </JobDescriptionDiv>
-      ) : (
-        <>
+      <JobItemContainer>
+        <H4Styled>{title}</H4Styled>
+        {size ? (
           <JobDescriptionDiv>
-            {ReactHtmlParser(ReactHtmlParser(description))}
+            {ReactHtmlParser(ReactHtmlParser(description)).slice(0, MAX_LENGTH)}
+            ....
+          <StyledLink to={`/job/${_id}`}>more </StyledLink>
           </JobDescriptionDiv>
-        </>
-      )}
-      <JobItemBottom>
-        <Paragraph>
-          <span style={{ color: '#8E8C89' }}>
-            {' '}
-            Posted on <Moment format='YYYY/MM/DD'>{date}</Moment>
-          </span>
-        </Paragraph>
-        <Button
-          noHeight='true'
-          noBorder='true'
-          small='true'
-          onClick={e => deleteJob(_id)}
-        >
-          <i className='fas fa-trash-alt'></i> delete this job
+        ) : (
+            <>
+              <JobDescriptionDiv>
+                {ReactHtmlParser(ReactHtmlParser(description))}
+              </JobDescriptionDiv>
+            </>
+          )}
+        <JobItemBottom>
+          <Paragraph>
+            <span style={{ color: '#8E8C89' }}>
+              {' '}
+              Posted on <Moment format='YYYY/MM/DD'>{date}</Moment>
+            </span>
+          </Paragraph>
+          {!auth.loading && user === auth.user._id && (
+            <Button
+              noHeight='true'
+              noBorder='true'
+              small='true'
+              onClick={e => { deleteJob(_id); getCurrentProfile(); }}
+            >
+              <i className='fas fa-trash-alt'></i> delete this job
         </Button>
-      </JobItemBottom>
-    </JobItemContainer>
-  );
+          )}
+        </JobItemBottom>
+      </JobItemContainer>
+    );
 };
 
 MyJobItem.defaultProps = {
@@ -88,7 +98,8 @@ MyJobItem.propTypes = {
   job: PropTypes.object.isRequired,
   auth: PropTypes.object.isRequired,
   deleteJob: PropTypes.func.isRequired,
-  profile: PropTypes.object.isRequired
+  profile: PropTypes.object.isRequired,
+  getCurrentProfile: PropTypes.func.isRequired
 };
 const mapStateToProps = state => ({
   auth: state.auth,
@@ -96,5 +107,6 @@ const mapStateToProps = state => ({
 });
 
 export default connect(mapStateToProps, {
-  deleteJob
+  deleteJob,
+  getCurrentProfile
 })(MyJobItem);

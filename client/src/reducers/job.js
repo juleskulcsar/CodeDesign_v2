@@ -3,7 +3,8 @@ import {
   JOB_ERROR,
   DELETE_JOB,
   ADD_JOB,
-  GET_JOB
+  GET_JOB,
+  CLEAR_JOB
 } from '../actions/types';
 
 const initialState = {
@@ -13,7 +14,7 @@ const initialState = {
   error: {}
 };
 
-export default function(state = initialState, action) {
+export default function (state = initialState, action) {
   const { type, payload } = action;
 
   switch (type) {
@@ -27,6 +28,13 @@ export default function(state = initialState, action) {
       return {
         ...state,
         job: payload,
+        loading: false
+      };
+    case CLEAR_JOB:
+      return {
+        ...state,
+        job: null,
+        repos: [],
         loading: false
       };
     case ADD_JOB:

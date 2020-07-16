@@ -49,6 +49,7 @@ const EditProfile = ({
   const [formData, setFormData] = useState({
     company: '',
     website: '',
+    displayName: '',
     location: '',
     specialties: '',
     skills: '',
@@ -74,6 +75,7 @@ const EditProfile = ({
         loading || !profile.profilePhoto ? '' : profile.profilePhoto,
       company: loading || !profile.company ? '' : profile.company,
       website: loading || !profile.website ? '' : profile.website,
+      displayName: loading || !profile.displayName ? '' : profile.displayName,
       location: loading || !profile.location ? '' : profile.location,
       specialties: loading || !profile.specialties ? '' : profile.specialties,
       skills: loading || !profile.skills ? '' : profile.skills.join(','),
@@ -90,6 +92,7 @@ const EditProfile = ({
 
   const {
     website,
+    displayName,
     location,
     specialties,
     skills,
@@ -186,6 +189,18 @@ const EditProfile = ({
                   )}
                   <small>
                     Give us an idea of where you are at in your career
+                  </small>
+                </StyledDiv>
+                <StyledDiv>
+                  <Input
+                    type='text'
+                    placeholder='display name'
+                    name='displayName'
+                    value={displayName}
+                    onChange={e => onChange(e)}
+                  />
+                  <small className='form-text'>
+                    How you want your name to be displayed
                   </small>
                 </StyledDiv>
                 <StyledDiv>

@@ -9,6 +9,7 @@ const RequiredText = styled.p`
 const Paragraph = styled.p`
   color: ${props => (props.about ? 'white' : '#BFBDBC')};
   line-height: 1.6;
+  margin-top: ${props => props.details ? '0' : null};
 `;
 
 const StyledSelect = styled.select`
@@ -28,11 +29,23 @@ const StyledSelect = styled.select`
 `;
 
 const StyledLink = styled(Link)`
-  color: #f16350;
   text-decoration: none;
-  font-size: 1em;
-  padding: 1px 16px 16px 16px;
   line-height: 1.6;
+  ${props => props.details ? css`
+    color: #AD4D2A;
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-bottom: 2em;
+    /* border-bottom: 1px solid #BFBDBC; */
+    width: fit-content;
+    :hover {
+      color: #BFBDBC;
+    }
+  `: css`
+    color: #f16350;
+    font-size: 1em;
+    padding: 1px 16px 16px 16px;
+  `}
 `;
 
 const StyledDiv = styled.div`
@@ -91,7 +104,7 @@ const RoundImage = styled.img`
   height: 175px;
   padding: 2px;
   background: #8e8c89;
-  margin-left: 1em;
+  margin-left: ${props => props.details ? '0' : '1em'};
   @media (max-width: 768px) {
     width: 70px;
     height: 70px;
@@ -113,7 +126,6 @@ const Anchor = styled.a`
 const H4Styled = styled.h2`
   color: #bfbdbc;
   margin-top: 5px;
-  font-size: 20px;
 
   @media (max-width: 450px) {
     font-size: 1.5em;
