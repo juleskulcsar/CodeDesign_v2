@@ -10,6 +10,10 @@ const Paragraph = styled.p`
   color: ${props => (props.about ? 'white' : '#BFBDBC')};
   line-height: 1.6;
   margin-top: ${props => props.details ? '0' : null};
+  ${props => props.filters ?
+    css`
+    margin: 0;
+  `: css``}
 `;
 
 const StyledSelect = styled.select`
@@ -80,7 +84,7 @@ const Container = styled.div`
 const LeftContainer = styled.div`
   float: left;
   width: 100%;
-  max-width: 200px;
+  max-width: ${props => props.filters ? '250px' : '200px'};
 `;
 
 const RightContainer = styled.div`

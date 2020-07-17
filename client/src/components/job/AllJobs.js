@@ -6,17 +6,25 @@ import styled from 'styled-components';
 import { getJobs } from '../../actions/job';
 import Spinner from '../layout/Spinner';
 import JobItem from './JobItem';
+import { SwitchLabel, Slider, CheckBoxInput } from '../common/CheckBox';
 import {
+  LeftContainer,
+  RightContainer,
   Paragraph
-} from '../common/SignIn-SignUp';
-import { SwitchLabel, Slider, CheckBoxInput } from '../common/CheckBox'
+} from '../common/Edit-Create-Profile';
+import { StyledFiltersDiv, StyledFiltersList, StyledFiltersUl } from '../common/Filters'
 
 const AllJobsContainer = styled.div`
   position: relative;
   top: 5em;
-  width: 60%;
+  width: 75%;
+  margin: 0 auto;
+  color: white;
+  padding: 5%;
+  display: flex; 
   margin: 0 auto;
 `;
+
 
 const AllJobs = ({ history, auth, getJobs, job: { jobs, _id, user, loading } }) => {
 
@@ -68,22 +76,47 @@ const AllJobs = ({ history, auth, getJobs, job: { jobs, _id, user, loading } }) 
     <Spinner />
   ) : (
       <AllJobsContainer>
-        <Paragraph>only remote jobs</Paragraph>
-        <SwitchLabel>
-          <CheckBoxInput type="checkbox" checked={remoteChecked} onClick={remoteClickHandler} />
-          <Slider round={true}></Slider>
-        </SwitchLabel>
-        <Paragraph>only on location jobs</Paragraph>
-        <SwitchLabel>
-          <CheckBoxInput type="checkbox" checked={locationChecked} onClick={onLocationClickHandler} />
-          <Slider round={true}></Slider>
-        </SwitchLabel>
-
-        {jobs.data.map(job => (
-          <div key={job._id}>
-            <JobItem key={job._id} job={job} size={true} />
-          </div>
-        ))}
+        <LeftContainer filters={true}>
+          <StyledFiltersDiv>
+            <StyledFiltersUl>
+              <StyledFiltersList>
+                <Paragraph filters={true}>remote </Paragraph>
+                <SwitchLabel>
+                  <CheckBoxInput type="checkbox" checked={remoteChecked} onClick={remoteClickHandler} />
+                  <Slider isChecked={remoteChecked} round={true}></Slider>
+                </SwitchLabel>
+              </StyledFiltersList>
+              <StyledFiltersList>
+                <Paragraph filters={true}>on location </Paragraph>
+                <SwitchLabel>
+                  <CheckBoxInput type="checkbox" checked={locationChecked} onClick={onLocationClickHandler} />
+                  <Slider round={true}></Slider>
+                </SwitchLabel>
+              </StyledFiltersList>
+              <StyledFiltersList>
+                <Paragraph filters={true}>design </Paragraph>
+                <SwitchLabel>
+                  <CheckBoxInput type="checkbox" />
+                  <Slider round={true}></Slider>
+                </SwitchLabel>
+              </StyledFiltersList>
+              <StyledFiltersList>
+                <Paragraph filters={true}>development </Paragraph>
+                <SwitchLabel>
+                  <CheckBoxInput type="checkbox" />
+                  <Slider round={true}></Slider>
+                </SwitchLabel>
+              </StyledFiltersList>
+            </StyledFiltersUl>
+          </StyledFiltersDiv>
+        </LeftContainer>
+        <RightContainer >
+          {jobs.data.map(job => (
+            <div key={job._id}>
+              <JobItem key={job._id} job={job} size={true} />
+            </div>
+          ))}
+        </RightContainer>
       </AllJobsContainer>
     );
 };

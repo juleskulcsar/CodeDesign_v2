@@ -9,7 +9,7 @@ const JobItemContainer = styled.div`
       : css`
           border-bottom: 1px solid #55524e;
           display: flex;
-          margin-top: 2em;
+          margin-bottom: 2em;
           flex: 1;
         `}
   @media (max-width: 768px) {
