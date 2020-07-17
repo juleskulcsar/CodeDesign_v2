@@ -49,7 +49,7 @@ const MyJobItem = ({
     getCurrentProfile();
   }, [getCurrentProfile])
 
-  const MAX_LENGTH = 250;
+  const MAX_LENGTH = 150;
   return loading ? (
     <Spinner />
   ) : (

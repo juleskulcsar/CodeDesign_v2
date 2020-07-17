@@ -44,7 +44,7 @@ const JobItem = ({
   extended
 }) => {
 
-  const MAX_LENGTH = 250;
+  const MAX_LENGTH = 150;
   return loading ? (
     <Spinner />
   ) : (extended === true ? (
@@ -78,16 +78,6 @@ const JobItem = ({
                 Posted on <Moment format='YYYY/MM/DD'>{date}</Moment>
               </span>
             </Paragraph>
-            {/* {!auth.loading && user === auth.user._id && (
-              <Button
-                noHeight='true'
-                noBorder='true'
-                small='true'
-                onClick={e => { deleteJob(_id); getJobs(); }}
-              >
-                <i className='fas fa-trash-alt'></i> delete this job
-              </Button>
-            )} */}
           </JobItemBottom>
         </JobItemRightContainer>
       </JobItemContainer>
@@ -121,16 +111,6 @@ const JobItem = ({
                   Posted on <Moment format='YYYY/MM/DD'>{date}</Moment>
                 </span>
               </Paragraph>
-              {/* {!auth.loading && user === auth.user._id && (
-                <Button
-                  noHeight='true'
-                  noBorder='true'
-                  small='true'
-                  onClick={e => deleteJob(_id)}
-                >
-                  <i className='fas fa-trash-alt'></i> delete this job
-              </Button>
-              )} */}
             </JobItemBottom>
           </JobItemRightContainer>
         </JobItemContainer>

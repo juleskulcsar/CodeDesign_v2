@@ -38,6 +38,7 @@ exports.addJob = asyncHandler(async (req, res) => {
 // @access   Private
 exports.getAllJobs = asyncHandler(async (req, res) => {
   res.status(200).json(res.advancedResults);
+
 });
 
 // @route    GET api/job/:id

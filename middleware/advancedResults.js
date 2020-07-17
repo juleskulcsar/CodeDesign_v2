@@ -22,7 +22,7 @@ const advancedResults = (model, populate) => async (req, res, next) => {
   //find data
   //populate will do a reverse populate
   // query = model.find(JSON.parse(queryString)).populate('courses')
-  query = model.find(JSON.parse(queryString));
+  query = model.find(JSON.parse(queryString)).sort('-date');
 
   //select fields --- read mongoose documenation
   if (req.query.select) {
