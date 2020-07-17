@@ -50,25 +50,6 @@ export const getProfiles = () => async dispatch => {
   }
 };
 
-// Get searched profiles
-export const getSearchedProfiles = () => async dispatch => {
-  dispatch({ type: CLEAR_PROFILE });
-
-  try {
-    const res = await axios.get('/api/profile/searchprofiles');
-
-    dispatch({
-      type: GET_PROFILES,
-      payload: res.data
-    });
-  } catch (err) {
-    dispatch({
-      type: PROFILE_ERROR,
-      payload: { msg: err.response.statusText, status: err.response.status }
-    });
-  }
-};
-
 // Get profile by ID
 //we are using userId because we are not getting the profile by profile id
 export const getProfileById = userId => async dispatch => {

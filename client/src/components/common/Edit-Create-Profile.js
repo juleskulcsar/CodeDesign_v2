@@ -82,11 +82,13 @@ const LeftContainer = styled.div`
   width: 100%;
   max-width: 200px;
 `;
+
 const RightContainer = styled.div`
   width: 100%;
   padding-left: 5em;
   padding-top: 1em;
 `;
+
 const ProfileTop = styled.div`
   grid-area: top;
   text-align: left;

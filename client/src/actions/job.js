@@ -11,9 +11,11 @@ import {
 } from './types';
 
 //get jobs
-export const getJobs = () => async dispatch => {
+export const getJobs = (filter) => async dispatch => {
   try {
-    const res = await axios.get('/api/job');
+    const res = await axios.get('/api/job', {
+      params: filter
+    });
     dispatch({
       type: GET_JOBS,
       payload: res.data
