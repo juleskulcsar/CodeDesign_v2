@@ -24,7 +24,8 @@ const AllJobs = ({ history, auth, getJobs, job: { jobs, _id, user, loading } }) 
   const [filterParams, setFilterparams] = useState(filters)
   const [remoteCheck, setRemoteCheck] = useState(true)
   const [onLocationCheck, setOnLocationCheck] = useState(true)
-  const [checked, setChecked] = useState(false)
+  const [remoteChecked, setRemoteChecked] = useState(false)
+  const [locationChecked, setLocationChecked] = useState(false)
 
   useEffect(() => {
     getJobs();
@@ -33,9 +34,10 @@ const AllJobs = ({ history, auth, getJobs, job: { jobs, _id, user, loading } }) 
 
   const remoteClickHandler = () => {
     setRemoteCheck(!remoteCheck)
-    setChecked(!checked)
+    setRemoteChecked(!remoteChecked)
     if (remoteCheck === true) {
       setOnLocationCheck(true)
+      setLocationChecked(false)
       filters.jobType = 'remote'
       setFilterparams(filters);
       getJobs(filters);
@@ -48,9 +50,10 @@ const AllJobs = ({ history, auth, getJobs, job: { jobs, _id, user, loading } }) 
 
   const onLocationClickHandler = () => {
     setOnLocationCheck(!onLocationCheck)
+    setLocationChecked(!locationChecked)
     if (onLocationCheck === true) {
       setRemoteCheck(true)
-      setChecked(false)
+      setRemoteChecked(false)
       filters.jobType = 'on location'
       setFilterparams(filters)
       getJobs(filters);
@@ -67,12 +70,12 @@ const AllJobs = ({ history, auth, getJobs, job: { jobs, _id, user, loading } }) 
       <AllJobsContainer>
         <Paragraph>only remote jobs</Paragraph>
         <SwitchLabel>
-          <CheckBoxInput type="checkbox" checked={checked} onClick={remoteClickHandler} />
+          <CheckBoxInput type="checkbox" checked={remoteChecked} onClick={remoteClickHandler} />
           <Slider round={true}></Slider>
         </SwitchLabel>
         <Paragraph>only on location jobs</Paragraph>
         <SwitchLabel>
-          <CheckBoxInput type="checkbox" onClick={onLocationClickHandler} />
+          <CheckBoxInput type="checkbox" checked={locationChecked} onClick={onLocationClickHandler} />
           <Slider round={true}></Slider>
         </SwitchLabel>
 
