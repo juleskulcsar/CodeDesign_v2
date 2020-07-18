@@ -44,7 +44,7 @@ const JobItem = ({
   extended
 }) => {
 
-  const MAX_LENGTH = 150;
+  const MAX_LENGTH = 180;
   return loading ? (
     <Spinner />
   ) : (extended === true ? (
@@ -100,7 +100,7 @@ const JobItem = ({
               </>
             ) : null}
             <JobDescriptionDiv>
-              {ReactHtmlParser(ReactHtmlParser(description)).slice(0, MAX_LENGTH)}
+              {ReactHtmlParser(ReactHtmlParser(description.slice(0, MAX_LENGTH)))}
               ....
             <StyledLink to={`/job/${_id}`}>more </StyledLink>
             </JobDescriptionDiv>

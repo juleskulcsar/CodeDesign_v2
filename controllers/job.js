@@ -23,6 +23,7 @@ exports.addJob = asyncHandler(async (req, res) => {
     description: req.body.description,
     jobType: req.body.jobType,
     location: req.body.location,
+    jobField: req.body.jobField,
     name: user.name,
     avatar: profile.profilePhoto,
     user: req.user.id,

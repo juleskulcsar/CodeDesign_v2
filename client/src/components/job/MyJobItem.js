@@ -49,7 +49,7 @@ const MyJobItem = ({
     getCurrentProfile();
   }, [getCurrentProfile])
 
-  const MAX_LENGTH = 150;
+  const MAX_LENGTH = 200;
   return loading ? (
     <Spinner />
   ) : (
@@ -57,7 +57,7 @@ const MyJobItem = ({
         <H4Styled>{title}</H4Styled>
         {size ? (
           <JobDescriptionDiv>
-            {ReactHtmlParser(ReactHtmlParser(description)).slice(0, MAX_LENGTH)}
+            {ReactHtmlParser(ReactHtmlParser(description.slice(0, MAX_LENGTH)))}
             ....
           <StyledLink to={`/job/${_id}`}>more </StyledLink>
           </JobDescriptionDiv>

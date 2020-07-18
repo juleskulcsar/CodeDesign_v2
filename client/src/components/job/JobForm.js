@@ -37,6 +37,7 @@ const JobForm = ({ addJob, history }) => {
   const [description, setDescription] = useState('');
   const [jobType, setJobType] = useState('');
   const [location, setLocation] = useState('');
+  const [jobField, setJobField] = useState('');
 
   const updateDescription = arg => {
     setDescription(arg);
@@ -49,7 +50,8 @@ const JobForm = ({ addJob, history }) => {
         title,
         description,
         jobType,
-        location
+        location,
+        jobField
       },
       history
     );
@@ -101,6 +103,18 @@ const JobForm = ({ addJob, history }) => {
           updateDescription={updateDescription}
           required
         />
+        <StyledSelect
+          name='jobField'
+          required
+          value={jobField}
+          onChange={e => {
+            setJobField(e.target.value);
+          }}
+        >
+          <option value='0'>* select job field</option>
+          <option value='design'>design</option>
+          <option value='development'>development</option>
+        </StyledSelect>
         <StyledSelect
           name='jobType'
           required

@@ -10,7 +10,7 @@ import MyGithub from '../profile-form/MyGithub';
 import MyPosts from '../profile-form/MyPosts';
 import MyJobs from '../profile-form/MyJobs';
 import Settings from '../profile-form/Settings';
-// import Profiles from '../profiles/Profiles';
+import AllUsers from '../UserProfiles/AllUsers';
 // import DesignerProfiles from '../profiles/DesignerProfiles';
 // import Profile from '../profile/Profile';
 import AllJobs from '../job/AllJobs';
@@ -28,8 +28,8 @@ const Routes = () => {
       <Switch>
         <Route exact path='/register' component={Register} />
         <Route exact path='/' component={Login} />
-        {/* <Route exact path='/profiles' component={Profiles} />
-        <Route exact path='/portfolios' component={Portfolios} />
+        <Route exact path='/profiles' component={AllUsers} />
+        {/* <Route exact path='/portfolios' component={Portfolios} />
         <Route exact path='/portfolio/:id' component={PortfolioPage} />
         <Route exact path='/designer-profiles' component={DesignerProfiles} />
         <Route exact path='/user/:id' component={Profile} /> */}

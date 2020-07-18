@@ -36,6 +36,7 @@ const JobItemLeftContainer = styled.div`
         `
       : css`
           justify-content: center;
+          text-align: center;
           padding-right: 2em;
         `}
 `;

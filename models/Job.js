@@ -27,6 +27,10 @@ const JobSchema = new Schema(
       type: String,
       required: [true, 'Please add a job location']
     },
+    jobField: {
+      type: String,
+      required: [true, 'Please select a job field']
+    },
     name: {
       type: String
     },

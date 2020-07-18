@@ -9,7 +9,11 @@ const StyledFiltersDiv = styled.div`
 
 const StyledFiltersUl = styled.ul`
   list-style: none;
-  padding: 0;
+  /* padding: 0; */
+  border-right: 1px solid #682e19;
+  padding-left: 1em;
+  margin-top: 1.5em;
+  padding-right: 1.5em;
 `;
 
 const StyledFiltersList = styled.li`

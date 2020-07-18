@@ -106,8 +106,14 @@ const RoundImage = styled.img`
   border-radius: 50%;
   border: 2px solid #f16350;
   object-fit: cover;
-  width: 175px;
-  height: 175px;
+  ${props => props.details ?
+    css`
+      width: 125px;
+      height: 125px;
+  `: css`
+      width: 155px;
+      height: 155px;
+  `};
   padding: 2px;
   background: #8e8c89;
   margin-left: ${props => props.details ? '0' : '1em'};

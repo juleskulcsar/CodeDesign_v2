@@ -12,7 +12,7 @@ import {
   RightContainer,
   Paragraph
 } from '../common/Edit-Create-Profile';
-import { StyledFiltersDiv, StyledFiltersList, StyledFiltersUl } from '../common/Filters'
+import { StyledFiltersList, StyledFiltersUl } from '../common/Filters'
 
 const AllJobsContainer = styled.div`
   position: relative;
@@ -20,13 +20,28 @@ const AllJobsContainer = styled.div`
   width: 75%;
   margin: 0 auto;
   color: white;
-  padding: 5%;
+  /* padding: 5%; */
   display: flex; 
   margin: 0 auto;
 `;
 
+const TitleWrapper = styled.div`
+  position: relative;
+  top: 3em;
+  text-align: center;
+`
+const PageTitle = styled.h1`
+  display: inline-block;
+  font-size: 2em;
+  color: #EFEEED;
+`
+
 
 const AllJobs = ({ history, auth, getJobs, job: { jobs, _id, user, loading } }) => {
+
+  useEffect(() => {
+    getJobs();
+  }, [getJobs]);
 
   let filters = {}
   const [filterParams, setFilterparams] = useState(filters)
@@ -35,9 +50,13 @@ const AllJobs = ({ history, auth, getJobs, job: { jobs, _id, user, loading } }) 
   const [remoteChecked, setRemoteChecked] = useState(false)
   const [locationChecked, setLocationChecked] = useState(false)
 
-  useEffect(() => {
-    getJobs();
-  }, [getJobs]);
+  const [designCheck, setDesignCheck] = useState(true)
+  const [developmentCheck, setDevelopmentCheck] = useState(true)
+  const [designChecked, setDesignChecked] = useState(false)
+  const [developmentChecked, setDevelopmentChecked] = useState(false)
+
+
+  console.log('filters: ', filters)
 
 
   const remoteClickHandler = () => {
@@ -72,52 +91,101 @@ const AllJobs = ({ history, auth, getJobs, job: { jobs, _id, user, loading } }) 
     }
   }
 
+  const designClickHandler = () => {
+    setDesignCheck(!designCheck)
+    setDesignChecked(!designChecked)
+    if (designCheck === true) {
+      setDevelopmentCheck(true)
+      setDevelopmentChecked(false)
+      filters.jobField = 'design'
+      setFilterparams(filters);
+      getJobs(filters);
+    } else {
+      delete filters.jobField;
+      setFilterparams(filters);
+      getJobs(filters);
+    }
+  }
+
+  const developmentClickHandler = () => {
+    setDevelopmentCheck(!developmentCheck)
+    setDevelopmentChecked(!developmentChecked)
+    if (developmentCheck === true) {
+      setDesignCheck(true)
+      setDesignChecked(false)
+      filters.jobField = 'development'
+      setFilterparams(filters)
+      getJobs(filters);
+    } else {
+      delete filters.jobField;
+      setFilterparams(filters)
+      getJobs(filters);
+    }
+  }
+
   return loading ? (
     <Spinner />
   ) : (
-      <AllJobsContainer>
-        <LeftContainer filters={true}>
-          <StyledFiltersDiv>
+      <>
+        <TitleWrapper>
+          <PageTitle>Find your next <span style={{ color: '#F16350' }}>job</span>!</PageTitle>
+        </TitleWrapper>
+        <AllJobsContainer>
+          <LeftContainer filters={true}>
             <StyledFiltersUl>
               <StyledFiltersList>
                 <Paragraph filters={true}>remote </Paragraph>
                 <SwitchLabel>
-                  <CheckBoxInput type="checkbox" checked={remoteChecked} onClick={remoteClickHandler} />
-                  <Slider isChecked={remoteChecked} round={true}></Slider>
+                  <CheckBoxInput
+                    type="checkbox"
+                    checked={remoteChecked}
+                    onClick={remoteClickHandler} />
+                  <Slider
+                    isChecked={remoteChecked}
+                    round={true}></Slider>
                 </SwitchLabel>
               </StyledFiltersList>
               <StyledFiltersList>
                 <Paragraph filters={true}>on location </Paragraph>
                 <SwitchLabel>
-                  <CheckBoxInput type="checkbox" checked={locationChecked} onClick={onLocationClickHandler} />
+                  <CheckBoxInput
+                    type="checkbox"
+                    checked={locationChecked}
+                    onClick={onLocationClickHandler} />
                   <Slider round={true}></Slider>
                 </SwitchLabel>
               </StyledFiltersList>
               <StyledFiltersList>
                 <Paragraph filters={true}>design </Paragraph>
                 <SwitchLabel>
-                  <CheckBoxInput type="checkbox" />
+                  <CheckBoxInput
+                    type="checkbox"
+                    checked={designChecked}
+                    onClick={designClickHandler} />
                   <Slider round={true}></Slider>
                 </SwitchLabel>
               </StyledFiltersList>
               <StyledFiltersList>
                 <Paragraph filters={true}>development </Paragraph>
                 <SwitchLabel>
-                  <CheckBoxInput type="checkbox" />
+                  <CheckBoxInput
+                    type="checkbox"
+                    checked={developmentChecked}
+                    onClick={developmentClickHandler} />
                   <Slider round={true}></Slider>
                 </SwitchLabel>
               </StyledFiltersList>
             </StyledFiltersUl>
-          </StyledFiltersDiv>
-        </LeftContainer>
-        <RightContainer >
-          {jobs.data.map(job => (
-            <div key={job._id}>
-              <JobItem key={job._id} job={job} size={true} />
-            </div>
-          ))}
-        </RightContainer>
-      </AllJobsContainer>
+          </LeftContainer>
+          <RightContainer >
+            {jobs.data.map(job => (
+              <div key={job._id}>
+                <JobItem key={job._id} job={job} size={true} />
+              </div>
+            ))}
+          </RightContainer>
+        </AllJobsContainer>
+      </>
     );
 };
 
