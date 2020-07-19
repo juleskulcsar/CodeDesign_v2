@@ -56,9 +56,6 @@ const AllJobs = ({ history, auth, getJobs, job: { jobs, _id, user, loading } }) 
   const [developmentChecked, setDevelopmentChecked] = useState(false)
 
 
-  console.log('filters: ', filters)
-
-
   const remoteClickHandler = () => {
     setRemoteCheck(!remoteCheck)
     setRemoteChecked(!remoteChecked)
@@ -139,7 +136,7 @@ const AllJobs = ({ history, auth, getJobs, job: { jobs, _id, user, loading } }) 
                   <CheckBoxInput
                     type="checkbox"
                     checked={remoteChecked}
-                    onClick={remoteClickHandler} />
+                    onChange={remoteClickHandler} />
                   <Slider
                     isChecked={remoteChecked}
                     round={true}></Slider>
@@ -151,7 +148,7 @@ const AllJobs = ({ history, auth, getJobs, job: { jobs, _id, user, loading } }) 
                   <CheckBoxInput
                     type="checkbox"
                     checked={locationChecked}
-                    onClick={onLocationClickHandler} />
+                    onChange={onLocationClickHandler} />
                   <Slider round={true}></Slider>
                 </SwitchLabel>
               </StyledFiltersList>
@@ -161,7 +158,7 @@ const AllJobs = ({ history, auth, getJobs, job: { jobs, _id, user, loading } }) 
                   <CheckBoxInput
                     type="checkbox"
                     checked={designChecked}
-                    onClick={designClickHandler} />
+                    onChange={designClickHandler} />
                   <Slider round={true}></Slider>
                 </SwitchLabel>
               </StyledFiltersList>
@@ -171,7 +168,7 @@ const AllJobs = ({ history, auth, getJobs, job: { jobs, _id, user, loading } }) 
                   <CheckBoxInput
                     type="checkbox"
                     checked={developmentChecked}
-                    onClick={developmentClickHandler} />
+                    onChange={developmentClickHandler} />
                   <Slider round={true}></Slider>
                 </SwitchLabel>
               </StyledFiltersList>

@@ -48,7 +48,7 @@ router.post(
 router.get(
   '/',
   protect,
-  advancedResults(Profile, 'posts jobs'),
+  advancedResults(Profile, 'posts jobs user'),
   getAllProfiles
 );
 router.get('/user/:user_id', protect, getProfileById);

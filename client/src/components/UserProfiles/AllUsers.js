@@ -1,12 +1,11 @@
-import React, { Fragment, useEffect } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import Spinner from '../layout/Spinner';
 import { connect } from 'react-redux';
 import styled, { css } from 'styled-components';
 import { getProfiles } from '../../actions/profile';
 import UserProfileItem from './UserProfileItem';
-import { RoundImage, StyledLink, H4Styled } from '../common/Edit-Create-Profile'
-import { StyledFiltersDiv, StyledFiltersList, StyledFiltersUl } from '../common/Filters'
+import { StyledFiltersList, StyledFiltersUl } from '../common/Filters'
 import { SwitchLabel, Slider, CheckBoxInput } from '../common/CheckBox';
 import {
     LeftContainer,
@@ -20,7 +19,6 @@ const AllUsersContainer = styled.div`
   width: 75%;
   margin: 0 auto;
   color: white;
-  /* padding: 5%; */
   display: flex; 
   margin: 0 auto;
 `;
@@ -41,12 +39,50 @@ const AllUsers = ({ getProfiles, profile: { profiles, profile, loading } }) => {
         getProfiles();
     }, [getProfiles]);
 
-    console.log('profiles: ', profile)
+    let filters = {}
+    const [filterParams, setFilterparams] = useState(filters);
+    const [designersCheck, setDesignersCheck] = useState(true);
+    const [developersCheck, setDevelopersCheck] = useState(true);
+    const [designersChecked, setDesignersChecked] = useState(false);
+    const [developersChecked, setDevelopersChecked] = useState(false);
 
-    return loading ? (
+    const designersClickHandler = () => {
+        setDesignersCheck(!designersCheck)
+        setDesignersChecked(!designersChecked)
+        if (designersCheck === true) {
+            setDevelopersCheck(true)
+            setDevelopersChecked(false)
+            filters.specialties = 'Designer'
+            setFilterparams(filters);
+            getProfiles(filters);
+        } else {
+            delete filters.specialties;
+            setFilterparams(filters);
+            getProfiles(filters);
+        }
+    }
+
+    const developersClickHandler = () => {
+        setDevelopersCheck(!developersCheck)
+        setDevelopersChecked(!developersChecked)
+        if (developersCheck === true) {
+            setDesignersCheck(true)
+            setDesignersChecked(false)
+            filters.specialties = 'Developer'
+            setFilterparams(filters)
+            getProfiles(filters);
+        } else {
+            delete filters.specialties;
+            setFilterparams(filters)
+            getProfiles(filters);
+        }
+    }
+
+
+    return profiles.length === 0 ? (
         <Spinner />
     ) : (
-            <>
+            <Fragment>
                 <TitleWrapper>
                     <PageTitle>Browse the Code<span style={{ color: '#F16350' }}>D</span>esign <span style={{ color: '#F16350' }}>community</span>!</PageTitle>
                 </TitleWrapper>
@@ -57,7 +93,9 @@ const AllUsers = ({ getProfiles, profile: { profiles, profile, loading } }) => {
                                 <Paragraph filters={true}>designers </Paragraph>
                                 <SwitchLabel>
                                     <CheckBoxInput
-                                        type="checkbox" />
+                                        type="checkbox"
+                                        checked={designersChecked}
+                                        onChange={designersClickHandler} />
                                     <Slider round={true}></Slider>
                                 </SwitchLabel>
                             </StyledFiltersList>
@@ -65,7 +103,9 @@ const AllUsers = ({ getProfiles, profile: { profiles, profile, loading } }) => {
                                 <Paragraph filters={true}>developers </Paragraph>
                                 <SwitchLabel>
                                     <CheckBoxInput
-                                        type="checkbox" />
+                                        type="checkbox"
+                                        checked={developersChecked}
+                                        onChange={developersClickHandler} />
                                     <Slider round={true}></Slider>
                                 </SwitchLabel>
                             </StyledFiltersList>
@@ -77,7 +117,7 @@ const AllUsers = ({ getProfiles, profile: { profiles, profile, loading } }) => {
                         ))}
                     </RightContainer>
                 </AllUsersContainer>
-            </>
+            </Fragment>
         );
 };
 
