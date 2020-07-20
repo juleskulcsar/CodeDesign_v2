@@ -75,7 +75,7 @@ const DetailsWrapper = styled.div`
 
 const UserProfileItem = ({
     profile: {
-        user: { _id, name },
+        user: { _id },
         specialties,
         location,
         skills,
@@ -85,36 +85,40 @@ const UserProfileItem = ({
         loading
     }
 }) => {
-    return (
-        <Wrapper>
-            <ImageWrapper>
-                <Link to={`/user/${_id}`}>
-                    <RoundImage profileItem='true' src={profilePhoto} alt='' />
-                </Link>
-            </ImageWrapper>
-            <DetailsWrapper>
-                <H4Styled>{displayName}</H4Styled>
-                <Paragraph>
-                    {specialties}
-                </Paragraph>
-                <Paragraph >{location && <span>{location}</span>}</Paragraph>
-                <ViewProfile to={`/user/${_id}`} >
-                    View Profile
+
+    return loading ? (
+        <Spinner />
+    ) : (
+            <Wrapper>
+                <ImageWrapper>
+                    <Link to={`/user/${_id}`}>
+                        <RoundImage profileItem='true' src={profilePhoto} alt='' />
+                    </Link>
+                </ImageWrapper>
+                <DetailsWrapper>
+                    <H4Styled>{displayName}</H4Styled>
+                    <Paragraph>
+                        {specialties}
+                    </Paragraph>
+                    <Paragraph >{location && <span>{location}</span>}</Paragraph>
+                    <ViewProfile to={`/user/${_id}`} >
+                        View Profile
                     </ViewProfile>
-            </DetailsWrapper>
-            <StyledSkillsUl>
-                {skills.slice(0, 3).map((skill, index) => (
-                    <StyledSkillsList key={index} >
-                        <i className='fas fa-check' /> {skill}
-                    </StyledSkillsList>
-                ))}
-            </StyledSkillsUl>
-        </Wrapper>
-    );
+                </DetailsWrapper>
+                <StyledSkillsUl>
+                    {skills.slice(0, 3).map((skill, index) => (
+                        <StyledSkillsList key={index} >
+                            <i className='fas fa-check' /> {skill}
+                        </StyledSkillsList>
+                    ))}
+                </StyledSkillsUl>
+            </Wrapper>
+        );
 };
 
 UserProfileItem.propTypes = {
     profile: PropTypes.object.isRequired
 };
+
 
 export default UserProfileItem;

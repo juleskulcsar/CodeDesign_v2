@@ -12,6 +12,7 @@ import {
     RightContainer,
     Paragraph
 } from '../common/Edit-Create-Profile';
+import { Input } from '../common/Input'
 
 const AllUsersContainer = styled.div`
   position: relative;
@@ -39,6 +40,8 @@ const AllUsers = ({ getProfiles, profile: { profiles, profile, loading } }) => {
         getProfiles();
     }, [getProfiles]);
 
+    console.log('profiles: ', profiles)
+
     let filters = {}
     const [filterParams, setFilterparams] = useState(filters);
     const [designersCheck, setDesignersCheck] = useState(true);
@@ -52,7 +55,12 @@ const AllUsers = ({ getProfiles, profile: { profiles, profile, loading } }) => {
         if (designersCheck === true) {
             setDevelopersCheck(true)
             setDevelopersChecked(false)
-            filters.specialties = 'Designer'
+            for (let i = 0; i < profiles.data.length; i++) {
+                if (profiles.data[i].skills.indexOf('javascript') !== -1) {
+                    filters.skills = profiles.data[i].skills[profiles.data[i].skills.indexOf('javascript')]
+                }
+            }
+            // filters.skills.javascript = 'javascript'
             setFilterparams(filters);
             getProfiles(filters);
         } else {
@@ -109,6 +117,11 @@ const AllUsers = ({ getProfiles, profile: { profiles, profile, loading } }) => {
                                     <Slider round={true}></Slider>
                                 </SwitchLabel>
                             </StyledFiltersList>
+                            <div>
+                                <Paragraph filters={true}>search by skill </Paragraph>
+                                <Input />
+
+                            </div>
                         </StyledFiltersUl>
                     </LeftContainer>
                     <RightContainer >
