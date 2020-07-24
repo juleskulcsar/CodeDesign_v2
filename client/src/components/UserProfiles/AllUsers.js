@@ -12,7 +12,11 @@ import {
     RightContainer,
     Paragraph
 } from '../common/Edit-Create-Profile';
-import { Input } from '../common/Input'
+import { Input } from '../common/Input';
+import { Button } from '../common/Button';
+import {
+    Form
+} from '../common/SignIn-SignUp';
 
 const AllUsersContainer = styled.div`
   position: relative;
@@ -40,7 +44,7 @@ const AllUsers = ({ getProfiles, profile: { profiles, profile, loading } }) => {
         getProfiles();
     }, [getProfiles]);
 
-    console.log('profiles: ', profiles)
+    // console.log('profiles: ', profiles)
 
     let filters = {}
     const [filterParams, setFilterparams] = useState(filters);
@@ -48,6 +52,24 @@ const AllUsers = ({ getProfiles, profile: { profiles, profile, loading } }) => {
     const [developersCheck, setDevelopersCheck] = useState(true);
     const [designersChecked, setDesignersChecked] = useState(false);
     const [developersChecked, setDevelopersChecked] = useState(false);
+    const [skill, setSkill] = useState('')
+
+    const onChange = e => {
+        setSkill(e.target.value);
+        console.log(e.target.value)
+    }
+
+    const onClick = () => {
+        console.log('skill: ', skill)
+        delete filters.skills;
+        for (let i = 0; i < profiles.data.length; i++) {
+            if (profiles.data[i].skills.indexOf(skill) !== -1) {
+                filters.skills = profiles.data[i].skills[profiles.data[i].skills.indexOf(skill)]
+            }
+        }
+        getProfiles(filters);
+    }
+
 
     const designersClickHandler = () => {
         setDesignersCheck(!designersCheck)
@@ -119,8 +141,14 @@ const AllUsers = ({ getProfiles, profile: { profiles, profile, loading } }) => {
                             </StyledFiltersList>
                             <div>
                                 <Paragraph filters={true}>search by skill </Paragraph>
-                                <Input />
-
+                                <Input
+                                    type='text'
+                                    placeholder='type skill'
+                                    name='skill'
+                                    value={skill}
+                                    onChange={e => onChange(e)}
+                                />
+                                <Button onClick={onClick} >search </Button>
                             </div>
                         </StyledFiltersUl>
                     </LeftContainer>
