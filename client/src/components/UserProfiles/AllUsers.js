@@ -40,14 +40,13 @@ const PageTitle = styled.h1`
 `
 
 const AllUsers = ({ getProfiles, profile: { profiles, profile, loading } }) => {
+    let filters = {}
     useEffect(() => {
-        getProfiles();
+        getProfiles(filters);
     }, [getProfiles]);
 
-    // console.log('profiles: ', profiles)
+    console.log('profiles: ', profiles)
 
-    let filters = {}
-    const [filterParams, setFilterparams] = useState(filters);
     const [designersCheck, setDesignersCheck] = useState(true);
     const [developersCheck, setDevelopersCheck] = useState(true);
     const [designersChecked, setDesignersChecked] = useState(false);
@@ -55,59 +54,53 @@ const AllUsers = ({ getProfiles, profile: { profiles, profile, loading } }) => {
     const [skill, setSkill] = useState('')
 
     const onChange = e => {
+        e.preventDefault()
         setSkill(e.target.value);
-        console.log(e.target.value)
     }
 
-    const onClick = () => {
-        console.log('skill: ', skill)
-        delete filters.skills;
-        for (let i = 0; i < profiles.data.length; i++) {
-            if (profiles.data[i].skills.indexOf(skill) !== -1) {
-                filters.skills = profiles.data[i].skills[profiles.data[i].skills.indexOf(skill)]
-            }
+    const onSubmit = (e) => {
+        e.preventDefault()
+        if (skill !== '') {
+            filters.skills = skill;
+            getProfiles(filters);
+        } else {
+            delete filters.skills;
+            getProfiles(filters)
         }
-        getProfiles(filters);
     }
 
 
-    const designersClickHandler = () => {
+    const designersClickHandler = (e) => {
         setDesignersCheck(!designersCheck)
         setDesignersChecked(!designersChecked)
         if (designersCheck === true) {
             setDevelopersCheck(true)
             setDevelopersChecked(false)
-            for (let i = 0; i < profiles.data.length; i++) {
-                if (profiles.data[i].skills.indexOf('javascript') !== -1) {
-                    filters.skills = profiles.data[i].skills[profiles.data[i].skills.indexOf('javascript')]
-                }
-            }
-            // filters.skills.javascript = 'javascript'
-            setFilterparams(filters);
+            filters.registeredAs = 'designer'
+            onSubmit(e)
             getProfiles(filters);
         } else {
-            delete filters.specialties;
-            setFilterparams(filters);
+            delete filters.registeredAs;
+            onSubmit(e)
             getProfiles(filters);
         }
     }
 
-    const developersClickHandler = () => {
+    const developersClickHandler = (e) => {
         setDevelopersCheck(!developersCheck)
         setDevelopersChecked(!developersChecked)
         if (developersCheck === true) {
             setDesignersCheck(true)
             setDesignersChecked(false)
-            filters.specialties = 'Developer'
-            setFilterparams(filters)
+            filters.registeredAs = 'developer'
+            onSubmit(e)
             getProfiles(filters);
         } else {
-            delete filters.specialties;
-            setFilterparams(filters)
+            delete filters.registeredAs;
+            onSubmit(e)
             getProfiles(filters);
         }
     }
-
 
     return profiles.length === 0 ? (
         <Spinner />
@@ -141,14 +134,16 @@ const AllUsers = ({ getProfiles, profile: { profiles, profile, loading } }) => {
                             </StyledFiltersList>
                             <div>
                                 <Paragraph filters={true}>search by skill </Paragraph>
-                                <Input
-                                    type='text'
-                                    placeholder='type skill'
-                                    name='skill'
-                                    value={skill}
-                                    onChange={e => onChange(e)}
-                                />
-                                <Button onClick={onClick} >search </Button>
+                                <Form onSubmit={e => onSubmit(e)}>
+                                    <Input
+                                        type='text'
+                                        placeholder='type skill'
+                                        name='skill'
+                                        value={skill}
+                                        onChange={e => onChange(e)}
+                                    />
+                                    <Input type='submit' value='search' />
+                                </Form>
                             </div>
                         </StyledFiltersUl>
                     </LeftContainer>

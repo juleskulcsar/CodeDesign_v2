@@ -79,7 +79,7 @@ const CreateProfile = ({ createProfile, history, auth: { user } }) => {
   }, []);
 
   const [formData, setFormData] = useState({
-    registeras: '',
+    registeredAs: user.registeras,
     website: '',
     displayName: '',
     location: '',
@@ -100,6 +100,7 @@ const CreateProfile = ({ createProfile, history, auth: { user } }) => {
   const {
     website,
     displayName,
+    registeredAs,
     location,
     specialties,
     skills,
@@ -142,6 +143,14 @@ const CreateProfile = ({ createProfile, history, auth: { user } }) => {
           </RequiredText>
           <Form onSubmit={e => onSubmit(e)}>
             <StyledDiv>
+              <Input
+                type='text'
+                name='registeredAs'
+                value={registeredAs}
+                readOnly
+              />
+            </StyledDiv>
+            <StyledDiv>
               {user.registeras === 'developer' ? (
                 <StyledSelect
                   name='specialties'
@@ -158,21 +167,21 @@ const CreateProfile = ({ createProfile, history, auth: { user } }) => {
                   <option value='Other'>Other</option>
                 </StyledSelect>
               ) : (
-                <StyledSelect
-                  name='specialties'
-                  value={specialties}
-                  onChange={e => onChange(e)}
-                >
-                  <option value='0'>* select specialties</option>
-                  <option value='Designer'>Designer</option>
-                  <option value='Student or Learning'>
-                    Student or Learning
+                  <StyledSelect
+                    name='specialties'
+                    value={specialties}
+                    onChange={e => onChange(e)}
+                  >
+                    <option value='0'>* select specialties</option>
+                    <option value='Designer'>Designer</option>
+                    <option value='Student or Learning'>
+                      Student or Learning
                   </option>
-                  <option value='Instructor'>Instructor or Teacher</option>
-                  <option value='Intern'>Intern</option>
-                  <option value='Other'>Other</option>
-                </StyledSelect>
-              )}
+                    <option value='Instructor'>Instructor or Teacher</option>
+                    <option value='Intern'>Intern</option>
+                    <option value='Other'>Other</option>
+                  </StyledSelect>
+                )}
 
               <small>Give us an idea of where you are at in your career</small>
             </StyledDiv>

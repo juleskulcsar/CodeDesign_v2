@@ -124,214 +124,222 @@ const EditProfile = ({
   return loading && profile === null ? (
     <Spinner />
   ) : (
-    <Fragment>
-      {isShowing ? (
-        <BackDrop>
-          <ProfilePhotoModal
-            show={isShowing}
-            close={closeModalHandler}
-          ></ProfilePhotoModal>
-        </BackDrop>
-      ) : null}
-      <Container>
-        <LeftContainer>
-          <DashboardActions isShowing />
-          <Button deleteAccount onClick={() => deleteAccount()}>
-            delete account
+      <Fragment>
+        {isShowing ? (
+          <BackDrop>
+            <ProfilePhotoModal
+              show={isShowing}
+              close={closeModalHandler}
+            ></ProfilePhotoModal>
+          </BackDrop>
+        ) : null}
+        <Container>
+          <LeftContainer>
+            <DashboardActions isShowing />
+            <Button deleteAccount onClick={() => deleteAccount()}>
+              delete account
           </Button>
-        </LeftContainer>
-        <RightContainer>
-          <ProfileTopSection />
-          <ProfileBottomDiv>
-            <FormContainer createProfilePage='true'>
-              <RequiredText>
-                <small>
-                  <span style={{ color: '#8E8C89' }}>* = required fields</span>
-                </small>
-              </RequiredText>
-              <Form onSubmit={e => onSubmit(e)}>
-                <Button onClick={openModalHandler}>
-                  change profile picture
+          </LeftContainer>
+          <RightContainer>
+            <ProfileTopSection />
+            <ProfileBottomDiv>
+              <FormContainer createProfilePage='true'>
+                <RequiredText>
+                  <small>
+                    <span style={{ color: '#8E8C89' }}>* = required fields</span>
+                  </small>
+                </RequiredText>
+                <Form onSubmit={e => onSubmit(e)}>
+                  <Button onClick={openModalHandler}>
+                    change profile picture
                 </Button>
-                <StyledDiv>
-                  {user.registeras === 'developer' ? (
-                    <StyledSelect
-                      name='specialties'
-                      value={specialties}
+                  <StyledDiv>
+                    <Input
+                      type='text'
+                      name='registeredAs'
+                      value={user.registeras}
+                      readOnly
+                    />
+                  </StyledDiv>
+                  <StyledDiv>
+                    {user.registeras === 'developer' ? (
+                      <StyledSelect
+                        name='specialties'
+                        value={specialties}
+                        onChange={e => onChange(e)}
+                        required
+                      >
+                        <option value='0'>* Select specialties</option>
+                        <option value='Developer'>Developer</option>
+                        <option value='Student or Learning'>
+                          Student or Learning
+                      </option>
+                        <option value='Instructor'>Instructor or Teacher</option>
+                        <option value='Intern'>Intern</option>
+                        <option value='Other'>Other</option>
+                      </StyledSelect>
+                    ) : (
+                        <StyledSelect
+                          name='specialties'
+                          value={specialties}
+                          onChange={e => onChange(e)}
+                          required
+                        >
+                          <option value='0'>* select specialties</option>
+                          <option value='Designer'>Designer</option>
+                          <option value='Student or Learning'>
+                            Student or Learning
+                      </option>
+                          <option value='Instructor'>Instructor or Teacher</option>
+                          <option value='Intern'>Intern</option>
+                          <option value='Other'>Other</option>
+                        </StyledSelect>
+                      )}
+                    <small>
+                      Give us an idea of where you are at in your career
+                  </small>
+                  </StyledDiv>
+                  <StyledDiv>
+                    <Input
+                      type='text'
+                      placeholder='display name'
+                      name='displayName'
+                      value={displayName}
+                      onChange={e => onChange(e)}
+                    />
+                    <small className='form-text'>
+                      How you want your name to be displayed
+                  </small>
+                  </StyledDiv>
+                  <StyledDiv>
+                    <Input
+                      type='text'
+                      placeholder='Website'
+                      name='website'
+                      value={website}
+                      onChange={e => onChange(e)}
+                    />
+                    <small>Could be your own or a company website</small>
+                  </StyledDiv>
+                  <StyledDiv>
+                    <Input
+                      type='text'
+                      placeholder='* location'
+                      name='location'
+                      value={location}
                       onChange={e => onChange(e)}
                       required
-                    >
-                      <option value='0'>* Select specialties</option>
-                      <option value='Developer'>Developer</option>
-                      <option value='Student or Learning'>
-                        Student or Learning
-                      </option>
-                      <option value='Instructor'>Instructor or Teacher</option>
-                      <option value='Intern'>Intern</option>
-                      <option value='Other'>Other</option>
-                    </StyledSelect>
-                  ) : (
-                    <StyledSelect
-                      name='specialties'
-                      value={specialties}
+                    />
+                    <small>City & state suggested (eg. Boston, MA)</small>
+                  </StyledDiv>
+                  <StyledDiv>
+                    <Input
+                      type='text'
+                      placeholder='* skills'
+                      name='skills'
+                      value={skills}
                       onChange={e => onChange(e)}
                       required
+                    />
+                    <small>
+                      Please use comma separated values (eg.
+                      HTML,CSS,JavaScript,PHP)
+                  </small>
+                  </StyledDiv>
+                  <StyledDiv>
+                    <Input
+                      type='text'
+                      placeholder='github username'
+                      name='githubusername'
+                      value={githubusername}
+                      onChange={e => onChange(e)}
+                    />
+                    <small>
+                      If you want your latest repos and a Github link, include
+                      your username
+                  </small>
+                  </StyledDiv>
+                  <StyledDiv>
+                    <Textarea
+                      placeholder='add bio'
+                      name='bio'
+                      value={bio}
+                      onChange={e => onChange(e)}
+                    ></Textarea>
+                    <small>Tell us a little about yourself</small>
+                  </StyledDiv>
+                  <StyledDiv>
+                    <Button
+                      onClick={() => toggleSocialInputs(!displaySocialInputs)}
+                      type='button'
+                      className='btn btn-light'
                     >
-                      <option value='0'>* select specialties</option>
-                      <option value='Designer'>Designer</option>
-                      <option value='Student or Learning'>
-                        Student or Learning
-                      </option>
-                      <option value='Instructor'>Instructor or Teacher</option>
-                      <option value='Intern'>Intern</option>
-                      <option value='Other'>Other</option>
-                    </StyledSelect>
-                  )}
-                  <small>
-                    Give us an idea of where you are at in your career
-                  </small>
-                </StyledDiv>
-                <StyledDiv>
-                  <Input
-                    type='text'
-                    placeholder='display name'
-                    name='displayName'
-                    value={displayName}
-                    onChange={e => onChange(e)}
-                  />
-                  <small className='form-text'>
-                    How you want your name to be displayed
-                  </small>
-                </StyledDiv>
-                <StyledDiv>
-                  <Input
-                    type='text'
-                    placeholder='Website'
-                    name='website'
-                    value={website}
-                    onChange={e => onChange(e)}
-                  />
-                  <small>Could be your own or a company website</small>
-                </StyledDiv>
-                <StyledDiv>
-                  <Input
-                    type='text'
-                    placeholder='* location'
-                    name='location'
-                    value={location}
-                    onChange={e => onChange(e)}
-                    required
-                  />
-                  <small>City & state suggested (eg. Boston, MA)</small>
-                </StyledDiv>
-                <StyledDiv>
-                  <Input
-                    type='text'
-                    placeholder='* skills'
-                    name='skills'
-                    value={skills}
-                    onChange={e => onChange(e)}
-                    required
-                  />
-                  <small>
-                    Please use comma separated values (eg.
-                    HTML,CSS,JavaScript,PHP)
-                  </small>
-                </StyledDiv>
-                <StyledDiv>
-                  <Input
-                    type='text'
-                    placeholder='github username'
-                    name='githubusername'
-                    value={githubusername}
-                    onChange={e => onChange(e)}
-                  />
-                  <small>
-                    If you want your latest repos and a Github link, include
-                    your username
-                  </small>
-                </StyledDiv>
-                <StyledDiv>
-                  <Textarea
-                    placeholder='add bio'
-                    name='bio'
-                    value={bio}
-                    onChange={e => onChange(e)}
-                  ></Textarea>
-                  <small>Tell us a little about yourself</small>
-                </StyledDiv>
-                <StyledDiv>
-                  <Button
-                    onClick={() => toggleSocialInputs(!displaySocialInputs)}
-                    type='button'
-                    className='btn btn-light'
-                  >
-                    Add Social Network Links
+                      Add Social Network Links
                   </Button>
-                  <small>Optional</small>
-                </StyledDiv>
+                    <small>Optional</small>
+                  </StyledDiv>
 
-                {displaySocialInputs && (
-                  <Fragment>
-                    <StyledDiv>
-                      <Input
-                        type='text'
-                        placeholder='twitter URL'
-                        name='twitter'
-                        value={twitter}
-                        onChange={e => onChange(e)}
-                      />
-                    </StyledDiv>
-                    <StyledDiv>
-                      <Input
-                        type='text'
-                        placeholder='facebook URL'
-                        name='facebook'
-                        value={facebook}
-                        onChange={e => onChange(e)}
-                      />
-                    </StyledDiv>
-                    <StyledDiv>
-                      <Input
-                        type='text'
-                        placeholder='youtube URL'
-                        name='youtube'
-                        value={youtube}
-                        onChange={e => onChange(e)}
-                      />
-                    </StyledDiv>
-                    <StyledDiv>
-                      <Input
-                        type='text'
-                        placeholder='linkedin URL'
-                        name='linkedin'
-                        value={linkedin}
-                        onChange={e => onChange(e)}
-                      />
-                    </StyledDiv>
-                    <StyledDiv>
-                      <Input
-                        type='text'
-                        placeholder='instagram URL'
-                        name='instagram'
-                        value={instagram}
-                        onChange={e => onChange(e)}
-                      />
-                    </StyledDiv>
-                  </Fragment>
-                )}
-                <Input
-                  type='submit'
-                  value='save changes'
-                  submitProfile='true'
-                />
-              </Form>
-            </FormContainer>
-          </ProfileBottomDiv>
-        </RightContainer>
-      </Container>
-    </Fragment>
-  );
+                  {displaySocialInputs && (
+                    <Fragment>
+                      <StyledDiv>
+                        <Input
+                          type='text'
+                          placeholder='twitter URL'
+                          name='twitter'
+                          value={twitter}
+                          onChange={e => onChange(e)}
+                        />
+                      </StyledDiv>
+                      <StyledDiv>
+                        <Input
+                          type='text'
+                          placeholder='facebook URL'
+                          name='facebook'
+                          value={facebook}
+                          onChange={e => onChange(e)}
+                        />
+                      </StyledDiv>
+                      <StyledDiv>
+                        <Input
+                          type='text'
+                          placeholder='youtube URL'
+                          name='youtube'
+                          value={youtube}
+                          onChange={e => onChange(e)}
+                        />
+                      </StyledDiv>
+                      <StyledDiv>
+                        <Input
+                          type='text'
+                          placeholder='linkedin URL'
+                          name='linkedin'
+                          value={linkedin}
+                          onChange={e => onChange(e)}
+                        />
+                      </StyledDiv>
+                      <StyledDiv>
+                        <Input
+                          type='text'
+                          placeholder='instagram URL'
+                          name='instagram'
+                          value={instagram}
+                          onChange={e => onChange(e)}
+                        />
+                      </StyledDiv>
+                    </Fragment>
+                  )}
+                  <Input
+                    type='submit'
+                    value='save changes'
+                    submitProfile='true'
+                  />
+                </Form>
+              </FormContainer>
+            </ProfileBottomDiv>
+          </RightContainer>
+        </Container>
+      </Fragment>
+    );
 };
 
 EditProfile.propTypes = {
