@@ -10,7 +10,8 @@ import { SwitchLabel, Slider, CheckBoxInput } from '../common/CheckBox';
 import {
     LeftContainer,
     RightContainer,
-    Paragraph
+    Paragraph,
+    StyledSelect
 } from '../common/Edit-Create-Profile';
 import { Input } from '../common/Input';
 import { Button } from '../common/Button';
@@ -45,28 +46,47 @@ const AllUsers = ({ getProfiles, profile: { profiles, profile, loading } }) => {
         getProfiles(filters);
     }, [getProfiles]);
 
-    console.log('profiles: ', profiles)
-
     const [designersCheck, setDesignersCheck] = useState(true);
     const [developersCheck, setDevelopersCheck] = useState(true);
     const [designersChecked, setDesignersChecked] = useState(false);
     const [developersChecked, setDevelopersChecked] = useState(false);
-    const [skill, setSkill] = useState('')
+    // const [skill, setSkill] = useState('')
+    // const [specialty, setSpecialty] = useState('')
+    const [formData, setFormData] = useState({
+        specialty: '',
+        skill: ''
+    });
 
-    const onChange = e => {
-        e.preventDefault()
-        setSkill(e.target.value);
-    }
+    const {
+        specialty,
+        skill
+    } = formData;
+
+    // const onChange = e => {
+    //     e.preventDefault()
+    //     setSkill(e.target.value);
+    //     setSpecialty(e.target.value)
+    // }
+
+    const onChange = e =>
+        setFormData({ ...formData, [e.target.name]: e.target.value });
 
     const onSubmit = (e) => {
         e.preventDefault()
-        if (skill !== '') {
-            filters.skills = skill;
+        if (specialty !== '') {
+            filters.specialties = specialty;
             getProfiles(filters);
-        } else {
-            delete filters.skills;
+        }
+        if (skill !== '') {
+            filters.skills = skill.toUpperCase();
+            getProfiles(filters);
+        }
+        else {
+            // delete filters.skills;
+            // delete filters.specialties;
             getProfiles(filters)
         }
+        console.log('filters: ', filters)
     }
 
 
@@ -110,7 +130,7 @@ const AllUsers = ({ getProfiles, profile: { profiles, profile, loading } }) => {
                     <PageTitle>Browse the Code<span style={{ color: '#F16350' }}>D</span>esign <span style={{ color: '#F16350' }}>community</span>!</PageTitle>
                 </TitleWrapper>
                 <AllUsersContainer>
-                    <LeftContainer>
+                    <LeftContainer filters={true}>
                         <StyledFiltersUl>
                             <StyledFiltersList>
                                 <Paragraph filters={true}>designers </Paragraph>
@@ -133,8 +153,9 @@ const AllUsers = ({ getProfiles, profile: { profiles, profile, loading } }) => {
                                 </SwitchLabel>
                             </StyledFiltersList>
                             <div>
-                                <Paragraph filters={true}>search by skill </Paragraph>
-                                <Form onSubmit={e => onSubmit(e)}>
+                                <Paragraph filters={true}>search by:</Paragraph>
+                                <Form onSubmit={e => onSubmit(e)} filters={true}>
+                                    {/* <Paragraph filters={true}><span style={{ color: '#F16350' }}>skill</span> </Paragraph> */}
                                     <Input
                                         type='text'
                                         placeholder='type skill'
@@ -142,7 +163,35 @@ const AllUsers = ({ getProfiles, profile: { profiles, profile, loading } }) => {
                                         value={skill}
                                         onChange={e => onChange(e)}
                                     />
-                                    <Input type='submit' value='search' />
+                                    {/* <Paragraph filters={true}><span style={{ color: '#F16350' }}>specialty</span> </Paragraph> */}
+                                    <StyledSelect
+                                        name='specialty'
+                                        value={specialty}
+                                        onChange={e => onChange(e)}
+                                    >
+                                        <option value=''>specialty</option>
+                                        <option value='FrontEnd Developer'>FrontEnd Developer</option>
+                                        <option value='Backend Developer'>Backend Developer</option>
+                                        <option value='FullStack Developer'>FullStack Developer</option>
+                                        <option value='Software Engineer'>Software Engineer</option>
+                                        <option value='Mobile Developer'>Mobile Developer</option>
+                                        <option value='Graphics Developer'>Graphics Developer</option>
+                                        <option value='Game Developer'>Game Developer</option>
+                                        <option value='Data Scientist'>Data Scientist</option>
+                                        <option value='Big Data Developer'>Big Data Developer</option>
+                                        <option value='DevOps Developer'>DevOps Developer</option>
+                                        <option value='Security Developer'>Security Developer</option>
+                                        <option value='Graphic Designer'>Graphic Designer</option>
+                                        <option value='UI/UX Designer'>UI/UX Designer</option>
+                                        <option value='Mobile Designer'>Mobile Designer</option>
+                                        <option value='Web Designer'>Web Designer</option>
+                                        <option value='Product Designer'>Product Designer</option>
+                                        <option value='Illustrator'>Illustrator</option>
+                                        <option value='Brand Designer'>Brand Designer</option>
+                                        <option value='Animation Designer'>Animation Designer</option>
+                                        <option value='Motion Graphics Designer'>Motion Graphics Designer</option>
+                                    </StyledSelect>
+                                    <Button type='submit' value='search'>search</Button>
                                 </Form>
                             </div>
                         </StyledFiltersUl>

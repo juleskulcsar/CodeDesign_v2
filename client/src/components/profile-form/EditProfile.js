@@ -107,7 +107,7 @@ const EditProfile = ({
   } = formData;
 
   const onChange = e =>
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    setFormData({ ...formData, [e.target.name]: e.target.value.toUpperCase() });
   const onSubmit = e => {
     e.preventDefault();
     createProfile(formData, history, true);
@@ -170,13 +170,17 @@ const EditProfile = ({
                         required
                       >
                         <option value='0'>* Select specialties</option>
-                        <option value='Developer'>Developer</option>
-                        <option value='Student or Learning'>
-                          Student or Learning
-                      </option>
-                        <option value='Instructor'>Instructor or Teacher</option>
-                        <option value='Intern'>Intern</option>
-                        <option value='Other'>Other</option>
+                        <option value='FrontEnd Developer'>FrontEnd Developer</option>
+                        <option value='Backend Developer'>Backend Developer</option>
+                        <option value='FullStack Developer'>FullStack Developer</option>
+                        <option value='Software Engineer'>Software Engineer</option>
+                        <option value='Mobile Developer'>Mobile Developer</option>
+                        <option value='Graphics Developer'>Graphics Developer</option>
+                        <option value='Game Developer'>Game Developer</option>
+                        <option value='Data Scientist'>Data Scientist</option>
+                        <option value='Big Data Developer'>Big Data Developer</option>
+                        <option value='DevOps Developer'>DevOps Developer</option>
+                        <option value='Security Developer'>Security Developer</option>
                       </StyledSelect>
                     ) : (
                         <StyledSelect
@@ -186,13 +190,15 @@ const EditProfile = ({
                           required
                         >
                           <option value='0'>* select specialties</option>
-                          <option value='Designer'>Designer</option>
-                          <option value='Student or Learning'>
-                            Student or Learning
-                      </option>
-                          <option value='Instructor'>Instructor or Teacher</option>
-                          <option value='Intern'>Intern</option>
-                          <option value='Other'>Other</option>
+                          <option value='Graphic Designer'>Graphic Designer</option>
+                          <option value='UI/UX Designer'>UI/UX Designer</option>
+                          <option value='Mobile Designer'>Mobile Designer</option>
+                          <option value='Web Designer'>Web Designer</option>
+                          <option value='Product Designer'>Product Designer</option>
+                          <option value='Illustrator'>Illustrator</option>
+                          <option value='Brand Designer'>Brand Designer</option>
+                          <option value='Animation Designer'>Animation Designer</option>
+                          <option value='Motion Graphics Designer'>Motion Graphics Designer</option>
                         </StyledSelect>
                       )}
                     <small>

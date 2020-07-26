@@ -44,7 +44,7 @@ const Title = styled.h1`
 const Form = styled.form`
   width: 100%;
   max-width: 500px;
-  padding: 16px;
+  padding: ${props => props.filters ? null : '16px'};
   box-sizing: border-box;
   color: gray;
   border-radius: 4px;
