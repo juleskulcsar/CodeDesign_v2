@@ -13,6 +13,8 @@ import Settings from '../profile-form/Settings';
 import AllUsers from '../UserProfiles/AllUsers';
 import UserProfile from '../UserProfiles/UserProfile';
 import UserProfileGithub from '../UserProfiles/UserProfileGithub';
+import UserProfileJobs from '../UserProfiles/UserProfileJobs'
+import UserProfilePosts from '../UserProfiles/UserProfilePosts'
 import AllJobs from '../job/AllJobs';
 import Job from '../job/JobPage';
 // import Posts from '../post/Posts';
@@ -33,6 +35,8 @@ const Routes = () => {
         <Route exact path='/portfolio/:id' component={PortfolioPage} />*/}
         <PrivateRoute exact path='/user/:id' component={UserProfile} />
         <PrivateRoute exact path='/user/:id/github' component={UserProfileGithub} />
+        <PrivateRoute exact path='/user/:id/posts' component={UserProfilePosts} />
+        <PrivateRoute exact path='/user/:id/jobs' component={UserProfileJobs} />
         <PrivateRoute exact path='/dashboard' component={Dashboard} />
         <PrivateRoute exact path='/dashboard/github' component={MyGithub} />
         <PrivateRoute exact path='/create-profile' component={CreateProfile} />
