@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from 'react';
+import React from 'react';
 import Spinner from '../layout/Spinner';
 import PropTypes from 'prop-types';
 import { Link as RouterDomLink } from 'react-router-dom';
@@ -11,9 +11,6 @@ import ReactHtmlParser, {
 } from 'react-html-parser';
 import styled from 'styled-components';
 import { deleteJob } from '../../actions/job';
-import {
-  getCurrentProfile,
-} from '../../actions/profile';
 import { Button } from '../common/Button';
 import { Paragraph, StyledLink, H4Styled } from '../common/Edit-Create-Profile';
 
@@ -45,9 +42,6 @@ const MyJobItem = ({
   getCurrentProfile,
   profile: { profile, loading }
 }) => {
-  useEffect(() => {
-    getCurrentProfile();
-  }, [getCurrentProfile])
 
   const MAX_LENGTH = 200;
   return loading ? (
@@ -99,7 +93,6 @@ MyJobItem.propTypes = {
   auth: PropTypes.object.isRequired,
   deleteJob: PropTypes.func.isRequired,
   profile: PropTypes.object.isRequired,
-  getCurrentProfile: PropTypes.func.isRequired
 };
 const mapStateToProps = state => ({
   auth: state.auth,
@@ -107,6 +100,5 @@ const mapStateToProps = state => ({
 });
 
 export default connect(mapStateToProps, {
-  deleteJob,
-  getCurrentProfile
+  deleteJob
 })(MyJobItem);

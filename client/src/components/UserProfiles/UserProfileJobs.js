@@ -31,19 +31,20 @@ const UserProfileJobs = ({
                         <UserProfileActions profile={profile} match={match} />
                     </LeftContainer>
                     <RightContainer>
-                        <ProfileTopSection profile={profile} />
+                        <ProfileTopSection />
                         <ProfileBottomDiv>
-                            {profile.jobs.length ? (
-
-                                profile.jobs.map(job => (
-                                    <MyJobItem
-                                        key={job._id}
-                                        job={job}
-                                        size={true}
-                                        showActions={true}
-                                        showD={false}
-                                    />
-                                ))
+                            {profile.jobs.length > 0 ? (
+                                <div>
+                                    {profile.jobs.map(job => (
+                                        <MyJobItem
+                                            key={job._id}
+                                            job={job}
+                                            size={true}
+                                            showActions={true}
+                                            showD={false}
+                                        />
+                                    ))}
+                                </div>
                             ) : (
                                     <h2>{profile.displayName} doesn't have jobs created</h2>
                                 )
