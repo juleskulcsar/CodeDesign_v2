@@ -11,8 +11,8 @@ import MyPosts from '../profile-form/MyPosts';
 import MyJobs from '../profile-form/MyJobs';
 import Settings from '../profile-form/Settings';
 import AllUsers from '../UserProfiles/AllUsers';
-// import DesignerProfiles from '../profiles/DesignerProfiles';
-// import Profile from '../profile/Profile';
+import UserProfile from '../UserProfiles/UserProfile';
+import UserProfileGithub from '../UserProfiles/UserProfileGithub';
 import AllJobs from '../job/AllJobs';
 import Job from '../job/JobPage';
 // import Posts from '../post/Posts';
@@ -30,9 +30,9 @@ const Routes = () => {
         <Route exact path='/' component={Login} />
         <PrivateRoute exact path='/profiles' component={AllUsers} />
         {/* <Route exact path='/portfolios' component={Portfolios} />
-        <Route exact path='/portfolio/:id' component={PortfolioPage} />
-        <Route exact path='/designer-profiles' component={DesignerProfiles} />
-        <Route exact path='/user/:id' component={Profile} /> */}
+        <Route exact path='/portfolio/:id' component={PortfolioPage} />*/}
+        <PrivateRoute exact path='/user/:id' component={UserProfile} />
+        <PrivateRoute exact path='/user/:id/github' component={UserProfileGithub} />
         <PrivateRoute exact path='/dashboard' component={Dashboard} />
         <PrivateRoute exact path='/dashboard/github' component={MyGithub} />
         <PrivateRoute exact path='/create-profile' component={CreateProfile} />

@@ -9,26 +9,24 @@ const ProfilePosts = ({ profile: { profile, loading } }) => {
   return profile.posts === null ? (
     <Spinner />
   ) : (
-    <Fragment>
-      <div>
-        <div className='timeline-grid-container'>
-          <div className='timeline-posts-list'>
-            {profile.posts.map(post => (
-              // <div className='test'>
-              <Post
-                key={post._id}
-                post={post}
-                size={true}
-                showAction={true}
-                showD={false}
-              />
-              // </div>
-            ))}
+      <Fragment>
+        <div>
+          <div className='timeline-grid-container'>
+            <div className='timeline-posts-list'>
+              {profile.posts.map(post => (
+                <Post
+                  key={post._id}
+                  post={post}
+                  size={true}
+                  showAction={true}
+                  showD={false}
+                />
+              ))}
+            </div>
           </div>
         </div>
-      </div>
-    </Fragment>
-  );
+      </Fragment>
+    );
 };
 
 ProfilePosts.propTypes = {

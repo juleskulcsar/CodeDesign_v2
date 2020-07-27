@@ -142,26 +142,18 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
       </MobileMenuIcon>
       <Menu open={menuOpen}>
         <StyledUl>
-          <StyledList isActive={pathname === '/designer-profiles'}>
-            <StyledLink
-              isActive={pathname === '/designer-profiles'}
-              to='/designer-profiles'
-            >
-              <span>designers</span>
-            </StyledLink>
-          </StyledList>
           <StyledList isActive={pathname === '/profiles'}>
             <StyledLink isActive={pathname === '/profiles'} to='/profiles'>
-              <span>developers</span>
+              <span>community</span>
             </StyledLink>
           </StyledList>
-          <StyledList isActive={pathname === '/posts'}>
+          <StyledList isActive={pathname === '/jobs'}>
             <StyledLink isActive={pathname === '/jobs'} to='/jobs'>
               <span>job-board</span>
             </StyledLink>
           </StyledList>
-          <StyledList isActive={pathname === '/portfolios'}>
-            <StyledLink isActive={pathname === '/portfolios'} to='/portfolios'>
+          <StyledList isActive={pathname === '/posts'}>
+            <StyledLink isActive={pathname === '/posts'} to='/posts'>
               <span>posts</span>
             </StyledLink>
           </StyledList>

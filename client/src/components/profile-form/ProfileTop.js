@@ -47,115 +47,115 @@ const SocialIcons = styled.div`
 
 const ProfileTopSection = ({
   profile: { profile, loading },
-  getCurrentProfile,
+  // getCurrentProfile,
   auth: { user }
 }) => {
-  useEffect(() => {
-    getCurrentProfile();
-  }, [getCurrentProfile]);
+  // useEffect(() => {
+  //   getCurrentProfile();
+  // }, [getCurrentProfile]);
 
   let image = profilePhotoDefault;
 
   return loading && profile === null ? (
     <Spinner />
   ) : (
-    <>
-      <ProfileTop>
-        <ProfileTopDiv>
-          {profile.profilePhoto !== null ? (
-            <RoundImage src={profile.profilePhoto} alt='' />
-          ) : (
-            <RoundImage src={image} alt='' />
-          )}
-        </ProfileTopDiv>
-        <ProfileTopDiv name='true'>
-          <H4Styled>{user.name}</H4Styled>
-          {profile.social && (
-            <SocialIcons>
-              {profile.website && (
-                <Anchor
-                  href={profile.website}
-                  target='_blank'
-                  rel='noopener noreferrer'
-                >
-                  <small>
-                    <i className='fas fa-globe fa-2x' />
-                  </small>
-                </Anchor>
+      <>
+        <ProfileTop>
+          <ProfileTopDiv>
+            {profile.profilePhoto !== null ? (
+              <RoundImage src={profile.profilePhoto} alt='' />
+            ) : (
+                <RoundImage src={image} alt='' />
               )}
-              {profile.social && profile.social.twitter && (
-                <Anchor
-                  href={profile.social.twitter}
-                  target='_blank'
-                  rel='noopener noreferrer'
-                >
-                  <small>
-                    <i className='fab fa-twitter fa-2x' />
-                  </small>
-                </Anchor>
-              )}
-              {profile.social && profile.social.facebook && (
-                <Anchor
-                  href={profile.social.facebook}
-                  target='_blank'
-                  rel='noopener noreferrer'
-                >
-                  <small>
-                    <i className='fab fa-facebook fa-2x' />
-                  </small>
-                </Anchor>
-              )}
-              {profile.social && profile.social.linkedin && (
-                <Anchor
-                  href={profile.social.linkedin}
-                  target='_blank'
-                  rel='noopener noreferrer'
-                >
-                  <small>
-                    <i className='fab fa-linkedin fa-2x' />
-                  </small>
-                </Anchor>
-              )}
-              {profile.social && profile.social.youtube && (
-                <Anchor
-                  href={profile.social.youtube}
-                  target='_blank'
-                  rel='noopener noreferrer'
-                >
-                  <small>
-                    <i className='fab fa-youtube fa-2x' />
-                  </small>
-                </Anchor>
-              )}
-              {profile.social && profile.social.instagram && (
-                <Anchor
-                  href={profile.social.instagram}
-                  target='_blank'
-                  rel='noopener noreferrer'
-                >
-                  <i className='fab fa-instagram fa-2x' />
-                </Anchor>
-              )}
-            </SocialIcons>
-          )}
-          <Paragraph>{profile.specialties} </Paragraph>
-          <Paragraph>
-            {profile.location && <span>{profile.location}</span>}
-          </Paragraph>
+          </ProfileTopDiv>
+          <ProfileTopDiv name='true'>
+            <H4Styled>{profile.displayName}</H4Styled>
+            {profile.social && (
+              <SocialIcons>
+                {profile.website && (
+                  <Anchor
+                    href={profile.website}
+                    target='_blank'
+                    rel='noopener noreferrer'
+                  >
+                    <small>
+                      <i className='fas fa-globe fa-2x' />
+                    </small>
+                  </Anchor>
+                )}
+                {profile.social && profile.social.twitter && (
+                  <Anchor
+                    href={profile.social.twitter}
+                    target='_blank'
+                    rel='noopener noreferrer'
+                  >
+                    <small>
+                      <i className='fab fa-twitter fa-2x' />
+                    </small>
+                  </Anchor>
+                )}
+                {profile.social && profile.social.facebook && (
+                  <Anchor
+                    href={profile.social.facebook}
+                    target='_blank'
+                    rel='noopener noreferrer'
+                  >
+                    <small>
+                      <i className='fab fa-facebook fa-2x' />
+                    </small>
+                  </Anchor>
+                )}
+                {profile.social && profile.social.linkedin && (
+                  <Anchor
+                    href={profile.social.linkedin}
+                    target='_blank'
+                    rel='noopener noreferrer'
+                  >
+                    <small>
+                      <i className='fab fa-linkedin fa-2x' />
+                    </small>
+                  </Anchor>
+                )}
+                {profile.social && profile.social.youtube && (
+                  <Anchor
+                    href={profile.social.youtube}
+                    target='_blank'
+                    rel='noopener noreferrer'
+                  >
+                    <small>
+                      <i className='fab fa-youtube fa-2x' />
+                    </small>
+                  </Anchor>
+                )}
+                {profile.social && profile.social.instagram && (
+                  <Anchor
+                    href={profile.social.instagram}
+                    target='_blank'
+                    rel='noopener noreferrer'
+                  >
+                    <i className='fab fa-instagram fa-2x' />
+                  </Anchor>
+                )}
+              </SocialIcons>
+            )}
+            <Paragraph>{profile.specialties} </Paragraph>
+            <Paragraph>
+              {profile.location && <span>{profile.location}</span>}
+            </Paragraph>
 
-          {profile.website && (
-            <Anchor
-              href={profile.website}
-              target='_blank'
-              rel='noopener noreferrer'
-            >
-              {profile.website}
-            </Anchor>
-          )}
-        </ProfileTopDiv>
-      </ProfileTop>
-    </>
-  );
+            {profile.website && (
+              <Anchor
+                href={profile.website}
+                target='_blank'
+                rel='noopener noreferrer'
+              >
+                {profile.website}
+              </Anchor>
+            )}
+          </ProfileTopDiv>
+        </ProfileTop>
+      </>
+    );
 };
 
 ProfileTop.propTypes = {
@@ -169,6 +169,9 @@ const mapStateToProps = state => ({
   auth: state.auth
 });
 
-export default connect(mapStateToProps, { getCurrentProfile })(
+// export default connect(mapStateToProps, { getCurrentProfile })(
+//   ProfileTopSection
+// );
+export default connect(mapStateToProps, {})(
   ProfileTopSection
 );

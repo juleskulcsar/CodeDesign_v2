@@ -50,8 +50,6 @@ const AllUsers = ({ getProfiles, profile: { profiles, profile, loading } }) => {
     const [developersCheck, setDevelopersCheck] = useState(true);
     const [designersChecked, setDesignersChecked] = useState(false);
     const [developersChecked, setDevelopersChecked] = useState(false);
-    // const [skill, setSkill] = useState('')
-    // const [specialty, setSpecialty] = useState('')
     const [formData, setFormData] = useState({
         specialty: '',
         skill: ''
@@ -61,12 +59,6 @@ const AllUsers = ({ getProfiles, profile: { profiles, profile, loading } }) => {
         specialty,
         skill
     } = formData;
-
-    // const onChange = e => {
-    //     e.preventDefault()
-    //     setSkill(e.target.value);
-    //     setSpecialty(e.target.value)
-    // }
 
     const onChange = e =>
         setFormData({ ...formData, [e.target.name]: e.target.value });
