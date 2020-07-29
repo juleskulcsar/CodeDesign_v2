@@ -13,7 +13,7 @@ import {
   LeftContainer,
   RightContainer
 } from '../common/Edit-Create-Profile';
-import Post from '../post/Post';
+import PostItem from '../post/PostItem';
 
 const MyPosts = ({
   profile: { profile, loading },
@@ -33,33 +33,33 @@ const MyPosts = ({
   return loading && profile === null ? (
     <Spinner />
   ) : (
-    <Fragment>
-      <Container>
-        <LeftContainer>
-          <DashboardActions isShowing />
-          <Button deleteAccount onClick={() => deleteAccount()}>
-            delete account
+      <Fragment>
+        <Container>
+          <LeftContainer>
+            <DashboardActions isShowing />
+            <Button deleteAccount onClick={() => deleteAccount()}>
+              delete account
           </Button>
-        </LeftContainer>
-        <RightContainer>
-          <ProfileTopSection />
-          <ProfileBottomDiv>
-            <PostsList>
-              {profile.posts.map(post => (
-                <Post
-                  key={post._id}
-                  post={post}
-                  size={true}
-                  showActions={true}
-                  showD={false}
-                />
-              ))}
-            </PostsList>
-          </ProfileBottomDiv>
-        </RightContainer>
-      </Container>
-    </Fragment>
-  );
+          </LeftContainer>
+          <RightContainer>
+            <ProfileTopSection />
+            <ProfileBottomDiv>
+              <PostsList>
+                {profile.posts.map(post => (
+                  <PostItem
+                    key={post._id}
+                    post={post}
+                    size={true}
+                    showActions={true}
+                    showD={false}
+                  />
+                ))}
+              </PostsList>
+            </ProfileBottomDiv>
+          </RightContainer>
+        </Container>
+      </Fragment>
+    );
 };
 
 MyPosts.propTypes = {

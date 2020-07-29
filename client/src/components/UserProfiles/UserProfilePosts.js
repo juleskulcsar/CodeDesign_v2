@@ -12,7 +12,7 @@ import {
     LeftContainer,
     RightContainer
 } from '../common/Edit-Create-Profile';
-import Post from '../post/Post';
+import PostItem from '../post/PostItem';
 
 const UserProfilePosts = ({
     profile: { profile },
@@ -43,7 +43,7 @@ const UserProfilePosts = ({
                             {profile.posts.length > 0 ? (
                                 <PostsList>
                                     {profile.posts.map(post => (
-                                        <Post
+                                        <PostItem
                                             key={post._id}
                                             post={post}
                                             size={true}

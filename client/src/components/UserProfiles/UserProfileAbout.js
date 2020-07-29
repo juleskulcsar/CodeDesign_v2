@@ -1,29 +1,24 @@
 import React, { Fragment, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import styled from 'styled-components';
 import ProfileTopSection from '../profile-form/ProfileTop';
 import { getProfileById, deleteAccount } from '../../actions/profile';
 import Spinner from '../layout/Spinner';
 import UserProfileActions from '../profile/UserProfileActions';
-import CreateProfile from '../profile-form/CreateProfile';
-import { Button } from '../common/Button';
 import {
     ProfileBottomDiv,
     Container,
     LeftContainer,
     RightContainer,
-    Anchor,
     Paragraph,
     H4Styled
 } from '../common/Edit-Create-Profile';
 
-const UserProfile = ({
+const UserProfileAbout = ({
     getProfileById,
-    deleteAccount,
-    auth: { user },
+    auth,
     match,
-    profile: { profile, loading }
+    profile: { profile }
 }) => {
     useEffect(() => {
         getProfileById(match.params.id);
@@ -67,11 +62,10 @@ const UserProfile = ({
         );
 };
 
-UserProfile.propTypes = {
+UserProfileAbout.propTypes = {
     getProfileById: PropTypes.func.isRequired,
     auth: PropTypes.object.isRequired,
-    profile: PropTypes.object.isRequired,
-    deleteAccount: PropTypes.func.isRequired
+    profile: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
@@ -79,6 +73,6 @@ const mapStateToProps = state => ({
     profile: state.profile
 });
 
-export default connect(mapStateToProps, { getProfileById, deleteAccount })(
-    UserProfile
+export default connect(mapStateToProps, { getProfileById })(
+    UserProfileAbout
 );

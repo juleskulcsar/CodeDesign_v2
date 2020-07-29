@@ -11,13 +11,13 @@ import MyPosts from '../profile-form/MyPosts';
 import MyJobs from '../profile-form/MyJobs';
 import Settings from '../profile-form/Settings';
 import AllUsers from '../UserProfiles/AllUsers';
-import UserProfile from '../UserProfiles/UserProfile';
+import UserProfileAbout from '../UserProfiles/UserProfileAbout';
 import UserProfileGithub from '../UserProfiles/UserProfileGithub';
 import UserProfileJobs from '../UserProfiles/UserProfileJobs'
 import UserProfilePosts from '../UserProfiles/UserProfilePosts'
 import AllJobs from '../job/AllJobs';
 import Job from '../job/JobPage';
-// import Posts from '../post/Posts';
+import AllPosts from '../post/AllPosts';
 // import PortfolioPage from '../portfolio/PortfolioPage';
 import NotFound from '../layout/NotFound';
 import PrivateRoute from '../routing/PrivateRoute';
@@ -31,9 +31,9 @@ const Routes = () => {
         <Route exact path='/register' component={Register} />
         <Route exact path='/' component={Login} />
         <PrivateRoute exact path='/profiles' component={AllUsers} />
-        {/* <Route exact path='/portfolios' component={Portfolios} />
-        <Route exact path='/portfolio/:id' component={PortfolioPage} />*/}
-        <PrivateRoute exact path='/user/:id' component={UserProfile} />
+        <PrivateRoute exact path='/posts' component={AllPosts} />
+        {/* <Route exact path='/portfolio/:id' component={PortfolioPage} />*/}
+        <PrivateRoute exact path='/user/:id' component={UserProfileAbout} />
         <PrivateRoute exact path='/user/:id/github' component={UserProfileGithub} />
         <PrivateRoute exact path='/user/:id/posts' component={UserProfilePosts} />
         <PrivateRoute exact path='/user/:id/jobs' component={UserProfileJobs} />

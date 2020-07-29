@@ -63,7 +63,7 @@ const DetailsDiv = styled.div`
   padding: 0 10px 0 10px;
 `;
 
-const Post = ({
+const PostItem = ({
   addPostLike,
   removePostLike,
   addPostSave,
@@ -81,68 +81,68 @@ const Post = ({
   return loading && profile === null ? (
     <Spinner />
   ) : (
-    <Container>
-      <Link to={`/portfolio/${_id}`}>
-        <PostImage src={postImage} />
-      </Link>
+      <Container>
+        <Link to={`/portfolio/${_id}`}>
+          <PostImage src={postImage} />
+        </Link>
 
-      <PostOverlay>
-        <DetailsDiv>
-          <Paragraph>"{title}"</Paragraph>
-          <Paragraph>
-            Posted: <Moment format='YYYY/MM/DD'>{date}</Moment>
-          </Paragraph>
-        </DetailsDiv>
-        <ActionsDiv>
-          {liking.length > 0 ? (
-            <Button
-              onClick={e => removePostLike(_id)}
-              type='button'
-              bttnLight='true'
-            >
-              <i className='fas fa-thumbs-up'></i>{' '}
-              <span>{likes.length > 0 && <span>{likes.length}</span>}</span>
-            </Button>
-          ) : (
-            <Button
-              onClick={e => addPostLike(_id)}
-              type='button'
-              bttnLight='true'
-            >
-              <i className='far fa-thumbs-up'></i>
-              <span>{likes.length > 0 && <span>{likes.length}</span>}</span>
-            </Button>
-          )}
-          {saving.length > 0 ? (
-            <Button
-              onClick={e => removePostSave(_id)}
-              type='button'
-              bttnLight='true'
-            >
-              <i className='fas fa-star'></i>{' '}
-              <span>{saves.length > 0 && <span>{saves.length}</span>}</span>
-            </Button>
-          ) : (
-            <Button
-              onClick={e => addPostSave(_id)}
-              type='button'
-              bttnLight='true'
-            >
-              <i className='far fa-star'></i>
-              <span>{saves.length > 0 && <span>{saves.length}</span>}</span>
-            </Button>
-          )}
-        </ActionsDiv>
-      </PostOverlay>
-    </Container>
-  );
+        <PostOverlay>
+          <DetailsDiv>
+            <Paragraph>"{title}"</Paragraph>
+            <Paragraph>
+              Posted: <Moment format='YYYY/MM/DD'>{date}</Moment>
+            </Paragraph>
+          </DetailsDiv>
+          <ActionsDiv>
+            {liking.length > 0 ? (
+              <Button
+                onClick={e => removePostLike(_id)}
+                type='button'
+                bttnLight='true'
+              >
+                <i className='fas fa-thumbs-up'></i>{' '}
+                <span>{likes.length > 0 && <span>{likes.length}</span>}</span>
+              </Button>
+            ) : (
+                <Button
+                  onClick={e => addPostLike(_id)}
+                  type='button'
+                  bttnLight='true'
+                >
+                  <i className='far fa-thumbs-up'></i>
+                  <span>{likes.length > 0 && <span>{likes.length}</span>}</span>
+                </Button>
+              )}
+            {saving.length > 0 ? (
+              <Button
+                onClick={e => removePostSave(_id)}
+                type='button'
+                bttnLight='true'
+              >
+                <i className='fas fa-star'></i>{' '}
+                <span>{saves.length > 0 && <span>{saves.length}</span>}</span>
+              </Button>
+            ) : (
+                <Button
+                  onClick={e => addPostSave(_id)}
+                  type='button'
+                  bttnLight='true'
+                >
+                  <i className='far fa-star'></i>
+                  <span>{saves.length > 0 && <span>{saves.length}</span>}</span>
+                </Button>
+              )}
+          </ActionsDiv>
+        </PostOverlay>
+      </Container>
+    );
 };
 
-Post.defaultProps = {
+PostItem.defaultProps = {
   showAction: true
 };
 
-Post.propTypes = {
+PostItem.propTypes = {
   auth: PropTypes.object.isRequired,
   addPostLike: PropTypes.func.isRequired,
   removePostLike: PropTypes.func.isRequired,
@@ -162,4 +162,4 @@ export default connect(mapStateToProps, {
   addPostSave,
   removePostSave,
   deletePost
-})(Post);
+})(PostItem);
