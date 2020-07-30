@@ -42,7 +42,7 @@ exports.getAllPosts = asyncHandler(async (req, res) => {
 // @desc     Get post by ID
 // @access   Private
 exports.getPostById = asyncHandler(async (req, res, next) => {
-  const post = await Post.findById(req.params.id);
+  const post = await Post.findById(req.params.id).populate('profile');
 
   // Check for ObjectId format and post
   if (!req.params.id.match(/^[0-9a-fA-F]{24}$/) || !post) {

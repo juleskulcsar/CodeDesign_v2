@@ -18,7 +18,7 @@ import UserProfilePosts from '../UserProfiles/UserProfilePosts'
 import AllJobs from '../job/AllJobs';
 import Job from '../job/JobPage';
 import AllPosts from '../post/AllPosts';
-// import PortfolioPage from '../portfolio/PortfolioPage';
+import PostPage from '../post/PostPage';
 import NotFound from '../layout/NotFound';
 import PrivateRoute from '../routing/PrivateRoute';
 import ImageUpload from '../fileuploader/ImageUpload';
@@ -32,7 +32,7 @@ const Routes = () => {
         <Route exact path='/' component={Login} />
         <PrivateRoute exact path='/profiles' component={AllUsers} />
         <PrivateRoute exact path='/posts' component={AllPosts} />
-        {/* <Route exact path='/portfolio/:id' component={PortfolioPage} />*/}
+        <PrivateRoute exact path='/post/:id' component={PostPage} />
         <PrivateRoute exact path='/user/:id' component={UserProfileAbout} />
         <PrivateRoute exact path='/user/:id/github' component={UserProfileGithub} />
         <PrivateRoute exact path='/user/:id/posts' component={UserProfilePosts} />

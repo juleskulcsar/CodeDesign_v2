@@ -22,7 +22,7 @@ import {
 const AllUsersContainer = styled.div`
   position: relative;
   top: 5em;
-  width: 75%;
+  width: 85%;
   margin: 0 auto;
   color: white;
   display: flex; 

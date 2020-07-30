@@ -40,7 +40,6 @@ const PostOverlay = styled.div`
   box-shadow: inset 0 0 100px #1c1b1a;
   ${Container}:hover & {
     opacity: 1;
-    /* background: radial-gradient(circle, transparent 70%, black 150%); */
   }
 `;
 
@@ -54,6 +53,7 @@ const PostImage = styled.img`
 `;
 
 const ActionsDiv = styled.div`
+  width: 10em;
   display: flex;
   align-items: center;
   padding: 10px 10px 0 10px;

@@ -27,7 +27,7 @@ router.post(
   s3.upload,
   uploadPost
 );
-router.get('/', protect, advancedResults(Post), getAllPosts);
+router.get('/', protect, advancedResults(Post, 'profile', 'user'), getAllPosts);
 router.get('/:id', protect, getPostById);
 router.delete('/:id', protect, deletePost);
 router.put('/like/:id', protect, likePost);

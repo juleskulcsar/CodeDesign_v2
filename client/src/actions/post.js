@@ -43,11 +43,13 @@ export const addPost = (formData, history) => async dispatch => {
 };
 
 // Get all posts
-export const getPosts = () => async dispatch => {
+export const getPosts = (filter) => async dispatch => {
   dispatch({ type: CLEAR_PROFILE });
 
   try {
-    const res = await axios.get('/api/post');
+    const res = await axios.get('/api/post', {
+      params: filter
+    });
 
     dispatch({
       type: GET_POSTS,
