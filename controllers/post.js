@@ -35,7 +35,7 @@ exports.uploadPost = asyncHandler(async (req, res) => {
 // @desc     Get all posts
 // @access   Private
 exports.getAllPosts = asyncHandler(async (req, res) => {
-  res.status(200).json(res.advancedResults);
+  res.status(200).json(res.advancedResults.data);
 });
 
 // @route    GET api/post/:id
@@ -96,6 +96,7 @@ exports.likePost = asyncHandler(async (req, res) => {
 
   post.likes.unshift({ user: req.user.id });
   await post.save();
+  res.json(post.likes);
 });
 
 // @route    PUT api/post/unlike/:id

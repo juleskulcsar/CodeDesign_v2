@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Spinner from '../layout/Spinner';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
@@ -70,19 +70,20 @@ const PostItem = ({
   removePostSave,
   deletePost,
   auth,
-  post: { _id, title, likes, saves, date, postImage },
+  post: { _id, title, likes, saves, date, postImage, user },
   showActions,
   profile: { profile, loading }
 }) => {
+
+
   const saving = saves.filter(save => save.user === auth.user._id);
   const liking = likes.filter(like => like.user === auth.user._id);
 
-  const MAX_LENGTH = 250;
   return loading && profile === null ? (
     <Spinner />
   ) : (
       <Container>
-        <Link to={`/portfolio/${_id}`}>
+        <Link to={`/post/${_id}`}>
           <PostImage src={postImage} />
         </Link>
 

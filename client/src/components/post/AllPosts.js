@@ -6,7 +6,13 @@ import styled from 'styled-components';
 import { getPosts } from '../../actions/post';
 import Spinner from '../layout/Spinner';
 import PostItem from './PostItem';
-import { Paragraph, H4Styled } from '../common/Edit-Create-Profile';
+import { SwitchLabel, Slider, CheckBoxInput } from '../common/CheckBox';
+import {
+    LeftContainer,
+    RightContainer,
+    Paragraph
+} from '../common/Edit-Create-Profile';
+import { StyledFiltersList, StyledFiltersUl } from '../common/Filters'
 
 const PostsList = styled.div`
     display: grid;
@@ -14,10 +20,31 @@ const PostsList = styled.div`
     grid-column-gap: 1em;
   `;
 
+const AllPostsContainer = styled.div`
+  position: relative;
+  top: 5em;
+  width: 75%;
+  margin: 0 auto;
+  color: white;
+  /* padding: 5%; */
+  display: flex; 
+  margin: 0 auto;
+`;
+
+const TitleWrapper = styled.div`
+  position: relative;
+  top: 3em;
+  text-align: center;
+`
+const PageTitle = styled.h1`
+  display: inline-block;
+  font-size: 2em;
+  color: #EFEEED;
+`
+
 const AllPosts = ({
     getPosts,
     post: { posts, loading },
-    auth
 }) => {
     useEffect(() => {
         getPosts();
@@ -29,20 +56,65 @@ const AllPosts = ({
         <Spinner />
     ) : (
             <Fragment>
-                <H4Styled >
-                    <i className='fas fa-images'></i> __browse CodeDesign community's posts
-                </H4Styled>
-                <PostsList>
-                    {posts.data.map(post => (
-                        <PostItem
-                            key={post._id}
-                            post={post}
-                            size={true}
-                            showAction={true}
-                            showD={false}
-                        />
-                    ))}
-                </PostsList>
+                <TitleWrapper>
+                    <PageTitle>Browse Code<span style={{ color: '#F16350' }}>D</span>esign community <span style={{ color: '#F16350' }}>posts</span>!</PageTitle>
+                </TitleWrapper>
+                <AllPostsContainer>
+                    <LeftContainer filters={true}>
+                        <StyledFiltersUl>
+                            <StyledFiltersList>
+                                <Paragraph filters={true}>remote </Paragraph>
+                                <SwitchLabel>
+                                    <CheckBoxInput
+                                        type="checkbox"
+                                    />
+                                    <Slider
+                                        round={true}></Slider>
+                                </SwitchLabel>
+                            </StyledFiltersList>
+                            <StyledFiltersList>
+                                <Paragraph filters={true}>on location </Paragraph>
+                                <SwitchLabel>
+                                    <CheckBoxInput
+                                        type="checkbox"
+                                    />
+                                    <Slider round={true}></Slider>
+                                </SwitchLabel>
+                            </StyledFiltersList>
+                            <StyledFiltersList>
+                                <Paragraph filters={true}>design </Paragraph>
+                                <SwitchLabel>
+                                    <CheckBoxInput
+                                        type="checkbox"
+                                    />
+                                    <Slider round={true}></Slider>
+                                </SwitchLabel>
+                            </StyledFiltersList>
+                            <StyledFiltersList>
+                                <Paragraph filters={true}>development </Paragraph>
+                                <SwitchLabel>
+                                    <CheckBoxInput
+                                        type="checkbox"
+                                    />
+                                    <Slider round={true}></Slider>
+                                </SwitchLabel>
+                            </StyledFiltersList>
+                        </StyledFiltersUl>
+                    </LeftContainer>
+                    <RightContainer>
+                        <PostsList>
+                            {posts.map(post => (
+                                <PostItem
+                                    key={post._id}
+                                    post={post}
+                                    size={true}
+                                    showAction={true}
+                                    showD={false}
+                                />
+                            ))}
+                        </PostsList>
+                    </RightContainer>
+                </AllPostsContainer>
             </Fragment>
         );
 };

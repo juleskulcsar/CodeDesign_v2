@@ -53,10 +53,6 @@ export const getPosts = () => async dispatch => {
       type: GET_POSTS,
       payload: res.data
     });
-    dispatch({
-      type: GET_PROFILES,
-      payload: res.data
-    });
   } catch (err) {
     dispatch({
       type: POST_ERROR,
@@ -101,7 +97,7 @@ export const deletePost = postId => async dispatch => {
 //add like
 export const addPostLike = id => async dispatch => {
   try {
-    const res = await axios.put(`/api/post/post-like/${id}`);
+    const res = await axios.put(`/api/post/like/${id}`);
     dispatch({
       type: UPDATE_POST_LIKES,
       payload: { id, likes: res.data }
@@ -117,7 +113,7 @@ export const addPostLike = id => async dispatch => {
 //remove like
 export const removePostLike = id => async dispatch => {
   try {
-    const res = await axios.put(`/api/post/post-unlike/${id}`);
+    const res = await axios.put(`/api/post/unlike/${id}`);
     dispatch({
       type: UPDATE_POST_UNLIKES,
       payload: { id, likes: res.data }
@@ -133,7 +129,7 @@ export const removePostLike = id => async dispatch => {
 //add like
 export const addPostSave = id => async dispatch => {
   try {
-    const res = await axios.put(`/api/post/post-save/${id}`);
+    const res = await axios.put(`/api/post/save/${id}`);
     dispatch({
       type: UPDATE_POST_SAVES,
       payload: { id, saves: res.data }
@@ -149,7 +145,7 @@ export const addPostSave = id => async dispatch => {
 //remove like
 export const removePostSave = id => async dispatch => {
   try {
-    const res = await axios.put(`/api/post/post-unsave/${id}`);
+    const res = await axios.put(`/api/post/unsave/${id}`);
     dispatch({
       type: UPDATE_POST_UNSAVES,
       payload: { id, saves: res.data }
