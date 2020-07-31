@@ -24,7 +24,7 @@ const PostImage = styled.img`
 `;
 
 const PostImageWrapper = styled.div`
-  max-width: 100%;
+  max-width: 1000px;
 `;
 
 const PostWrapper = styled.div`
@@ -82,19 +82,24 @@ const RoundImage = styled.img`
   border-radius: 50%;
   border: 1px solid #f16350;
   object-fit: cover;
-  width: 70px;
-  height: 70px;
+  width: 75px;
+  height: 75px;
   padding: 2px;
   margin-right: 1em;
 `;
 
 const PostTitle = styled.h1`
   color: #efefee;
-  line-height: 1.6;
+  margin: 0;
 `;
 
 const PostTopLeft = styled.div`
   display: flex;
+`;
+
+const P = styled.p`
+  color: #bfbdbc;
+  padding: 0;
 `;
 
 const Post = ({
@@ -143,10 +148,10 @@ const Post = ({
             </div>
             <div>
               <PostTitle>{title}</PostTitle>
-              <Paragraph>by {profile.displayName}</Paragraph>
-              <Paragraph>
+              <P>by {profile.displayName}</P>
+              <P>
                 Posted on <Moment format='YYYY/MM/DD'>{date}</Moment>
-              </Paragraph>
+              </P>
             </div>
           </PostTopLeft>
           <ActionsDiv>
@@ -169,14 +174,14 @@ const Post = ({
                 )}
                 {saving.length > 0 ? (
                   <Button onClick={e => removePostSave(_id)}>
-                    <i className='fas fa-star'></i>{' '}
+                    <i class='fas fa-bookmark'></i>{' '}
                     <span>
                       {saves.length > 0 && <span>{saves.length}</span>}
                     </span>
                   </Button>
                 ) : (
                   <Button onClick={e => addPostSave(_id)}>
-                    <i className='far fa-star'></i>
+                    <i class='far fa-bookmark'></i>{' '}
                     <span>
                       {saves.length > 0 && <span>{saves.length}</span>}
                     </span>

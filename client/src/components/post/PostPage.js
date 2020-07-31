@@ -36,9 +36,10 @@ const PostContainer = styled.div`
 const MoreItemsWrapper = styled.div`
   text-align: center;
   position: relative;
-  top: 2em;
+  top: 1em;
   border-right: 1px solid #ad4d2a;
   padding-right: 1em;
+  width: 200px;
 `;
 
 const MoreItems = styled.div`
