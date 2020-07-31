@@ -43,7 +43,7 @@ export const addPost = (formData, history) => async dispatch => {
 };
 
 // Get all posts
-export const getPosts = (filter) => async dispatch => {
+export const getPosts = filter => async dispatch => {
   dispatch({ type: CLEAR_PROFILE });
 
   try {
@@ -170,7 +170,7 @@ export const addPostComment = (postId, formData) => async dispatch => {
 
   try {
     const res = await axios.post(
-      `/api/post/post-comment/${postId}`,
+      `/api/post/comment/${postId}`,
       formData,
       config
     );
@@ -192,7 +192,7 @@ export const addPostComment = (postId, formData) => async dispatch => {
 // delete comment
 export const deletePostComment = (postId, postCommentId) => async dispatch => {
   try {
-    await axios.delete(`/api/post/post-comment/${postId}/${postCommentId}`);
+    await axios.delete(`/api/post/comment/${postId}/${postCommentId}`);
 
     dispatch({
       type: REMOVE_POST_COMMENT,

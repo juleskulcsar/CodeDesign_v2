@@ -12,6 +12,8 @@ import {
   deletePost,
   getPostById
 } from '../../actions/post';
+import PostCommentForm from '../comment/PostCommentForm';
+import PostCommentItem from '../comment/PostCommentItem';
 import { Button } from '../common/Button';
 import { getProfileById } from '../../actions/profile';
 import { Paragraph } from '../common/Edit-Create-Profile';
@@ -28,7 +30,7 @@ const PostImageWrapper = styled.div`
 `;
 
 const PostWrapper = styled.div`
-  align-items: center;
+  /* align-items: center; */
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -52,6 +54,7 @@ const PostTop = styled.div`
 const PostDescription = styled.div`
   display: flex;
   flex-direction: column;
+  padding-top: 2em;
 `;
 
 const ActionsDiv = styled.div`
@@ -61,13 +64,13 @@ const ActionsDiv = styled.div`
 
 const StyledUl = styled.ul`
   list-style: none;
-  margin-top: 1.5em;
-  padding-right: 1.5em;
+  padding: 0;
 `;
 const StyledList = styled.li`
   padding: 5px;
   margin-bottom: 1em;
   line-height: 1;
+  color: #bfbdbc;
 `;
 
 const Description = styled.p`
@@ -100,6 +103,16 @@ const PostTopLeft = styled.div`
 const P = styled.p`
   color: #bfbdbc;
   padding: 0;
+`;
+
+const CommentSection = styled.div`
+  position: relative;
+  width: 100%;
+`;
+
+const Heading = styled.h3`
+  color: #efefee;
+  margin: 0;
 `;
 
 const Post = ({
@@ -158,14 +171,14 @@ const Post = ({
             {showActions && (
               <Fragment>
                 {liking.length > 0 ? (
-                  <Button onClick={e => removePostLike(_id)}>
+                  <Button bttnLight={true} onClick={e => removePostLike(_id)}>
                     <i className='fas fa-thumbs-up'></i>{' '}
                     <span>
                       {likes.length > 0 && <span>{likes.length}</span>}
                     </span>
                   </Button>
                 ) : (
-                  <Button onClick={e => addPostLike(_id)}>
+                  <Button bttnLight={true} onClick={e => addPostLike(_id)}>
                     <i className='far fa-thumbs-up'></i>
                     <span>
                       {likes.length > 0 && <span>{likes.length}</span>}
@@ -173,15 +186,15 @@ const Post = ({
                   </Button>
                 )}
                 {saving.length > 0 ? (
-                  <Button onClick={e => removePostSave(_id)}>
-                    <i class='fas fa-bookmark'></i>{' '}
+                  <Button bttnLight={true} onClick={e => removePostSave(_id)}>
+                    <i className='fas fa-bookmark'></i>{' '}
                     <span>
                       {saves.length > 0 && <span>{saves.length}</span>}
                     </span>
                   </Button>
                 ) : (
-                  <Button onClick={e => addPostSave(_id)}>
-                    <i class='far fa-bookmark'></i>{' '}
+                  <Button bttnLight={true} onClick={e => addPostSave(_id)}>
+                    <i className='far fa-bookmark'></i>{' '}
                     <span>
                       {saves.length > 0 && <span>{saves.length}</span>}
                     </span>
@@ -195,23 +208,38 @@ const Post = ({
           <PostImage src={postImage} />
         </PostImageWrapper>
         <PostDescription>
+          {!auth.loading && user === auth.user._id && (
+            <Button postPage={true} small={true} onClick={e => deletePost(_id)}>
+              <i className='fas fa-times'></i> {'   '}delete post
+            </Button>
+          )}
+          <Heading>description </Heading>
           <Description>{description}</Description>
-          <h3>__done with: </h3>
+          <Heading>done with: </Heading>
           {technologies.length > 0 && (
             <StyledUl>
               {technologies.map((technology, index) => (
                 <StyledList key={index}>
-                  <i className='fas fa-check' /> {technology}
+                  <span style={{ color: '#AD4D2A' }}>
+                    <i className='fas fa-check' />
+                  </span>{' '}
+                  {technology}
                 </StyledList>
               ))}
             </StyledUl>
           )}
         </PostDescription>
-        {!auth.loading && user === auth.user._id && (
-          <Button onClick={e => deletePost(_id)}>
-            <i className='fas fa-times'></i> delete your post
-          </Button>
-        )}
+        <CommentSection>
+          <PostCommentForm postId={_id} />
+          <br />
+          <Paragraph className='comments-count'>
+            {comments.length > 0 && <span>{comments.length}</span>} Comments
+          </Paragraph>
+
+          {comments.map(comment => (
+            <PostCommentItem key={comment._id} comment={comment} postId={_id} />
+          ))}
+        </CommentSection>
       </PostWrapper>
     </>
   );

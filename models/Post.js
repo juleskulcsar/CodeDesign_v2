@@ -58,6 +58,7 @@ const PostSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'User'
       },
+      profile: {},
       text: {
         type: String,
         required: [true, 'Please add a comment before submitting']

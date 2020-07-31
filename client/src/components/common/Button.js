@@ -42,7 +42,6 @@ const Button = styled.button`
       ${props =>
         props.bttnLight
           ? css`
-              /* background: linear-gradient(to bottom, #ffffff 5%, #f6f6f6 100%); */
               background-color: #bfbdbc;
               border-radius: 6px;
               border: 1px solid #383734;
@@ -50,7 +49,6 @@ const Button = styled.button`
               cursor: pointer;
               color: #666666;
               font-size: 1rem;
-              /* padding: 0.25rem 1.3rem; */
               text-decoration: none;
               transition: opacity 0.2s ease-in;
               outline: none;
@@ -68,6 +66,30 @@ const Button = styled.button`
               : css`
                   height: 40px;
                 `}
+          ${props =>
+            props.postPage
+              ? css`
+                  background: #ad4d2a;
+                  color: #efefee;
+                  border-color: #f16350;
+                  border-radius: 6px;
+                  border: 1px solid #383734;
+                  display: inline-block;
+                  padding: 4px;
+                  margin-bottom: 2em;
+                  height: fit-content;
+                  cursor: pointer;
+                  font-size: 1rem;
+                  text-decoration: none;
+                  transition: opacity 0.2s ease-in;
+                  outline: none;
+                  :hover {
+                    background: #bfbdbc;
+                    border-color: #f16350;
+                    color: #ad4d2a;
+                  }
+                `
+              : css``}
 `;
 
 export { Button };

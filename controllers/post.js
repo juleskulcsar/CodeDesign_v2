@@ -172,7 +172,8 @@ exports.postComment = asyncHandler(async (req, res) => {
     text: req.body.text,
     name: profile.name,
     avatar: profile.profilePhoto,
-    user: req.user.id
+    user: req.user.id,
+    profile: profile
   };
 
   post.comments.unshift(newComment);
