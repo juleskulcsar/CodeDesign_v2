@@ -76,7 +76,7 @@ const Button = styled.button`
                   border: 1px solid #383734;
                   display: inline-block;
                   padding: 4px;
-                  margin-bottom: 2em;
+                  margin-bottom: ${props => (props.noMargin ? '0' : '2em')};
                   height: fit-content;
                   cursor: pointer;
                   font-size: 1rem;

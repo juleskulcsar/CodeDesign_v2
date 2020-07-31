@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import styled from 'styled-components';
 import Moment from 'react-moment';
 import { deletePostComment } from '../../actions/post';
-import { Paragraph, StyledLink } from '../common/Edit-Create-Profile';
+import { Paragraph } from '../common/Edit-Create-Profile';
 import { Button } from '../common/Button';
 
 const CommentItem = styled.div`
@@ -14,18 +14,32 @@ const CommentItem = styled.div`
   margin-bottom: 0.5rem;
   display: grid;
   grid-template-columns: 1fr 4fr;
-  grid-gap: 2rem;
   align-items: center;
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid #ad4d2a;
 `;
 const RoundImage = styled.img`
   border-radius: 50%;
   border: 1px solid #f16350;
   object-fit: cover;
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
   padding: 2px;
-  margin-right: 1em;
+`;
+
+const StyledLink = styled(Link)`
+  text-decoration: none;
+  color: #ad4d2a;
+  margin-bottom: 2em;
+  width: fit-content;
+  > p:hover {
+    color: #f16350;
+  }
+`;
+
+const P = styled.p`
+  color: #bfbdbc;
+  margin: 0;
+  line-height: 1.6;
 `;
 
 const PostCommentItem = ({
@@ -37,9 +51,9 @@ const PostCommentItem = ({
   return (
     <CommentItem>
       <div>
-        <StyledLink to={`/profile/${user}`}>
+        <StyledLink to={`/user/${user}`}>
           <RoundImage src={profile.profilePhoto} alt='' />
-          <Paragraph>{profile.displayName}</Paragraph>
+          <P>{profile.displayName}</P>
         </StyledLink>
       </div>
       <div>
@@ -51,9 +65,10 @@ const PostCommentItem = ({
             <Button
               small={true}
               postPage={true}
+              noMargin={true}
               onClick={() => deletePostComment(postId, _id)}
             >
-              <i className='fas fa-trash-alt' />
+              {'   '} <i className='fas fa-trash-alt' />
             </Button>
           )}
         </Paragraph>
