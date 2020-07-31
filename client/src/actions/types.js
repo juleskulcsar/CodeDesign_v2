@@ -24,6 +24,7 @@ export const ADD_JOB = 'ADD_JOB';
 export const CLEAR_JOB = 'CLEAR_JOB';
 export const GET_POSTS = 'GET_POSTS';
 export const GET_POST = 'GET_POST';
+export const CLEAR_POST = 'CLEAR_POST';
 export const POST_ERROR = 'POST_ERROR';
 export const UPDATE_POST_LIKES = 'UPDATE_POST_LIKES';
 export const UPDATE_POST_UNLIKES = 'UPDATE_POST_UNLIKES';

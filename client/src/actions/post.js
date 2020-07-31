@@ -2,13 +2,13 @@ import axios from 'axios';
 import { setAlert } from './alert';
 import {
   GET_POSTS,
-  GET_MY_POSTS,
   GET_POST,
   POST_ERROR,
   UPDATE_POST_LIKES,
   UPDATE_POST_UNLIKES,
   DELETE_POST,
   ADD_POST,
+  CLEAR_POST,
   ADD_POST_COMMENT,
   REMOVE_POST_COMMENT,
   UPDATE_POST_SAVES,
@@ -65,6 +65,7 @@ export const getPosts = filter => async dispatch => {
 
 //get post
 export const getPostById = postId => async dispatch => {
+  dispatch({ type: CLEAR_POST });
   try {
     const res = await axios.get(`/api/post/${postId}`);
     dispatch({

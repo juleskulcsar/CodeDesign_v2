@@ -107,7 +107,10 @@ const P = styled.p`
 
 const CommentSection = styled.div`
   position: relative;
-  width: 100%;
+  width: 80%;
+  @media (max-width: 768px) {
+    width: 100%;
+  }
 `;
 
 const Heading = styled.h3`

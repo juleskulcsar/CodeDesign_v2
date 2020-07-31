@@ -5,17 +5,8 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import Spinner from '../layout/Spinner';
 import Post from './Post';
-// import PostCommentForm from './PostCommentForm';
-// import PostCommentItem from './PostCommentItem';
 import { getPostById } from '../../actions/post';
 import { getPosts } from '../../actions/post';
-import { getProfileById } from '../../actions/profile';
-import {
-  Paragraph,
-  StyledLink,
-  H4Styled,
-  RoundImage
-} from '../common/Edit-Create-Profile';
 
 const PostContainer = styled.div`
   position: relative;
@@ -36,7 +27,7 @@ const PostContainer = styled.div`
 const MoreItemsWrapper = styled.div`
   text-align: center;
   position: relative;
-  top: 1em;
+  top: 2em;
   border-right: 1px solid #ad4d2a;
   padding-right: 1em;
   width: 200px;

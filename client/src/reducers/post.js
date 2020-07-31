@@ -9,7 +9,8 @@ import {
   UPDATE_POST_SAVES,
   UPDATE_POST_UNSAVES,
   ADD_POST_COMMENT,
-  REMOVE_POST_COMMENT
+  REMOVE_POST_COMMENT,
+  CLEAR_POST
 } from '../actions/types';
 
 const initialState = {
@@ -41,6 +42,12 @@ export default function(state = initialState, action) {
       return {
         ...state,
         posts: [payload, ...state.posts],
+        loading: false
+      };
+    case CLEAR_POST:
+      return {
+        ...state,
+        post: null,
         loading: false
       };
     case POST_ERROR:
