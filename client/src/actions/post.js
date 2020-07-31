@@ -104,6 +104,7 @@ export const addPostLike = id => async dispatch => {
       type: UPDATE_POST_LIKES,
       payload: { id, likes: res.data }
     });
+    dispatch(getPostById(id));
   } catch (err) {
     dispatch({
       type: POST_ERROR,
@@ -120,6 +121,7 @@ export const removePostLike = id => async dispatch => {
       type: UPDATE_POST_UNLIKES,
       payload: { id, likes: res.data }
     });
+    dispatch(getPostById(id));
   } catch (err) {
     dispatch({
       type: POST_ERROR,
@@ -136,6 +138,7 @@ export const addPostSave = id => async dispatch => {
       type: UPDATE_POST_SAVES,
       payload: { id, saves: res.data }
     });
+    dispatch(getPostById(id));
   } catch (err) {
     dispatch({
       type: POST_ERROR,
@@ -152,6 +155,7 @@ export const removePostSave = id => async dispatch => {
       type: UPDATE_POST_UNSAVES,
       payload: { id, saves: res.data }
     });
+    dispatch(getPostById(id));
   } catch (err) {
     dispatch({
       type: POST_ERROR,

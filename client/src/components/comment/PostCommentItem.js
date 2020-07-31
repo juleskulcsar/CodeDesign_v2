@@ -40,6 +40,9 @@ const P = styled.p`
   color: #bfbdbc;
   margin: 0;
   line-height: 1.6;
+  @media (max-width: 768px) {
+    display: none;
+  }
 `;
 
 const PostCommentItem = ({

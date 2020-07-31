@@ -98,7 +98,7 @@ const PostPage = ({
     <>
       <PostContainer>
         <MoreItemsWrapper>
-          <Paragraph>more from {post.profile.displayName}: </Paragraph>
+          <P>more from {post.profile.displayName}: </P>
           <br />
           {posts
             .filter(p => p.user === post.user)
