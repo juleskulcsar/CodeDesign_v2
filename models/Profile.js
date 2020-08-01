@@ -38,6 +38,36 @@ const ProfileSchema = new mongoose.Schema(
     githubusername: {
       type: String
     },
+    notifications: {
+      new: [
+        {
+          profile: {
+            name: {
+              type: String
+            },
+            photo: {
+              type: String
+            }
+          },
+          notificationType: {
+            type: String
+          },
+          post: {
+            id: {
+              type: String
+            },
+            title: {
+              type: String
+            }
+          },
+          date: {
+            type: Date,
+            default: Date.now
+          }
+        }
+      ],
+      old: []
+    },
     social: {
       youtube: {
         type: String
@@ -67,7 +97,7 @@ const ProfileSchema = new mongoose.Schema(
 );
 
 // Cascade delete posts when a profile is deleted
-ProfileSchema.pre('remove', async function (next) {
+ProfileSchema.pre('remove', async function(next) {
   await this.model('post').deleteMany({ profile: this._id });
   await this.model('job').deleteMany({ profile: this._id });
   next();

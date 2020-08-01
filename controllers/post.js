@@ -80,7 +80,21 @@ exports.deletePost = asyncHandler(async (req, res) => {
 // @desc     Like a post
 // @access   Private
 exports.likePost = asyncHandler(async (req, res) => {
-  const post = await Post.findById(req.params.id);
+  const post = await Post.findById(req.params.id).populate('profile', [
+    'profilePhoto',
+    'displayName'
+  ]);
+  console.log('post in post controller: ', post);
+  const profile = await Profile.findOne({ user: req.user.id });
+  const postProfile = await Profile.findById(post.profile.id);
+  console.log('user saving: ', profile);
+  console.log('profile getting notif: ', postProfile);
+
+  postProfile.notifications.new.push({
+    notificationType: 'like',
+    post: { id: post._id, title: post.title },
+    profile: { name: profile.displayName, photo: profile.profilePhoto }
+  });
 
   // Check if the post has already been liked
   if (
@@ -96,6 +110,7 @@ exports.likePost = asyncHandler(async (req, res) => {
 
   post.likes.unshift({ user: req.user.id });
   await post.save();
+  await postProfile.save();
   res.json(post.likes);
 });
 
