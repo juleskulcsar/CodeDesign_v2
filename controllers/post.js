@@ -84,11 +84,9 @@ exports.likePost = asyncHandler(async (req, res) => {
     'profilePhoto',
     'displayName'
   ]);
-  console.log('post in post controller: ', post);
+
   const profile = await Profile.findOne({ user: req.user.id });
   const postProfile = await Profile.findById(post.profile.id);
-  console.log('user saving: ', profile);
-  console.log('profile getting notif: ', postProfile);
 
   postProfile.notifications.new.push({
     notificationType: 'like',
@@ -118,7 +116,19 @@ exports.likePost = asyncHandler(async (req, res) => {
 // @desc     Unlike a portfolio
 // @access   Private
 exports.unlikePost = asyncHandler(async (req, res) => {
-  const post = await Post.findById(req.params.id);
+  const post = await Post.findById(req.params.id).populate('profile', [
+    'profilePhoto',
+    'displayName'
+  ]);
+  const profile = await Profile.findOne({ user: req.user.id });
+  const postProfile = await Profile.findById(post.profile.id);
+
+  postProfile.notifications.new.push({
+    notificationType: 'unlike',
+    post: { id: post._id, title: post.title },
+    profile: { name: profile.displayName, photo: profile.profilePhoto }
+  });
+
   // Check if the post has already been liked
   if (
     post.likes.filter(like => like.user.toString() === req.user.id).length > 0
@@ -132,6 +142,7 @@ exports.unlikePost = asyncHandler(async (req, res) => {
   }
 
   await post.save();
+  await postProfile.save();
   res.json(post.likes);
 });
 
@@ -139,7 +150,18 @@ exports.unlikePost = asyncHandler(async (req, res) => {
 // @desc     Save a post
 // @access   Private
 exports.savePost = asyncHandler(async (req, res) => {
-  const post = await Post.findById(req.params.id);
+  const post = await Post.findById(req.params.id).populate('profile', [
+    'profilePhoto',
+    'displayName'
+  ]);
+  const profile = await Profile.findOne({ user: req.user.id });
+  const postProfile = await Profile.findById(post.profile.id);
+
+  postProfile.notifications.new.push({
+    notificationType: 'save',
+    post: { id: post._id, title: post.title },
+    profile: { name: profile.displayName, photo: profile.profilePhoto }
+  });
   // Check if the post has already been saved
   if (
     post.saves.filter(save => save.user.toString() === req.user.id).length !== 0
@@ -153,6 +175,7 @@ exports.savePost = asyncHandler(async (req, res) => {
   post.saves.unshift({ user: req.user.id });
 
   await post.save();
+  await postProfile.save();
   res.json(post.saves);
 });
 
@@ -160,7 +183,18 @@ exports.savePost = asyncHandler(async (req, res) => {
 // @desc     Unsave a portfolio
 // @access   Private
 exports.unsavePost = asyncHandler(async (req, res) => {
-  const post = await Post.findById(req.params.id);
+  const post = await Post.findById(req.params.id).populate('profile', [
+    'profilePhoto',
+    'displayName'
+  ]);
+  const profile = await Profile.findOne({ user: req.user.id });
+  const postProfile = await Profile.findById(post.profile.id);
+
+  postProfile.notifications.new.push({
+    notificationType: 'unsave',
+    post: { id: post._id, title: post.title },
+    profile: { name: profile.displayName, photo: profile.profilePhoto }
+  });
 
   // Check if the post has already been saved
   if (
@@ -173,6 +207,7 @@ exports.unsavePost = asyncHandler(async (req, res) => {
   }
 
   await post.save();
+  await postProfile.save();
   res.json(post.saves);
 });
 
@@ -180,8 +215,18 @@ exports.unsavePost = asyncHandler(async (req, res) => {
 // @desc     Comment on a post
 // @access   Private
 exports.postComment = asyncHandler(async (req, res) => {
-  const post = await Post.findById(req.params.id);
+  const post = await Post.findById(req.params.id).populate('profile', [
+    'profilePhoto',
+    'displayName'
+  ]);
   const profile = await Profile.findOne({ user: req.user.id });
+  const postProfile = await Profile.findById(post.profile.id);
+
+  postProfile.notifications.new.push({
+    notificationType: 'comment',
+    post: { id: post._id, title: post.title },
+    profile: { name: profile.displayName, photo: profile.profilePhoto }
+  });
 
   const newComment = {
     text: req.body.text,
@@ -194,6 +239,7 @@ exports.postComment = asyncHandler(async (req, res) => {
   post.comments.unshift(newComment);
 
   await post.save();
+  await postProfile.save();
   res.json(post.comments);
 });
 
@@ -201,7 +247,18 @@ exports.postComment = asyncHandler(async (req, res) => {
 // @desc     Delete comment
 // @access   Private
 exports.deletePostComment = asyncHandler(async (req, res, next) => {
-  const post = await Post.findById(req.params.id);
+  const post = await Post.findById(req.params.id).populate('profile', [
+    'profilePhoto',
+    'displayName'
+  ]);
+  const profile = await Profile.findOne({ user: req.user.id });
+  const postProfile = await Profile.findById(post.profile.id);
+
+  postProfile.notifications.new.push({
+    notificationType: 'delete_comment',
+    post: { id: post._id, title: post.title },
+    profile: { name: profile.displayName, photo: profile.profilePhoto }
+  });
 
   // Pull out comment
   const comment = post.comments.find(
@@ -231,5 +288,6 @@ exports.deletePostComment = asyncHandler(async (req, res, next) => {
   post.comments.splice(removeIndex, 1);
 
   await post.save();
+  await postProfile.save();
   res.json(post.comments);
 });
