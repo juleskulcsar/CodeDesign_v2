@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { getJobs } from '../../actions/job';
+import { getCurrentProfile } from '../../actions/profile';
 import Spinner from '../layout/Spinner';
 import JobItem from './JobItem';
 import { SwitchLabel, Slider, CheckBoxInput } from '../common/CheckBox';
@@ -37,11 +38,15 @@ const PageTitle = styled.h1`
 `
 
 
-const AllJobs = ({ history, auth, getJobs, job: { jobs, _id, user, loading } }) => {
+const AllJobs = ({ history, auth, getJobs, job: { jobs, _id, user, loading }, getCurrentProfile, profile: { profile } }) => {
 
   useEffect(() => {
     getJobs();
   }, [getJobs]);
+  useEffect(() => {
+    getCurrentProfile();
+  }, [getCurrentProfile]);
+
 
   let filters = {}
   const [filterParams, setFilterparams] = useState(filters)
@@ -175,7 +180,7 @@ const AllJobs = ({ history, auth, getJobs, job: { jobs, _id, user, loading } }) 
             </StyledFiltersUl>
           </LeftContainer>
           <RightContainer >
-            {jobs.data.map(job => (
+            {jobs.map(job => (
               <div key={job._id}>
                 <JobItem key={job._id} job={job} size={true} />
               </div>
@@ -188,10 +193,12 @@ const AllJobs = ({ history, auth, getJobs, job: { jobs, _id, user, loading } }) 
 
 AllJobs.propTypes = {
   getJobs: PropTypes.func.isRequired,
+  getCurrentProfile: PropTypes.func.isRequired,
   job: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
-  job: state.job
+  job: state.job,
+  profile: state.profile
 });
-export default connect(mapStateToProps, { getJobs })(withRouter(AllJobs));
+export default connect(mapStateToProps, { getJobs, getCurrentProfile })(withRouter(AllJobs));

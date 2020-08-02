@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { getPosts } from '../../actions/post';
+import { getCurrentProfile } from '../../actions/profile';
 import Spinner from '../layout/Spinner';
 import PostItem from './PostItem';
 import { SwitchLabel, Slider, CheckBoxInput } from '../common/CheckBox';
@@ -47,10 +48,15 @@ const PageTitle = styled.h1`
 const AllPosts = ({
     getPosts,
     post: { posts, loading },
+    getCurrentProfile,
+    profile: { profile }
 }) => {
     useEffect(() => {
         getPosts();
     }, [getPosts]);
+    useEffect(() => {
+        getCurrentProfile();
+    }, [getCurrentProfile]);
 
     // console.log('posts: ', posts)
 
@@ -181,15 +187,17 @@ const AllPosts = ({
 
 AllPosts.propTypes = {
     getPosts: PropTypes.func.isRequired,
-    post: PropTypes.object.isRequired
+    post: PropTypes.object.isRequired,
+    getCurrentProfile: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
     post: state.post,
     posts: state.posts,
     profiles: state.profiles,
+    profile: state.profile,
     auth: state.auth
 });
 export default connect(mapStateToProps, {
-    getPosts
+    getPosts, getCurrentProfile
 })(AllPosts);

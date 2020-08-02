@@ -17,6 +17,7 @@ import {
   GET_PROFILE,
   CLEAR_PROFILE
 } from './types';
+import { getCurrentProfile } from './profile';
 
 //add post
 export const addPost = (formData, history) => async dispatch => {
@@ -106,6 +107,8 @@ export const addPostLike = id => async dispatch => {
       payload: { id, likes: res.data }
     });
     dispatch(getPostById(id));
+    dispatch(getPosts());
+    dispatch(getCurrentProfile());
   } catch (err) {
     dispatch({
       type: POST_ERROR,

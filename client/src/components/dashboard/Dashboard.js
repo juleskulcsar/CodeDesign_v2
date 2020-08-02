@@ -28,48 +28,48 @@ const Dashboard = ({
     getCurrentProfile();
   }, [getCurrentProfile]);
 
-  return loading && profile === null ? (
+  return loading ? (
     <Spinner />
   ) : (
-    <Fragment>
-      {profile !== null ? (
-        <Fragment>
-          <Container>
-            <LeftContainer>
-              <DashboardActions />
-              <Button deleteAccount onClick={() => deleteAccount()}>
-                delete account
+      <Fragment>
+        {profile !== null ? (
+          <Fragment>
+            <Container>
+              <LeftContainer>
+                <DashboardActions />
+                <Button deleteAccount onClick={() => deleteAccount()}>
+                  delete account
               </Button>
-            </LeftContainer>
-            <RightContainer>
-              <ProfileTopSection profile={profile} />
-              <ProfileBottomDiv>
-                {profile.bio && (
-                  <div>
-                    <H4Styled about='true'>About:</H4Styled>
-                    <Paragraph>{profile.bio}</Paragraph>
-                  </div>
-                )}
-                {profile.skills && (
-                  <div>
-                    {profile.skills.map((skill, index) => (
-                      <Paragraph key={index}>
-                        <i className='fas fa-check' /> {skill}
-                      </Paragraph>
-                    ))}
-                  </div>
-                )}
-              </ProfileBottomDiv>
-            </RightContainer>
-          </Container>
-        </Fragment>
-      ) : (
-        <Fragment>
-          <CreateProfile />
-        </Fragment>
-      )}
-    </Fragment>
-  );
+              </LeftContainer>
+              <RightContainer>
+                <ProfileTopSection profile={profile} />
+                <ProfileBottomDiv>
+                  {profile.bio && (
+                    <div>
+                      <H4Styled about='true'>About:</H4Styled>
+                      <Paragraph>{profile.bio}</Paragraph>
+                    </div>
+                  )}
+                  {profile.skills && (
+                    <div>
+                      {profile.skills.map((skill, index) => (
+                        <Paragraph key={index}>
+                          <i className='fas fa-check' /> {skill}
+                        </Paragraph>
+                      ))}
+                    </div>
+                  )}
+                </ProfileBottomDiv>
+              </RightContainer>
+            </Container>
+          </Fragment>
+        ) : (
+            <Fragment>
+              <CreateProfile />
+            </Fragment>
+          )}
+      </Fragment>
+    );
 };
 
 Dashboard.propTypes = {

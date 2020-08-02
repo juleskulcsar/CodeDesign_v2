@@ -10,7 +10,8 @@ import {
   removePostLike,
   addPostSave,
   removePostSave,
-  deletePost
+  deletePost,
+  getPosts
 } from '../../actions/post';
 import { Button } from '../common/Button';
 import { Paragraph } from '../common/Edit-Create-Profile';
@@ -80,61 +81,63 @@ const PostItem = ({
   return loading && profile === null ? (
     <Spinner />
   ) : (
-    <Container>
-      <Link to={`/post/${_id}`}>
-        <PostImage src={postImage} />
-      </Link>
+      <Container>
+        <Link to={`/post/${_id}`}>
+          <PostImage src={postImage} />
+        </Link>
 
-      <PostOverlay>
-        <DetailsDiv>
-          <Paragraph>"{title}"</Paragraph>
-          <Paragraph>
-            Posted: <Moment format='YYYY/MM/DD'>{date}</Moment>
-          </Paragraph>
-        </DetailsDiv>
-        <ActionsDiv>
-          {liking.length > 0 ? (
-            <Button
-              onClick={e => removePostLike(_id)}
-              type='button'
-              bttnLight='true'
-            >
-              <i className='fas fa-thumbs-up'></i>{' '}
-              <span>{likes.length > 0 && <span>{likes.length}</span>}</span>
-            </Button>
-          ) : (
-            <Button
-              onClick={e => addPostLike(_id)}
-              type='button'
-              bttnLight='true'
-            >
-              <i className='far fa-thumbs-up'></i>
-              <span>{likes.length > 0 && <span>{likes.length}</span>}</span>
-            </Button>
-          )}
-          {saving.length > 0 ? (
-            <Button
-              onClick={e => removePostSave(_id)}
-              type='button'
-              bttnLight='true'
-            >
-              <i className='fas fa-bookmark'></i>{' '}
-              <span>{saves.length > 0 && <span>{saves.length}</span>}</span>
-            </Button>
-          ) : (
-            <Button
-              onClick={e => addPostSave(_id)}
-              type='button'
-              bttnLight='true'
-            >
-              <i className='far fa-bookmark'></i>
-              <span>{saves.length > 0 && <span>{saves.length}</span>}</span>
-            </Button>
-          )}
-        </ActionsDiv>
-      </PostOverlay>
-    </Container>
-  );
+        <PostOverlay>
+          <DetailsDiv>
+            <Paragraph>"{title}"</Paragraph>
+            <Paragraph>
+              Posted: <Moment format='YYYY/MM/DD'>{date}</Moment>
+            </Paragraph>
+          </DetailsDiv>
+          <ActionsDiv>
+            {liking.length > 0 ? (
+              <Button
+                onClick={(e) =>
+                  removePostLike(_id)
+                }
+                type='button'
+                bttnLight='true'
+              >
+                <i className='fas fa-thumbs-up'></i>{' '}
+                <span>{likes.length > 0 && <span>{likes.length}</span>}</span>
+              </Button>
+            ) : (
+                <Button
+                  onClick={e => addPostLike(_id)}
+                  type='button'
+                  bttnLight='true'
+                >
+                  <i className='far fa-thumbs-up'></i>
+                  <span>{likes.length > 0 && <span>{likes.length}</span>}</span>
+                </Button>
+              )}
+            {saving.length > 0 ? (
+              <Button
+                onClick={e => removePostSave(_id)}
+                type='button'
+                bttnLight='true'
+              >
+                <i className='fas fa-bookmark'></i>{' '}
+                <span>{saves.length > 0 && <span>{saves.length}</span>}</span>
+              </Button>
+            ) : (
+                <Button
+                  onClick={e => addPostSave(_id)}
+                  type='button'
+                  bttnLight='true'
+                >
+                  <i className='far fa-bookmark'></i>
+                  <span>{saves.length > 0 && <span>{saves.length}</span>}</span>
+                </Button>
+              )}
+          </ActionsDiv>
+        </PostOverlay>
+      </Container>
+    );
 };
 
 PostItem.defaultProps = {

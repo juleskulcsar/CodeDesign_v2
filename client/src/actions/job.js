@@ -7,11 +7,13 @@ import {
   ADD_JOB,
   GET_JOB,
   GET_PROFILE,
-  CLEAR_JOB
+  CLEAR_JOB,
+  CLEAR_PROFILE
 } from './types';
 
 //get jobs
 export const getJobs = (filter) => async dispatch => {
+  // dispatch({ type: CLEAR_PROFILE });
   try {
     const res = await axios.get('/api/job', {
       params: filter
@@ -20,10 +22,10 @@ export const getJobs = (filter) => async dispatch => {
       type: GET_JOBS,
       payload: res.data
     });
-    dispatch({
-      type: GET_PROFILE,
-      payload: res.data
-    });
+    // dispatch({
+    //   type: GET_PROFILE,
+    //   payload: res.data
+    // });
   } catch (err) {
     dispatch({
       type: JOB_ERROR,
