@@ -28,6 +28,7 @@ const auth = require('./routes/api/auth');
 const profile = require('./routes/api/profile');
 const post = require('./routes/api/post');
 const job = require('./routes/api/job');
+const notification = require('./routes/api/notification');
 
 const app = express();
 
@@ -76,6 +77,7 @@ app.use('/api/auth', auth);
 app.use('/api/profile', profile);
 app.use('/api/post', post);
 app.use('/api/job', job);
+app.use('/api/notification', notification);
 
 app.use(errorHandler);
 

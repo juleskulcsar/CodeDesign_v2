@@ -5,7 +5,9 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { logout } from '../../actions/auth';
 import { loadUser } from '../../actions/auth';
-import { getCurrentProfile } from '../../actions/profile';
+import { getCurrentProfile, getProfileById } from '../../actions/profile';
+import NotificationItem from '../notifications/NotificationIcon'
+
 
 const Link = ({ isActive, children, ...props }) => {
   return <RouterDomLink {...props}>{children}</RouterDomLink>;
@@ -140,17 +142,12 @@ const NotifNo = styled.span`
     background-color: #db5565;
 `
 
-const Navbar = ({ auth: { isAuthenticated, loading, user }, logout, profile: { profile } }) => {
+const Navbar = ({ auth: { isAuthenticated, loading, user }, logout }) => {
   useEffect(() => {
     loadUser();
   }, []);
-  useEffect(() => {
-    getCurrentProfile();
-  }, [getCurrentProfile]);
 
-  console.log('user in navbar: ', user)
 
-  console.log('profile in navbar: ', profile)
   const { pathname } = useLocation();
   const [menuOpen, setMenuOpen] = useState(false);
   const pathnameLocation = () => {
@@ -172,11 +169,9 @@ const Navbar = ({ auth: { isAuthenticated, loading, user }, logout, profile: { p
       </MobileMenuIcon>
       <Menu open={menuOpen}>
         <StyledUl>
-          <StyledList>
-            <i className="far fa-bell" style={{ fontSize: '20px', float: 'left', color: 'white', position: 'relative', right: '5px' }}></i>
-            {profile === null ? null :
-              <NotifNo >{profile.notifications.new.length}</NotifNo>}
-          </StyledList>
+          {/* <StyledList>
+            <NotificationItem />
+          </StyledList> */}
           <StyledList isActive={pathname === '/profiles'}>
             <StyledLink isActive={pathname === '/profiles'} to='/profiles'>
               <span>community</span>
@@ -221,7 +216,6 @@ Navbar.propTypes = {
 
 const mapStateToProps = state => ({
   auth: state.auth,
-  profile: state.profile
 });
 
-export default connect(mapStateToProps, { logout, getCurrentProfile })(Navbar);
+export default connect(mapStateToProps, { logout })(Navbar);

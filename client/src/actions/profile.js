@@ -55,7 +55,7 @@ export const getProfiles = (filters) => async dispatch => {
 // Get profile by ID
 //we are using userId because we are not getting the profile by profile id
 export const getProfileById = userId => async dispatch => {
-  dispatch({ type: CLEAR_PROFILE });
+  // dispatch({ type: CLEAR_PROFILE });
   try {
     const res = await axios.get(`/api/profile/user/${userId}`);
 

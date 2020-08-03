@@ -126,6 +126,8 @@ export const removePostLike = id => async dispatch => {
       payload: { id, likes: res.data }
     });
     dispatch(getPostById(id));
+    dispatch(getPosts());
+    dispatch(getCurrentProfile());
   } catch (err) {
     dispatch({
       type: POST_ERROR,
@@ -143,6 +145,8 @@ export const addPostSave = id => async dispatch => {
       payload: { id, saves: res.data }
     });
     dispatch(getPostById(id));
+    dispatch(getPosts());
+    dispatch(getCurrentProfile());
   } catch (err) {
     dispatch({
       type: POST_ERROR,
@@ -160,6 +164,8 @@ export const removePostSave = id => async dispatch => {
       payload: { id, saves: res.data }
     });
     dispatch(getPostById(id));
+    dispatch(getPosts());
+    dispatch(getCurrentProfile());
   } catch (err) {
     dispatch({
       type: POST_ERROR,
@@ -187,6 +193,8 @@ export const addPostComment = (postId, formData) => async dispatch => {
       type: ADD_POST_COMMENT,
       payload: res.data
     });
+    dispatch(getPosts());
+    dispatch(getCurrentProfile());
 
     dispatch(setAlert('comment added', 'success'));
   } catch (err) {
@@ -206,6 +214,8 @@ export const deletePostComment = (postId, postCommentId) => async dispatch => {
       type: REMOVE_POST_COMMENT,
       payload: postCommentId
     });
+    dispatch(getPosts());
+    dispatch(getCurrentProfile());
 
     dispatch(setAlert('comment removed', 'success'));
   } catch (err) {

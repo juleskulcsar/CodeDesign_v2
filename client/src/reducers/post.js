@@ -22,7 +22,7 @@ const initialState = {
   error: {}
 };
 
-export default function(state = initialState, action) {
+export default function (state = initialState, action) {
   const { type, payload } = action;
 
   switch (type) {
@@ -70,6 +70,7 @@ export default function(state = initialState, action) {
             ? { ...post, likes: payload.likes, liked: true }
             : post
         ),
+        post: state.posts.filter(post => post._id === payload.id)[0],
         loading: false
       };
     case UPDATE_POST_UNLIKES:

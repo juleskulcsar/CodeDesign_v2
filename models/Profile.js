@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const ProfileSchema = new mongoose.Schema(
   {
     user: {
-      type: mongoose.Schema.ObjectId,
+      type: mongoose.Types.ObjectId,
       ref: 'User'
     },
     name: {
@@ -97,7 +97,7 @@ const ProfileSchema = new mongoose.Schema(
 );
 
 // Cascade delete posts when a profile is deleted
-ProfileSchema.pre('remove', async function(next) {
+ProfileSchema.pre('remove', async function (next) {
   await this.model('post').deleteMany({ profile: this._id });
   await this.model('job').deleteMany({ profile: this._id });
   next();

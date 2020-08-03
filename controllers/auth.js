@@ -10,7 +10,7 @@ const sendEmail = require('../utils/sendEmail');
 // @access      Public
 exports.loadUser = asyncHandler(async (req, res) => {
   try {
-    const user = await User.findById(req.user.id).select('-password');
+    const user = await User.findById(req.user.id).select('-password').populate('profile', ['notifications']);
     res.json(user);
   } catch (err) {
     console.log(err.message);

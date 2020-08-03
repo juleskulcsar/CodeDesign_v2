@@ -1,6 +1,7 @@
 const Profile = require('../models/Profile');
 const User = require('../models/User');
 const Post = require('../models/Post');
+const Notification = require('../models/Notification');
 const asyncHandler = require('../middleware/async');
 const ErrorResponse = require('../utils/errorResponse');
 
@@ -86,13 +87,39 @@ exports.likePost = asyncHandler(async (req, res) => {
   ]);
 
   const profile = await Profile.findOne({ user: req.user.id });
-  const postProfile = await Profile.findById(post.profile.id);
+  let notifications = await Notification.findOne({ user: post.user })
 
-  postProfile.notifications.new.push({
-    notificationType: 'like',
-    post: { id: post._id, title: post.title },
-    profile: { name: profile.displayName, photo: profile.profilePhoto }
-  });
+  const notificationFields = {};
+  notificationFields.user = post.user;
+  notificationFields.notifications = {
+    new: {
+      profile: {
+        name: profile.displayName,
+        photo: profile.ptofilePhoto
+      },
+      notificationType: 'like',
+      post: {
+        id: post.id,
+        title: post.title,
+      }
+    }
+  },
+    notificationFields.old = []
+
+  console.log('notificationFields: ', notificationFields)
+
+  if (notifications === null) {
+    notifications = new Notification(notificationFields)
+  } else {
+    notifications.notifications.new.push({
+      notificationType: 'like',
+      post: { id: post._id, title: post.title },
+      profile: { name: profile.displayName, photo: profile.profilePhoto }
+    });
+  }
+
+  console.log('post: ', post)
+  console.log('notifications: ', notifications)
 
   // Check if the post has already been liked
   if (
@@ -108,7 +135,7 @@ exports.likePost = asyncHandler(async (req, res) => {
 
   post.likes.unshift({ user: req.user.id });
   await post.save();
-  await postProfile.save();
+  await notifications.save();
   res.json(post.likes);
 });
 
@@ -120,14 +147,6 @@ exports.unlikePost = asyncHandler(async (req, res) => {
     'profilePhoto',
     'displayName'
   ]);
-  const profile = await Profile.findOne({ user: req.user.id });
-  const postProfile = await Profile.findById(post.profile.id);
-
-  postProfile.notifications.new.push({
-    notificationType: 'unlike',
-    post: { id: post._id, title: post.title },
-    profile: { name: profile.displayName, photo: profile.profilePhoto }
-  });
 
   // Check if the post has already been liked
   if (
@@ -142,7 +161,6 @@ exports.unlikePost = asyncHandler(async (req, res) => {
   }
 
   await post.save();
-  await postProfile.save();
   res.json(post.likes);
 });
 
@@ -155,13 +173,34 @@ exports.savePost = asyncHandler(async (req, res) => {
     'displayName'
   ]);
   const profile = await Profile.findOne({ user: req.user.id });
-  const postProfile = await Profile.findById(post.profile.id);
+  let notifications = await Notification.findOne({ user: post.user })
 
-  postProfile.notifications.new.push({
-    notificationType: 'save',
-    post: { id: post._id, title: post.title },
-    profile: { name: profile.displayName, photo: profile.profilePhoto }
-  });
+  const notificationFields = {};
+  notificationFields.user = post.user;
+  notificationFields.notifications = {
+    new: {
+      profile: {
+        name: profile.displayName,
+        photo: profile.ptofilePhoto
+      },
+      notificationType: 'save',
+      post: {
+        id: post.id,
+        title: post.title,
+      }
+    }
+  },
+    notificationFields.old = []
+
+  if (notifications === null) {
+    notifications = new Notification(notificationFields)
+  } else {
+    notifications.notifications.new.push({
+      notificationType: 'save',
+      post: { id: post._id, title: post.title },
+      profile: { name: profile.displayName, photo: profile.profilePhoto }
+    });
+  }
   // Check if the post has already been saved
   if (
     post.saves.filter(save => save.user.toString() === req.user.id).length !== 0
@@ -175,7 +214,7 @@ exports.savePost = asyncHandler(async (req, res) => {
   post.saves.unshift({ user: req.user.id });
 
   await post.save();
-  await postProfile.save();
+  await notifications.save();
   res.json(post.saves);
 });
 
@@ -187,14 +226,6 @@ exports.unsavePost = asyncHandler(async (req, res) => {
     'profilePhoto',
     'displayName'
   ]);
-  const profile = await Profile.findOne({ user: req.user.id });
-  const postProfile = await Profile.findById(post.profile.id);
-
-  postProfile.notifications.new.push({
-    notificationType: 'unsave',
-    post: { id: post._id, title: post.title },
-    profile: { name: profile.displayName, photo: profile.profilePhoto }
-  });
 
   // Check if the post has already been saved
   if (
@@ -207,7 +238,6 @@ exports.unsavePost = asyncHandler(async (req, res) => {
   }
 
   await post.save();
-  await postProfile.save();
   res.json(post.saves);
 });
 
@@ -220,13 +250,34 @@ exports.postComment = asyncHandler(async (req, res) => {
     'displayName'
   ]);
   const profile = await Profile.findOne({ user: req.user.id });
-  const postProfile = await Profile.findById(post.profile.id);
+  let notifications = await Notification.findOne({ user: post.user })
 
-  postProfile.notifications.new.push({
-    notificationType: 'comment',
-    post: { id: post._id, title: post.title },
-    profile: { name: profile.displayName, photo: profile.profilePhoto }
-  });
+  const notificationFields = {};
+  notificationFields.user = post.user;
+  notificationFields.notifications = {
+    new: {
+      profile: {
+        name: profile.displayName,
+        photo: profile.ptofilePhoto
+      },
+      notificationType: 'comment',
+      post: {
+        id: post.id,
+        title: post.title,
+      }
+    }
+  },
+    notificationFields.old = []
+
+  if (notifications === null) {
+    notifications = new Notification(notificationFields)
+  } else {
+    notifications.notifications.new.push({
+      notificationType: 'comment',
+      post: { id: post._id, title: post.title },
+      profile: { name: profile.displayName, photo: profile.profilePhoto }
+    });
+  }
 
   const newComment = {
     text: req.body.text,
@@ -239,7 +290,7 @@ exports.postComment = asyncHandler(async (req, res) => {
   post.comments.unshift(newComment);
 
   await post.save();
-  await postProfile.save();
+  await notifications.save();
   res.json(post.comments);
 });
 
@@ -251,14 +302,6 @@ exports.deletePostComment = asyncHandler(async (req, res, next) => {
     'profilePhoto',
     'displayName'
   ]);
-  const profile = await Profile.findOne({ user: req.user.id });
-  const postProfile = await Profile.findById(post.profile.id);
-
-  postProfile.notifications.new.push({
-    notificationType: 'delete_comment',
-    post: { id: post._id, title: post.title },
-    profile: { name: profile.displayName, photo: profile.profilePhoto }
-  });
 
   // Pull out comment
   const comment = post.comments.find(
@@ -288,6 +331,6 @@ exports.deletePostComment = asyncHandler(async (req, res, next) => {
   post.comments.splice(removeIndex, 1);
 
   await post.save();
-  await postProfile.save();
+  await notifications.save();
   res.json(post.comments);
 });
