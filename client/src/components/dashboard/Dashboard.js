@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import styled from 'styled-components';
 import ProfileTopSection from '../profile-form/ProfileTop';
 import { getCurrentProfile, deleteAccount } from '../../actions/profile';
+import { getNotificationsByUser } from '../../actions/notification';
 import Spinner from '../layout/Spinner';
 import DashboardActions from './DashboardActions';
 import CreateProfile from '../profile-form/CreateProfile';

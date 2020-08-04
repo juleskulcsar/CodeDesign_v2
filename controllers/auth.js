@@ -1,6 +1,7 @@
 const crypto = require('crypto');
 const { check, validationResult } = require('express-validator');
 const User = require('../models/User');
+const Notification = require('../models/Notification');
 const asyncHandler = require('../middleware/async');
 const ErrorResponse = require('../utils/errorResponse');
 const sendEmail = require('../utils/sendEmail');
@@ -83,6 +84,18 @@ exports.register = asyncHandler(async (req, res, next) => {
   });
 
   await user.save();
+
+  const notificationFields = {};
+  notificationFields.user = user._id;
+  notificationFields.notifications = {
+    new: {
+      notificationType: 'welcome',
+    }
+  },
+    notificationFields.old = []
+
+  notifications = new Notification(notificationFields)
+  await notifications.save();
 
   sendTokenResponse(user, 200, res);
 });

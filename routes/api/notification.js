@@ -8,6 +8,6 @@ const {
 
 const router = express.Router();
 
-router.get('/mynotifications', protect, getNotificationsByUser);
+router.get('/:id', protect, getNotificationsByUser);
 
 module.exports = router;

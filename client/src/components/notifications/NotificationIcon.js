@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { loadUser } from '../../actions/auth';
-import { getProfileById } from '../../actions/profile';
+import { getNotificationsByUser } from '../../actions/notification';
 
 const NotifNo = styled.span`
     padding: 3px 5px 2px;
@@ -23,23 +23,20 @@ const NotifNo = styled.span`
     background-color: #db5565;
 `
 
-const NotificationItem = ({ auth: { isAuthenticated, loading, user }, getProfileById, profile: { profile } }) => {
+const NotificationItem = ({ auth: { isAuthenticated }, user, notification: { notification, notifications, loading } }) => {
 
     useEffect(() => {
         loadUser();
     }, []);
     useEffect(() => {
-        getProfileById(user);
+        getNotificationsByUser(user._id);
     }, []);
-
-    console.log('user in NotificationItem: ', user)
-    console.log('profile in NotificationItem: ', profile)
 
     return (
         <>
             <i className="far fa-bell" style={{ fontSize: '20px', float: 'left', color: 'white', position: 'relative', right: '5px' }}></i>
-            {profile === null ? null :
-                <NotifNo>{profile.notifications.new.length}</NotifNo>
+            {!notifications || !notifications.notifications ? null :
+                <NotifNo>{notifications.notifications.new.length}</NotifNo>
             }
         </>
     )
@@ -47,12 +44,13 @@ const NotificationItem = ({ auth: { isAuthenticated, loading, user }, getProfile
 
 NotificationItem.propTypes = {
     auth: PropTypes.object.isRequired,
-    profile: PropTypes.object.isRequired
+    notification: PropTypes.object.isRequired,
+    getNotificationsByUser: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
     auth: state.auth,
-    profile: state.profile
+    notification: state.notification
 });
 
-export default connect(mapStateToProps, { getProfileById })(NotificationItem);
+export default connect(mapStateToProps, { getNotificationsByUser })(NotificationItem);

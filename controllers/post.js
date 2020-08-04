@@ -106,8 +106,6 @@ exports.likePost = asyncHandler(async (req, res) => {
   },
     notificationFields.old = []
 
-  console.log('notificationFields: ', notificationFields)
-
   if (notifications === null) {
     notifications = new Notification(notificationFields)
   } else {
@@ -117,9 +115,6 @@ exports.likePost = asyncHandler(async (req, res) => {
       profile: { name: profile.displayName, photo: profile.profilePhoto }
     });
   }
-
-  console.log('post: ', post)
-  console.log('notifications: ', notifications)
 
   // Check if the post has already been liked
   if (

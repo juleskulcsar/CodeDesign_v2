@@ -5,6 +5,7 @@ const Profile = require('../models/Profile');
 const User = require('../models/User');
 const Post = require('../models/Post');
 const Job = require('../models/Job');
+const Notification = require('../models/Notification');
 const asyncHandler = require('../middleware/async');
 const ErrorResponse = require('../utils/errorResponse');
 const advancedResults = require('../middleware/advancedResults');
@@ -181,6 +182,8 @@ exports.deleteProfile = asyncHandler(async (req, res) => {
   await Post.deleteMany({ user: req.user.id });
   //remove profile
   await Profile.findOneAndRemove({ user: req.user.id });
+  //remove notifications
+  await Notification.findOneAndRemove({ user: req.user.id });
   //remove user
   await User.findOneAndRemove({ _id: req.user.id });
   res.json({ msg: 'User deleted' });

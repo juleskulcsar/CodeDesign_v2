@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import { logout } from '../../actions/auth';
 import { loadUser } from '../../actions/auth';
 import { getCurrentProfile, getProfileById } from '../../actions/profile';
+import { getNotificationsByUser } from '../../actions/notification';
 import NotificationItem from '../notifications/NotificationIcon'
 
 
@@ -142,11 +143,14 @@ const NotifNo = styled.span`
     background-color: #db5565;
 `
 
-const Navbar = ({ auth: { isAuthenticated, loading, user }, logout }) => {
+const Navbar = ({ auth: { isAuthenticated, loading, user }, logout, notification }) => {
   useEffect(() => {
     loadUser();
   }, []);
 
+  useEffect(() => {
+    getNotificationsByUser(user);
+  }, []);
 
   const { pathname } = useLocation();
   const [menuOpen, setMenuOpen] = useState(false);
@@ -169,9 +173,9 @@ const Navbar = ({ auth: { isAuthenticated, loading, user }, logout }) => {
       </MobileMenuIcon>
       <Menu open={menuOpen}>
         <StyledUl>
-          {/* <StyledList>
-            <NotificationItem />
-          </StyledList> */}
+          <StyledList>
+            <NotificationItem user={user} notification={notification} />
+          </StyledList>
           <StyledList isActive={pathname === '/profiles'}>
             <StyledLink isActive={pathname === '/profiles'} to='/profiles'>
               <span>community</span>
@@ -216,6 +220,7 @@ Navbar.propTypes = {
 
 const mapStateToProps = state => ({
   auth: state.auth,
+  notification: state.notification
 });
 
-export default connect(mapStateToProps, { logout })(Navbar);
+export default connect(mapStateToProps, { logout, getNotificationsByUser })(Navbar);

@@ -15,9 +15,12 @@ import {
   UPDATE_POST_UNSAVES,
   GET_PROFILES,
   GET_PROFILE,
-  CLEAR_PROFILE
+  CLEAR_PROFILE,
+  GET_NOTIFICATIONS,
+  NOTIFICATIONS_ERROR
 } from './types';
 import { getCurrentProfile } from './profile';
+import { getNotificationsByUser } from './notification';
 
 //add post
 export const addPost = (formData, history) => async dispatch => {
@@ -102,13 +105,13 @@ export const deletePost = postId => async dispatch => {
 export const addPostLike = id => async dispatch => {
   try {
     const res = await axios.put(`/api/post/like/${id}`);
+
     dispatch({
       type: UPDATE_POST_LIKES,
       payload: { id, likes: res.data }
     });
     dispatch(getPostById(id));
-    dispatch(getPosts());
-    dispatch(getCurrentProfile());
+    dispatch(getNotificationsByUser(res.data[0].user))
   } catch (err) {
     dispatch({
       type: POST_ERROR,
@@ -126,8 +129,6 @@ export const removePostLike = id => async dispatch => {
       payload: { id, likes: res.data }
     });
     dispatch(getPostById(id));
-    dispatch(getPosts());
-    dispatch(getCurrentProfile());
   } catch (err) {
     dispatch({
       type: POST_ERROR,
@@ -145,8 +146,7 @@ export const addPostSave = id => async dispatch => {
       payload: { id, saves: res.data }
     });
     dispatch(getPostById(id));
-    dispatch(getPosts());
-    dispatch(getCurrentProfile());
+    dispatch(getNotificationsByUser(res.data[0].user))
   } catch (err) {
     dispatch({
       type: POST_ERROR,
@@ -164,8 +164,6 @@ export const removePostSave = id => async dispatch => {
       payload: { id, saves: res.data }
     });
     dispatch(getPostById(id));
-    dispatch(getPosts());
-    dispatch(getCurrentProfile());
   } catch (err) {
     dispatch({
       type: POST_ERROR,
@@ -193,8 +191,7 @@ export const addPostComment = (postId, formData) => async dispatch => {
       type: ADD_POST_COMMENT,
       payload: res.data
     });
-    dispatch(getPosts());
-    dispatch(getCurrentProfile());
+    dispatch(getNotificationsByUser(res.data[0].user))
 
     dispatch(setAlert('comment added', 'success'));
   } catch (err) {
@@ -214,8 +211,6 @@ export const deletePostComment = (postId, postCommentId) => async dispatch => {
       type: REMOVE_POST_COMMENT,
       payload: postCommentId
     });
-    dispatch(getPosts());
-    dispatch(getCurrentProfile());
 
     dispatch(setAlert('comment removed', 'success'));
   } catch (err) {

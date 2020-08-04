@@ -11,8 +11,11 @@ import {
   GET_REPOS,
   GET_PORTFOLIOS,
   PORTFOLIO_ERROR,
-  POST_ERROR
+  POST_ERROR,
+  CLEAR_NOTIFICATIONS
 } from './types';
+import { getNotificationsByUser } from './notification';
+
 
 // Get current user's profile
 export const getCurrentProfile = () => async dispatch => {
@@ -23,6 +26,7 @@ export const getCurrentProfile = () => async dispatch => {
       type: GET_PROFILE,
       payload: res.data
     });
+    dispatch(getNotificationsByUser(res.data.user))
   } catch (err) {
     dispatch({
       type: PROFILE_ERROR,
@@ -55,7 +59,7 @@ export const getProfiles = (filters) => async dispatch => {
 // Get profile by ID
 //we are using userId because we are not getting the profile by profile id
 export const getProfileById = userId => async dispatch => {
-  // dispatch({ type: CLEAR_PROFILE });
+  dispatch({ type: CLEAR_PROFILE });
   try {
     const res = await axios.get(`/api/profile/user/${userId}`);
 
@@ -109,6 +113,7 @@ export const createProfile = (
       type: GET_PROFILE,
       payload: res.data
     });
+    // dispatch(getNotificationsByUser(res.data.user))
 
     dispatch(setAlert(edit ? 'Profile Updated' : 'Profile Created', 'success'));
 

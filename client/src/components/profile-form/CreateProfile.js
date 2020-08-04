@@ -4,6 +4,7 @@ import { Link, withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createProfile } from '../../actions/profile';
+import { getNotificationsByUser } from '../../actions/notification';
 import { loadUser } from '../../actions/auth';
 import styled from 'styled-components';
 import { Input } from '../common/Input';
@@ -76,6 +77,10 @@ const Title = styled.h1`
 const CreateProfile = ({ createProfile, history, auth: { user } }) => {
   useEffect(() => {
     loadUser();
+  }, []);
+
+  useEffect(() => {
+    getNotificationsByUser(user);
   }, []);
 
   const [formData, setFormData] = useState({
