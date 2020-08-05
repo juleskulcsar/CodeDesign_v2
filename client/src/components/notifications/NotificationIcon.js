@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { loadUser } from '../../actions/auth';
 import { getNotificationsByUser } from '../../actions/notification';
+import NotificationDropdown from './NotificationDropdown';
 
 const NotifNo = styled.span`
     padding: 3px 5px 2px;
@@ -23,7 +24,12 @@ const NotifNo = styled.span`
     background-color: #db5565;
 `
 
-const NotificationItem = ({ auth: { isAuthenticated }, user, notification: { notification, notifications, loading } }) => {
+const NotificationItem = (
+    { auth: { isAuthenticated },
+        user,
+        notification: { notification, notifications, loading }
+    }
+) => {
 
     useEffect(() => {
         loadUser();
@@ -38,6 +44,7 @@ const NotificationItem = ({ auth: { isAuthenticated }, user, notification: { not
             {!notifications || !notifications.notifications ? null :
                 <NotifNo>{notifications.notifications.new.length}</NotifNo>
             }
+            <NotificationDropdown notification={notification} />
         </>
     )
 }
