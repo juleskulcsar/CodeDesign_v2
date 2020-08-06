@@ -126,7 +126,7 @@ const NotificationDropdown = (
                     (
                         <Ul >
                             {notifications.notifications.new &&
-                                notifications.notifications.new.map((notification) => (
+                                notifications.notifications.newNotifications.map((notification) => (
                                     <Li key={notification._id}>
                                         {notification.notificationType === 'like' ?
                                             <P>

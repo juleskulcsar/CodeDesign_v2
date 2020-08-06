@@ -7,7 +7,7 @@ const NotificationSchema = new mongoose.Schema(
             ref: 'User'
         },
         notifications: {
-            new: [
+            newNotifications: [
                 {
                     profile: {
                         name: {
@@ -34,7 +34,7 @@ const NotificationSchema = new mongoose.Schema(
                     }
                 }
             ],
-            old: []
+            oldNotifications: []
         },
         date: {
             type: Date,

@@ -38,13 +38,19 @@ const NotificationItem = (
         getNotificationsByUser(user._id);
     }, []);
 
+    const [isVisible, setIsVisible] = useState(false)
+
+    const clickHandler = () => {
+        setIsVisible(!isVisible)
+    }
+
     return (
         <>
-            <i className="far fa-bell" style={{ fontSize: '20px', float: 'left', color: 'white', position: 'relative', right: '5px' }}></i>
+            <i onClick={clickHandler} className="far fa-bell" style={{ fontSize: '20px', float: 'left', color: 'white', position: 'relative', right: '5px' }}></i>
             {!notifications || !notifications.notifications ? null :
-                <NotifNo>{notifications.notifications.new.length}</NotifNo>
+                <NotifNo>{notifications.notifications.newNotifications.length}</NotifNo>
             }
-            <NotificationDropdown notification={notification} />
+            {isVisible ? <NotificationDropdown notification={notification} /> : null}
         </>
     )
 }
