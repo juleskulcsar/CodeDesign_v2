@@ -11,26 +11,36 @@ const { check, validationResult } = require('express-validator');
 exports.getNotificationsByUser = asyncHandler(async (req, res, next) => {
     const notifications = await Notification.findOne({ user: req.user.id });
 
+    console.log('wtf is this: ', notifications)
+
     res.json(notifications);
 });
 
-// @route    PUT api/notification/oldnotifications
+// @route    PUT api/notification/mynotifications
 // @desc     Update notifications from new to old after checking them
 // @access   Private
 exports.oldNotifications = asyncHandler(async (req, res, next) => {
     let notifications = await Notification.findOne({ user: req.user.id })
 
-    const oldNotifications = [...notifications.newNotifications, ...notifications.oldNotifications];
-    notifications.newNotifications.length = 0;
-    const newNotifications = notifications.newNotifications;
+    const oldNotifications = [...notifications.notifications.newNotifications, ...notifications.notifications.oldNotifications];
+    console.log('oldNotifications in controllers: ', oldNotifications)
+    notifications.notifications.newNotifications.length = 0;
+    const newNotifications = notifications.notifications.newNotifications;
 
-    notifications = await Notification.findOneandUpdate(
-        { newNotifications: newNotifications },
-        { oldNotifications: oldNotifications },
-        { new: true }
+    notifications = await Notification.findOneAndUpdate(
+        {
+            notifications: {
+                newNotifications: newNotifications,
+                oldNotifications: [...oldNotifications],
+            },
+            new: true
+        }
+
+
     )
 
     console.log('notifications in oldNotif controller: ', notifications)
 
-    res.json(notifications)
+    await notifications.save();
+    return res.json(notifications)
 })

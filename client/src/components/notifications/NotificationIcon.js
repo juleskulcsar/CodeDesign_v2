@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { loadUser } from '../../actions/auth';
-import { getNotificationsByUser } from '../../actions/notification';
+import { getNotificationsByUser, oldNotifications } from '../../actions/notification';
 import NotificationDropdown from './NotificationDropdown';
 
 const NotifNo = styled.span`
@@ -42,11 +42,12 @@ const NotificationItem = (
 
     const clickHandler = () => {
         setIsVisible(!isVisible)
+        oldNotifications(user._id)
     }
 
     return (
         <>
-            <i onClick={clickHandler} className="far fa-bell" style={{ fontSize: '20px', float: 'left', color: 'white', position: 'relative', right: '5px' }}></i>
+            <i onClick={e => oldNotifications(user._id)} className="far fa-bell" style={{ fontSize: '20px', float: 'left', color: 'white', position: 'relative', right: '5px' }}></i>
             {!notifications || !notifications.notifications ? null :
                 <NotifNo>{notifications.notifications.newNotifications.length}</NotifNo>
             }

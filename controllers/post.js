@@ -92,7 +92,7 @@ exports.likePost = asyncHandler(async (req, res) => {
   const notificationFields = {};
   notificationFields.user = post.user;
   notificationFields.notifications = {
-    new: {
+    newNotifications: {
       profile: {
         name: profile.displayName,
         photo: profile.ptofilePhoto
@@ -104,12 +104,12 @@ exports.likePost = asyncHandler(async (req, res) => {
       }
     }
   },
-    notificationFields.old = []
+    notificationFields.oldNotifications = []
 
   if (notifications === null) {
     notifications = new Notification(notificationFields)
   } else {
-    notifications.notifications.new.push({
+    notifications.notifications.newNotifications.push({
       notificationType: 'like',
       post: { id: post._id, title: post.title },
       profile: { name: profile.displayName, photo: profile.profilePhoto }
@@ -173,7 +173,7 @@ exports.savePost = asyncHandler(async (req, res) => {
   const notificationFields = {};
   notificationFields.user = post.user;
   notificationFields.notifications = {
-    new: {
+    newNotifications: {
       profile: {
         name: profile.displayName,
         photo: profile.ptofilePhoto
@@ -185,12 +185,12 @@ exports.savePost = asyncHandler(async (req, res) => {
       }
     }
   },
-    notificationFields.old = []
+    notificationFields.oldNotifications = []
 
   if (notifications === null) {
     notifications = new Notification(notificationFields)
   } else {
-    notifications.notifications.new.push({
+    notifications.notifications.newNotifications.push({
       notificationType: 'save',
       post: { id: post._id, title: post.title },
       profile: { name: profile.displayName, photo: profile.profilePhoto }
@@ -250,7 +250,7 @@ exports.postComment = asyncHandler(async (req, res) => {
   const notificationFields = {};
   notificationFields.user = post.user;
   notificationFields.notifications = {
-    new: {
+    newNotifications: {
       profile: {
         name: profile.displayName,
         photo: profile.ptofilePhoto
@@ -262,12 +262,12 @@ exports.postComment = asyncHandler(async (req, res) => {
       }
     }
   },
-    notificationFields.old = []
+    notificationFields.oldNotifications = []
 
   if (notifications === null) {
     notifications = new Notification(notificationFields)
   } else {
-    notifications.notifications.new.push({
+    notifications.notifications.newNotifications.push({
       notificationType: 'comment',
       post: { id: post._id, title: post.title },
       profile: { name: profile.displayName, photo: profile.profilePhoto }
