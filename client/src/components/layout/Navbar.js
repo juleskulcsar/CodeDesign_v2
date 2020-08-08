@@ -78,7 +78,7 @@ const HeaderWrapper = styled.div`
   top: 0;
   justify-content: space-between;
   background: #1c1b1a;
-  opacity: 0.8;
+  opacity: 0.95;
   border-bottom: 1px solid #682e19;
   border-width: thin;
   z-index: 10;

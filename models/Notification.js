@@ -7,7 +7,7 @@ const NotificationSchema = new mongoose.Schema(
             ref: 'User'
         },
         notifications: {
-            newNotifications: [
+            notificationItems: [
                 {
                     profile: {
                         name: {
@@ -15,9 +15,15 @@ const NotificationSchema = new mongoose.Schema(
                         },
                         photo: {
                             type: String
+                        },
+                        userId: {
+                            type: mongoose.Types.ObjectId
                         }
                     },
                     notificationType: {
+                        type: String
+                    },
+                    notificationStatus: {
                         type: String
                     },
                     post: {
@@ -34,31 +40,9 @@ const NotificationSchema = new mongoose.Schema(
                     }
                 }
             ],
-            oldNotifications: [{
-                profile: {
-                    name: {
-                        type: String
-                    },
-                    photo: {
-                        type: String
-                    }
-                },
-                notificationType: {
-                    type: String
-                },
-                post: {
-                    id: {
-                        type: String
-                    },
-                    title: {
-                        type: String
-                    }
-                },
-                date: {
-                    type: Date,
-                    default: Date.now
-                }
-            }]
+            countNew: {
+                type: Number
+            },
         },
         date: {
             type: Date,

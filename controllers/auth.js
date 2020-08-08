@@ -87,12 +87,11 @@ exports.register = asyncHandler(async (req, res, next) => {
 
   const notificationFields = {};
   notificationFields.user = user._id;
-  notificationFields.notifications = {
-    new: {
-      notificationType: 'welcome',
-    }
-  },
-    notificationFields.old = []
+  notificationFields.notifications.notificationItems = [{
+    notificationType: 'welcome',
+    notificationStatus: 'newNotification'
+  }];
+  notificationFields.notifications.countNew = 1;
 
   notifications = new Notification(notificationFields)
   await notifications.save();

@@ -26,7 +26,7 @@ export const getNotificationsByUser = userId => async dispatch => {
 
 // Update notifications from new to old
 //we are using userId because we are  getting the notifications by signed in user id
-export const oldNotifications = userId => async dispatch => {
+export const resetCount = userId => async dispatch => {
     try {
         const res = await axios.put(`/api/notification/${userId}`);
 

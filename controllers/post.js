@@ -92,28 +92,31 @@ exports.likePost = asyncHandler(async (req, res) => {
   const notificationFields = {};
   notificationFields.user = post.user;
   notificationFields.notifications = {
-    newNotifications: {
+    notificationItems: [{
       profile: {
         name: profile.displayName,
         photo: profile.ptofilePhoto
       },
       notificationType: 'like',
+      notificationStatus: 'newNotification',
       post: {
         id: post.id,
         title: post.title,
       }
-    }
-  },
-    notificationFields.oldNotifications = []
+    }],
+    countNew: 1
+  };
 
   if (notifications === null) {
     notifications = new Notification(notificationFields)
   } else {
-    notifications.notifications.newNotifications.push({
+    notifications.notifications.notificationItems.unshift({
       notificationType: 'like',
+      notificationStatus: 'newNotification',
       post: { id: post._id, title: post.title },
-      profile: { name: profile.displayName, photo: profile.profilePhoto }
-    });
+      profile: { name: profile.displayName, photo: profile.profilePhoto, userId: profile.user }
+    }),
+      notifications.notifications.countNew = notifications.notifications.countNew + 1;
   }
 
   // Check if the post has already been liked
@@ -173,25 +176,26 @@ exports.savePost = asyncHandler(async (req, res) => {
   const notificationFields = {};
   notificationFields.user = post.user;
   notificationFields.notifications = {
-    newNotifications: {
+    notificationItems: [{
       profile: {
         name: profile.displayName,
         photo: profile.ptofilePhoto
       },
       notificationType: 'save',
+      notificationStatus: 'newNotification',
       post: {
         id: post.id,
         title: post.title,
       }
-    }
-  },
-    notificationFields.oldNotifications = []
+    }]
+  };
 
   if (notifications === null) {
     notifications = new Notification(notificationFields)
   } else {
-    notifications.notifications.newNotifications.push({
+    notifications.notifications.notificationItems.unshift({
       notificationType: 'save',
+      notificationStatus: 'newNotification',
       post: { id: post._id, title: post.title },
       profile: { name: profile.displayName, photo: profile.profilePhoto }
     });
@@ -250,25 +254,26 @@ exports.postComment = asyncHandler(async (req, res) => {
   const notificationFields = {};
   notificationFields.user = post.user;
   notificationFields.notifications = {
-    newNotifications: {
+    notificationItems: [{
       profile: {
         name: profile.displayName,
         photo: profile.ptofilePhoto
       },
       notificationType: 'comment',
+      notificationStatus: 'newNotification',
       post: {
         id: post.id,
         title: post.title,
       }
-    }
-  },
-    notificationFields.oldNotifications = []
+    }]
+  };
 
   if (notifications === null) {
     notifications = new Notification(notificationFields)
   } else {
-    notifications.notifications.newNotifications.push({
+    notifications.notifications.notificationItems.unshift({
       notificationType: 'comment',
+      notificationStatus: 'newNotification',
       post: { id: post._id, title: post.title },
       profile: { name: profile.displayName, photo: profile.profilePhoto }
     });

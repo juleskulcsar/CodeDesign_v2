@@ -15,12 +15,15 @@ const Wrapper = styled.div`
     top: 3.7em;
     width: 20em;
     overflow: scroll;
-    height: 90vh;
+    height: fit-content;
+    max-height: 90vh;
+    border-radius: 0 0 1em 1em;
+    border: 1px solid #9C4526;
 `
 
 const NotificationUl = styled.ul`
     padding:0 0 0 0;
-    border: 1px solid #9C4526;
+    /* border: 1px solid #9C4526; */
     border-radius: 1em;
     > li a {
         padding: 10px 20px;
@@ -104,13 +107,13 @@ const NotificationDropdown = (
     }
 ) => {
 
-    console.log(notifications)
+    console.log("notif items: ", notifications.notifications.notificationItems)
     return (
         <Wrapper>
             <NotificationUl>
                 <NotificationLi>
                     <AnchorWrapper top={true}>
-                        <NotificationAnchor href="#">Notifications</NotificationAnchor>
+                        <NotificationAnchor to={"#"}>Notifications</NotificationAnchor>
                     </AnchorWrapper>
                 </NotificationLi>
                 {!notifications.notifications ?
@@ -125,25 +128,25 @@ const NotificationDropdown = (
                     </Ul>) :
                     (
                         <Ul >
-                            {notifications.notifications.new &&
-                                notifications.notifications.newNotifications.map((notification) => (
+                            {notifications.notifications.notificationItems &&
+                                notifications.notifications.notificationItems.map((notification) => (
                                     <Li key={notification._id}>
                                         {notification.notificationType === 'like' ?
                                             <P>
-                                                {notification.profile.name} liked your <NotificationAnchor notification={true} to={`/post/${notification.post.id}`}>{notification.post.title}</NotificationAnchor> {'    '}post
-                                                <Icon ><i class="far fa-thumbs-up" style={{ color: "#F16350" }}></i></Icon>
+                                                <NotificationAnchor notification='true' to={`/user/${notification.profile.userId}`}>{notification.profile.name}</NotificationAnchor> liked your <NotificationAnchor notification='true' to={`/post/${notification.post.id}`}>{notification.post.title}</NotificationAnchor> {'    '}post
+                                                <Icon ><i className="far fa-thumbs-up" style={{ color: "#F16350" }}></i></Icon>
                                                 <Date><Moment format='YYYY/MM/DD'>{notification.date}</Moment></Date>
                                             </P>
                                             : (notification.notificationType === 'save' ? (
                                                 <P>
-                                                    {notification.profile.name} saved your <NotificationAnchor notification={true} to={`/post/${notification.post.id}`}>{notification.post.title}</NotificationAnchor> {'    '}post
-                                                    <Icon ><i class="far fa-bookmark" style={{ color: "#2A7A6F" }}></i></Icon>
+                                                    {notification.profile.name} saved your <NotificationAnchor notification='true' to={`/post/${notification.post.id}`}>{notification.post.title}</NotificationAnchor> {'    '}post
+                                                    <Icon ><i className="far fa-bookmark" style={{ color: "#2A7A6F" }}></i></Icon>
                                                     <Date><Moment format='YYYY/MM/DD'>{notification.date}</Moment></Date>
                                                 </P>
                                             ) : (notification.notificationType === 'comment' ?
                                                 <P>
-                                                    {notification.profile.name} commented on your <NotificationAnchor notification={true} to={`/post/${notification.post.id}`}>{notification.post.title}</NotificationAnchor> {'    '}post
-                                                    <Icon ><i class="far fa-comment-dots" style={{ color: "#A25F9A" }}></i></Icon>
+                                                    {notification.profile.name} commented on your <NotificationAnchor notification='true' to={`/post/${notification.post.id}`}>{notification.post.title}</NotificationAnchor> {'    '}post
+                                                    <Icon ><i className="far fa-comment-dots" style={{ color: "#A25F9A" }}></i></Icon>
                                                     <Date><Moment format='YYYY/MM/DD'>{notification.date}</Moment></Date>
                                                 </P>
                                                 : null))
@@ -156,7 +159,7 @@ const NotificationDropdown = (
                 }
                 <NotificationLi>
                     <AnchorWrapper>
-                        <NotificationAnchor href="#">See all notifications</NotificationAnchor>
+                        <NotificationAnchor to={"#"}>See all notifications</NotificationAnchor>
                     </AnchorWrapper>
                 </NotificationLi>
             </NotificationUl>

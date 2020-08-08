@@ -19,28 +19,14 @@ exports.getNotificationsByUser = asyncHandler(async (req, res, next) => {
 // @route    PUT api/notification/mynotifications
 // @desc     Update notifications from new to old after checking them
 // @access   Private
-exports.oldNotifications = asyncHandler(async (req, res, next) => {
-    let notifications = await Notification.findOne({ user: req.user.id })
-
-    const oldNotifications = [...notifications.notifications.newNotifications, ...notifications.notifications.oldNotifications];
-    console.log('oldNotifications in controllers: ', oldNotifications)
-    notifications.notifications.newNotifications.length = 0;
-    const newNotifications = notifications.notifications.newNotifications;
+exports.resetCount = asyncHandler(async (req, res, next) => {
 
     notifications = await Notification.findOneAndUpdate(
-        {
-            notifications: {
-                newNotifications: newNotifications,
-                oldNotifications: [...oldNotifications],
-            },
-            new: true
-        }
-
-
+        { user: req.user.id },
+        { $set: { 'notifications.countNew': 0 } },
+        { new: true }
     )
 
     console.log('notifications in oldNotif controller: ', notifications)
-
-    await notifications.save();
     return res.json(notifications)
 })
