@@ -17,7 +17,7 @@ const Wrapper = styled.div`
     overflow: scroll;
     height: fit-content;
     max-height: 90vh;
-    border-radius: 0 0 1em 1em;
+    border-radius: 1em 1em 1em 1em;
     border: 1px solid #9C4526;
 `
 
@@ -107,7 +107,7 @@ const NotificationDropdown = (
     }
 ) => {
 
-    console.log("notif items: ", notifications.notifications.notificationItems)
+
     return (
         <Wrapper>
             <NotificationUl>
@@ -139,13 +139,13 @@ const NotificationDropdown = (
                                             </P>
                                             : (notification.notificationType === 'save' ? (
                                                 <P>
-                                                    {notification.profile.name} saved your <NotificationAnchor notification='true' to={`/post/${notification.post.id}`}>{notification.post.title}</NotificationAnchor> {'    '}post
+                                                    <NotificationAnchor notification='true' to={`/user/${notification.profile.userId}`}>{notification.profile.name}</NotificationAnchor> saved your <NotificationAnchor notification='true' to={`/post/${notification.post.id}`}>{notification.post.title}</NotificationAnchor> {'    '}post
                                                     <Icon ><i className="far fa-bookmark" style={{ color: "#2A7A6F" }}></i></Icon>
                                                     <Date><Moment format='YYYY/MM/DD'>{notification.date}</Moment></Date>
                                                 </P>
                                             ) : (notification.notificationType === 'comment' ?
                                                 <P>
-                                                    {notification.profile.name} commented on your <NotificationAnchor notification='true' to={`/post/${notification.post.id}`}>{notification.post.title}</NotificationAnchor> {'    '}post
+                                                    <NotificationAnchor notification='true' to={`/user/${notification.profile.userId}`}>{notification.profile.name}</NotificationAnchor> commented on your <NotificationAnchor notification='true' to={`/post/${notification.post.id}`}>{notification.post.title}</NotificationAnchor> {'    '}post
                                                     <Icon ><i className="far fa-comment-dots" style={{ color: "#A25F9A" }}></i></Icon>
                                                     <Date><Moment format='YYYY/MM/DD'>{notification.date}</Moment></Date>
                                                 </P>

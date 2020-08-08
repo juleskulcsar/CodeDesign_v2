@@ -187,7 +187,8 @@ exports.savePost = asyncHandler(async (req, res) => {
         id: post.id,
         title: post.title,
       }
-    }]
+    }],
+    countNew: 1
   };
 
   if (notifications === null) {
@@ -197,8 +198,9 @@ exports.savePost = asyncHandler(async (req, res) => {
       notificationType: 'save',
       notificationStatus: 'newNotification',
       post: { id: post._id, title: post.title },
-      profile: { name: profile.displayName, photo: profile.profilePhoto }
-    });
+      profile: { name: profile.displayName, photo: profile.profilePhoto, userId: profile.user }
+    }),
+      notifications.notifications.countNew = notifications.notifications.countNew + 1;
   }
   // Check if the post has already been saved
   if (
@@ -265,7 +267,8 @@ exports.postComment = asyncHandler(async (req, res) => {
         id: post.id,
         title: post.title,
       }
-    }]
+    }],
+    countNew: 1
   };
 
   if (notifications === null) {
@@ -275,8 +278,9 @@ exports.postComment = asyncHandler(async (req, res) => {
       notificationType: 'comment',
       notificationStatus: 'newNotification',
       post: { id: post._id, title: post.title },
-      profile: { name: profile.displayName, photo: profile.profilePhoto }
-    });
+      profile: { name: profile.displayName, photo: profile.profilePhoto, userId: profile.user }
+    }),
+      notifications.notifications.countNew = notifications.notifications.countNew + 1;
   }
 
   const newComment = {
