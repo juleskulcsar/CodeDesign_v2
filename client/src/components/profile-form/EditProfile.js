@@ -27,6 +27,7 @@ import {
 } from '../common/Edit-Create-Profile';
 import ProfilePhotoModal from './ProfilePhotoModal';
 import ImageUpload from '../fileuploader/ImageUpload';
+import { getNotificationsByUser } from '../../actions/notification';
 
 const BackDrop = styled.div`
   background-color: rgba(28, 27, 26, 0.52);
@@ -89,6 +90,9 @@ const EditProfile = ({
       instagram: loading || !profile.social ? '' : profile.social.instagram
     });
   }, [loading, getCurrentProfile]);
+  // useEffect(() => {
+  //   getNotificationsByUser(user)
+  // })
 
   const {
     website,
@@ -107,7 +111,7 @@ const EditProfile = ({
   } = formData;
 
   const onChange = e =>
-    setFormData({ ...formData, [e.target.name]: e.target.value.toUpperCase() });
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   const onSubmit = e => {
     e.preventDefault();
     createProfile(formData, history, true);
@@ -243,7 +247,7 @@ const EditProfile = ({
                       type='text'
                       placeholder='* skills'
                       name='skills'
-                      value={skills}
+                      value={skills.toLowerCase()}
                       onChange={e => onChange(e)}
                       required
                     />

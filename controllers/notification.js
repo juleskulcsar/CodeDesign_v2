@@ -10,9 +10,7 @@ const { check, validationResult } = require('express-validator');
 // @access   Private
 exports.getNotificationsByUser = asyncHandler(async (req, res, next) => {
     const notifications = await Notification.findOne({ user: req.user.id });
-
     console.log('wtf is this: ', notifications)
-
     res.json(notifications);
 });
 
@@ -27,6 +25,6 @@ exports.resetCount = asyncHandler(async (req, res, next) => {
         { new: true }
     )
 
-    console.log('notifications in oldNotif controller: ', notifications)
+    // console.log('notifications in oldNotif controller: ', notifications)
     return res.json(notifications)
 })

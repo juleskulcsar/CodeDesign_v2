@@ -74,13 +74,14 @@ const Title = styled.h1`
   }
 `;
 
-const CreateProfile = ({ createProfile, history, auth: { user } }) => {
+const CreateProfile = ({ createProfile, history, auth: { user }, notification }) => {
   useEffect(() => {
     loadUser();
   }, []);
 
+  console.log('user in create profle: ', user)
   useEffect(() => {
-    getNotificationsByUser(user);
+    getNotificationsByUser(user._id);
   }, []);
 
   const [formData, setFormData] = useState({
@@ -119,7 +120,7 @@ const CreateProfile = ({ createProfile, history, auth: { user } }) => {
   } = formData;
 
   const onChange = e =>
-    setFormData({ ...formData, [e.target.name]: e.target.value.toUpperCase() });
+    setFormData({ ...formData, [e.target.name]: e.target.value });
 
   const onSubmit = e => {
     e.preventDefault();
@@ -201,7 +202,7 @@ const CreateProfile = ({ createProfile, history, auth: { user } }) => {
                 type='text'
                 placeholder='display name'
                 name='displayName'
-                value={displayName}
+                value={displayName.toLowerCase()}
                 onChange={e => onChange(e)}
               />
               <small className='form-text'>
@@ -350,9 +351,10 @@ CreateProfile.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  auth: state.auth
+  auth: state.auth,
+  notification: state.notification
 });
 
-export default connect(mapStateToProps, { createProfile })(
+export default connect(mapStateToProps, { createProfile, getNotificationsByUser })(
   withRouter(CreateProfile)
 );

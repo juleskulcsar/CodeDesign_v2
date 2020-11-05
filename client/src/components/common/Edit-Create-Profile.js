@@ -17,6 +17,9 @@ const Paragraph = styled.p`
 `;
 
 const StyledSelect = styled.select`
+option:checked {
+    text-transform: uppercase;
+};
   padding: 4px 8px;
   border: 1px solid gray;
   border-radius: 4px;
@@ -85,11 +88,12 @@ const LeftContainer = styled.div`
   float: left;
   width: 100%;
   max-width: ${props => props.filters ? '250px' : '200px'};
+  position: fixed;
 `;
 
 const RightContainer = styled.div`
   width: 100%;
-  padding-left: 5em;
+  padding-left: 17em;
   padding-top: 1em;
 `;
 
@@ -103,6 +107,7 @@ const ProfileTop = styled.div`
   z-index: 500;
 `;
 const RoundImage = styled.img`
+  /* filter: drop-shadow(2px 1px 15px #BFBDBC); */
   border-radius: 50%;
   border: 2px solid #f16350;
   object-fit: cover;

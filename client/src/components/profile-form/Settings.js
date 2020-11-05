@@ -58,7 +58,7 @@ const Settings = ({
   const { currentPassword, newPassword, confirmNewPassword } = formPasswordData;
 
   const onChange = e => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    setFormData({ ...formData, [e.target.name]: e.target.value.toLowerCase() });
   };
 
   const onPasswordChange = e => {
@@ -81,96 +81,96 @@ const Settings = ({
   return loading || user === null ? (
     <Spinner />
   ) : (
-    <Fragment>
-      <Container>
-        <LeftContainer>
-          <DashboardActions isShowing />
-          <Button deleteAccount onClick={() => deleteAccount()}>
-            delete account
+      <Fragment>
+        <Container>
+          <LeftContainer>
+            <DashboardActions isShowing />
+            <Button deleteAccount onClick={() => deleteAccount()}>
+              delete account
           </Button>
-        </LeftContainer>
-        <RightContainer>
-          <ProfileTopSection />
-          <ProfileBottomDiv>
-            <Paragraph>update registration details</Paragraph>
-            <FormContainer createProfilePage='true'>
-              <RequiredText>
-                <small>
-                  <span style={{ color: '#8E8C89' }}>* = required fields</span>
-                </small>
-              </RequiredText>
-              <Form>
-                <Input
-                  type='text'
-                  placeholder='name'
-                  name='name'
-                  value={name}
-                  onChange={e => onChange(e)}
-                  required
-                />
-                <Input
-                  type='email'
-                  placeholder='email'
-                  name='email'
-                  value={email}
-                  onChange={e => onChange(e)}
-                  required
-                />
-                <StyledSelect
-                  name='registeras'
-                  value={registeras}
-                  onChange={e => onChange(e)}
-                >
-                  <option value='0'>* register as: </option>
-                  <option value='designer'>I'm a designer</option>
-                  <option value='developer'>I'm a developer</option>
-                </StyledSelect>
-                <Button
-                  type='submit'
-                  value='save changes'
-                  onClick={e => onSubmit(e)}
-                >
-                  save changes
+          </LeftContainer>
+          <RightContainer>
+            <ProfileTopSection />
+            <ProfileBottomDiv>
+              <Paragraph>update registration details</Paragraph>
+              <FormContainer createProfilePage='true'>
+                <RequiredText>
+                  <small>
+                    <span style={{ color: '#8E8C89' }}>* = required fields</span>
+                  </small>
+                </RequiredText>
+                <Form>
+                  <Input
+                    type='text'
+                    placeholder='name'
+                    name='name'
+                    value={name}
+                    onChange={e => onChange(e)}
+                    required
+                  />
+                  <Input
+                    type='email'
+                    placeholder='email'
+                    name='email'
+                    value={email}
+                    onChange={e => onChange(e)}
+                    required
+                  />
+                  <StyledSelect
+                    name='registeras'
+                    value={registeras}
+                    onChange={e => onChange(e)}
+                  >
+                    <option value='0'>* register as: </option>
+                    <option value='designer'>I'm a designer</option>
+                    <option value='developer'>I'm a developer</option>
+                  </StyledSelect>
+                  <Button
+                    type='submit'
+                    value='save changes'
+                    onClick={e => onSubmit(e)}
+                  >
+                    save changes
                 </Button>
-              </Form>
-              <Paragraph>update password</Paragraph>
-              <Form>
-                <PasswordInput
-                  name='currentPassword'
-                  placeholder='current password'
-                  value={currentPassword}
-                  onChange={e => onPasswordChange(e)}
-                  minLength='6'
-                />
-                <PasswordInput
-                  name='newPassword'
-                  placeholder='new password'
-                  value={newPassword}
-                  onChange={e => onPasswordChange(e)}
-                  minLength='6'
-                />
-                <PasswordInput
-                  name='confirmNewPassword'
-                  placeholder='confirm new password'
-                  value={confirmNewPassword}
-                  onChange={e => onPasswordChange(e)}
-                  minLength='6'
-                  confirmPass
-                />
-                <Button
-                  type='submit'
-                  value='save new password'
-                  onClick={e => onUpdate(e)}
-                >
-                  update password
+                </Form>
+                <Paragraph>update password</Paragraph>
+                <Form>
+                  <PasswordInput
+                    name='currentPassword'
+                    placeholder='current password'
+                    value={currentPassword}
+                    onChange={e => onPasswordChange(e)}
+                    minLength='6'
+                  />
+                  <PasswordInput
+                    name='newPassword'
+                    placeholder='new password'
+                    value={newPassword}
+                    onChange={e => onPasswordChange(e)}
+                    minLength='6'
+                  />
+                  <PasswordInput
+                    name='confirmNewPassword'
+                    placeholder='confirm new password'
+                    value={confirmNewPassword}
+                    onChange={e => onPasswordChange(e)}
+                    minLength='6'
+                    confirmPass
+                  />
+                  <Button
+                    type='submit'
+                    value='save new password'
+                    onClick={e => onUpdate(e)}
+                  >
+                    update password
                 </Button>
-              </Form>
-            </FormContainer>
-          </ProfileBottomDiv>
-        </RightContainer>
-      </Container>
-    </Fragment>
-  );
+                </Form>
+              </FormContainer>
+            </ProfileBottomDiv>
+          </RightContainer>
+        </Container>
+      </Fragment>
+    );
 };
 
 Settings.propTypes = {

@@ -31,7 +31,7 @@ const NotificationItem = (
         resetCount
     }
 ) => {
-
+    console.log(user)
     useEffect(() => {
         loadUser();
     }, []);
@@ -48,7 +48,11 @@ const NotificationItem = (
 
     return (
         <>
-            <i onClick={e => clickHandler()} className="far fa-bell" style={{ fontSize: '20px', float: 'left', color: 'white', position: 'relative', right: '5px' }}></i>
+            <i
+                onClick={e => clickHandler()}
+                className="far fa-bell"
+                style={{ fontSize: '20px', float: 'left', color: 'white', position: 'relative', right: '5px' }}>
+            </i>
             {
                 !notifications || !notifications.notifications ? null : (
                     notifications.notifications.countNew === 0 ? null : <NotifNo>{notifications.notifications.countNew}</NotifNo>

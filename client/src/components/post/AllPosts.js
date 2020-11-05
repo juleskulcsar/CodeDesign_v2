@@ -77,7 +77,7 @@ const AllPosts = ({
     } = formData;
 
     const onChange = e =>
-        setFormData({ ...formData, [e.target.name]: e.target.value });
+        setFormData({ ...formData, [e.target.name]: e.target.value.toLowerCase() });
 
     const designClickHandler = () => {
         setDesignCheck(!designCheck)
@@ -85,7 +85,7 @@ const AllPosts = ({
         if (designCheck === true) {
             setDevelopmentCheck(true)
             setDevelopmentChecked(false)
-            filters.profile.registeredAs = 'designer'
+            filters.jobField = 'design'
             setFilterparams(filters);
             getPosts(filters);
         } else {

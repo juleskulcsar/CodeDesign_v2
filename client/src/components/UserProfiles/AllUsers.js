@@ -152,7 +152,7 @@ const AllUsers = ({ getProfiles, profile: { profiles, profile, loading } }) => {
                                         type='text'
                                         placeholder='type skill'
                                         name='skill'
-                                        value={skill}
+                                        value={skill.toLowerCase()}
                                         onChange={e => onChange(e)}
                                     />
                                     {/* <Paragraph filters={true}><span style={{ color: '#F16350' }}>specialty</span> </Paragraph> */}

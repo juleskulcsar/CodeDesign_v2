@@ -148,6 +148,7 @@ const Navbar = ({ auth: { isAuthenticated, loading, user }, logout, notification
     loadUser();
   }, []);
 
+  console.log('user in navbar:', user)
   useEffect(() => {
     getNotificationsByUser(user);
   }, []);

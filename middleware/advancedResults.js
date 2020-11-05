@@ -40,13 +40,13 @@ const advancedResults = (model, populate) => async (req, res, next) => {
   }
 
   //pagination
-  const page = parseInt(req.query.page, 10) || 1;
-  const limit = parseInt(req.query.limit, 10) || 10;
-  const startIndex = (page - 1) * limit;
-  const endIndex = page * limit;
-  const total = await model.countDocuments();
+  // const page = parseInt(req.query.page, 10) || 1;
+  // const limit = parseInt(req.query.limit, 10) || 10;
+  // const startIndex = (page - 1) * limit;
+  // const endIndex = page * limit;
+  // const total = await model.countDocuments();
 
-  query = query.skip(startIndex).limit(limit);
+  // query = query.skip(startIndex).limit(limit);
 
   //this replaces the populate method on line 25.
   //This way it is more generic and can be used on other resources as well
@@ -58,26 +58,26 @@ const advancedResults = (model, populate) => async (req, res, next) => {
   const results = await query;
 
   //pagination result
-  let pagination = {};
+  // let pagination = {};
 
-  if (endIndex < total) {
-    pagination.next = {
-      page: page + 1,
-      limit: limit
-    };
-  }
+  // if (endIndex < total) {
+  //   pagination.next = {
+  //     page: page + 1,
+  //     limit: limit
+  //   };
+  // }
 
-  if (startIndex > 0) {
-    pagination.prev = {
-      page: page - 1,
-      limit: limit
-    };
-  }
+  // if (startIndex > 0) {
+  //   pagination.prev = {
+  //     page: page - 1,
+  //     limit: limit
+  //   };
+  // }
 
   res.advancedResults = {
     success: true,
     count: results.length,
-    pagination,
+    // pagination,
     data: results
   };
 

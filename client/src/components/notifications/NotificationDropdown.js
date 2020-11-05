@@ -35,7 +35,7 @@ const NotificationLi = styled.li`
 `
 
 const NotificationAnchor = styled(Link)`
-    font-weight: bold;
+    /* font-weight: bold; */
 color: ${props => props.notification ? '#F16350' : '#EFEFEE'};
     text-decoration: none;
 `
@@ -139,7 +139,7 @@ const NotificationDropdown = (
                                             </P>
                                             : (notification.notificationType === 'save' ? (
                                                 <P>
-                                                    <NotificationAnchor notification='true' to={`/user/${notification.profile.userId}`}>{notification.profile.name}</NotificationAnchor> saved your <NotificationAnchor notification='true' to={`/post/${notification.post.id}`}>{notification.post.title}</NotificationAnchor> {'    '}post
+                                                    <NotificationAnchor notification='true' to={`/user/${notification.profile.userId}`} style={{ color: "#2A7A6F" }}>{notification.profile.name}</NotificationAnchor> saved your <NotificationAnchor notification='true' to={`/post/${notification.post.id}`} style={{ color: "#2A7A6F" }}>{notification.post.title}</NotificationAnchor> {'    '}post
                                                     <Icon ><i className="far fa-bookmark" style={{ color: "#2A7A6F" }}></i></Icon>
                                                     <Date><Moment format='YYYY/MM/DD'>{notification.date}</Moment></Date>
                                                 </P>
@@ -149,7 +149,11 @@ const NotificationDropdown = (
                                                     <Icon ><i className="far fa-comment-dots" style={{ color: "#A25F9A" }}></i></Icon>
                                                     <Date><Moment format='YYYY/MM/DD'>{notification.date}</Moment></Date>
                                                 </P>
-                                                : null))
+                                                : (notification.notificationType === 'welcome' ?
+                                                    <P> Welcome to CodeDesign. Complete your profile
+                                                    <Icon ><i className="far fa-comment-dots" style={{ color: "#A25F9A" }}></i></Icon>
+                                                        <Date><Moment format='YYYY/MM/DD'>{notification.date}</Moment></Date>
+                                                    </P> : null)))
 
                                         }
                                     </Li>
