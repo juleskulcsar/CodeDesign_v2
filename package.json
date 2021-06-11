@@ -38,7 +38,7 @@
     "react-contenteditable": "^3.3.5",
     "react-html-parser": "^2.0.2",
     "request": "^2.88.2",
-    "sanitize-html": "^1.27.5",
+    "sanitize-html": "^2.3.2",
     "serialize-javascript": "^4.0.0",
     "slate": "^0.63.0",
     "slate-react": "^0.58.4",
