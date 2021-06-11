@@ -29,6 +29,8 @@ const profile = require('./routes/api/profile');
 const post = require('./routes/api/post');
 const job = require('./routes/api/job');
 const notification = require('./routes/api/notification');
+const like = require('./routes/api/like');
+const save = require('./routes/api/save');
 
 const app = express();
 
@@ -42,7 +44,7 @@ app.use(cookieParser());
 
 //dev logging middleware
 if (process.env.NODE_ENV === 'development') {
-  app.use(morgan('dev'));
+    app.use(morgan('dev'));
 }
 
 //file upload
@@ -58,8 +60,8 @@ app.use(helmet());
 app.use(xss());
 // Rate limiting
 const limiter = rateLimit({
-  windowMs: 10 * 60 * 1000, // 10 mins
-  max: 100
+    windowMs: 10 * 60 * 1000, // 10 mins
+    max: 100
 });
 app.use(limiter);
 // Prevent http param pollution
@@ -78,20 +80,22 @@ app.use('/api/profile', profile);
 app.use('/api/post', post);
 app.use('/api/job', job);
 app.use('/api/notification', notification);
+app.use('/api/likes', like);
+app.use('/api/saves', save);
 
 app.use(errorHandler);
 
 const PORT = process.env.PORT || 5000;
 const server = app.listen(
-  PORT,
-  console.log(
-    `Bam Bam in ${process.env.NODE_ENV} mode on port ${PORT}`.yellow.bold
-  )
+    PORT,
+    console.log(
+        `Bam Bam in ${process.env.NODE_ENV} mode on port ${PORT}`.yellow.bold
+    )
 );
 
 //handle promise rejections
 process.on('unhandledRejection', (err, promise) => {
-  console.log(`Err: ${err.message}`.red);
-  //close server and exit process
-  server.close(() => process.exit(1));
+    console.log(`Err: ${err.message}`.red);
+    //close server and exit process
+    server.close(() => process.exit(1));
 });
