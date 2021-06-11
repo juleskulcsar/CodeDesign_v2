@@ -13,8 +13,8 @@ import Settings from '../profile-form/Settings';
 import AllUsers from '../UserProfiles/AllUsers';
 import UserProfileAbout from '../UserProfiles/UserProfileAbout';
 import UserProfileGithub from '../UserProfiles/UserProfileGithub';
-import UserProfileJobs from '../UserProfiles/UserProfileJobs'
-import UserProfilePosts from '../UserProfiles/UserProfilePosts'
+import UserProfileJobs from '../UserProfiles/UserProfileJobs';
+import UserProfilePosts from '../UserProfiles/UserProfilePosts';
 import AllJobs from '../job/AllJobs';
 import Job from '../job/JobPage';
 import AllPosts from '../post/AllPosts';
@@ -22,40 +22,88 @@ import PostPage from '../post/PostPage';
 import NotFound from '../layout/NotFound';
 import PrivateRoute from '../routing/PrivateRoute';
 import ImageUpload from '../fileuploader/ImageUpload';
+import Likes from '../reactions/Likes';
+import Saves from '../reactions/Saves';
 
 const Routes = () => {
-  return (
-    <section className='container'>
-      <Alert />
-      <Switch>
-        <Route exact path='/register' component={Register} />
-        <Route exact path='/' component={Login} />
-        <PrivateRoute exact path='/profiles' component={AllUsers} />
-        <PrivateRoute exact path='/posts' component={AllPosts} />
-        <PrivateRoute exact path='/post/:id' component={PostPage} />
-        <PrivateRoute exact path='/user/:id' component={UserProfileAbout} />
-        <PrivateRoute exact path='/user/:id/github' component={UserProfileGithub} />
-        <PrivateRoute exact path='/user/:id/posts' component={UserProfilePosts} />
-        <PrivateRoute exact path='/user/:id/jobs' component={UserProfileJobs} />
-        <PrivateRoute exact path='/dashboard' component={Dashboard} />
-        <PrivateRoute exact path='/dashboard/github' component={MyGithub} />
-        <PrivateRoute exact path='/create-profile' component={CreateProfile} />
-        <PrivateRoute
-          exact
-          path='/dashboard/edit-profile'
-          component={EditProfile}
-        />
-        <PrivateRoute exact path='/profilephoto' component={ImageUpload} />
-        <PrivateRoute exact path='/jobs' component={AllJobs} />
-        <PrivateRoute exact path='/dashboard/my-jobs' component={MyJobs} />
-        <PrivateRoute exact path='/dashboard/my-posts' component={MyPosts} />
-        <PrivateRoute exact path='/dashboard/my-jobs' component={MyJobs} />
-        <PrivateRoute exact path='/dashboard/settings' component={Settings} />
-        <PrivateRoute exact path='/job/:id' component={Job} />
-        <Route component={NotFound} />
-      </Switch>
-    </section>
-  );
+    return (
+        <section className='container'>
+            <Alert />
+            <Switch>
+                <Route exact path='/register' component={Register} />
+                <Route exact path='/' component={Login} />
+                <PrivateRoute exact path='/profiles' component={AllUsers} />
+                <PrivateRoute exact path='/posts' component={AllPosts} />
+                <PrivateRoute exact path='/post/:id' component={PostPage} />
+                <PrivateRoute
+                    exact
+                    path='/user/:id'
+                    component={UserProfileAbout}
+                />
+                <PrivateRoute
+                    exact
+                    path='/user/:id/github'
+                    component={UserProfileGithub}
+                />
+                <PrivateRoute
+                    exact
+                    path='/user/:id/posts'
+                    component={UserProfilePosts}
+                />
+                <PrivateRoute
+                    exact
+                    path='/user/:id/jobs'
+                    component={UserProfileJobs}
+                />
+                <PrivateRoute exact path='/dashboard' component={Dashboard} />
+                <PrivateRoute
+                    exact
+                    path='/dashboard/github'
+                    component={MyGithub}
+                />
+                <PrivateRoute
+                    exact
+                    path='/create-profile'
+                    component={CreateProfile}
+                />
+                <PrivateRoute
+                    exact
+                    path='/dashboard/edit-profile'
+                    component={EditProfile}
+                />
+                <PrivateRoute
+                    exact
+                    path='/profilephoto'
+                    component={ImageUpload}
+                />
+                <PrivateRoute exact path='/jobs' component={AllJobs} />
+                <PrivateRoute
+                    exact
+                    path='/dashboard/my-jobs'
+                    component={MyJobs}
+                />
+                <PrivateRoute
+                    exact
+                    path='/dashboard/my-posts'
+                    component={MyPosts}
+                />
+                <PrivateRoute
+                    exact
+                    path='/dashboard/my-jobs'
+                    component={MyJobs}
+                />
+                <PrivateRoute
+                    exact
+                    path='/dashboard/settings'
+                    component={Settings}
+                />
+                <PrivateRoute exact path='/job/:id' component={Job} />
+                <PrivateRoute exact path='/likes/:id' component={Likes} />
+                <PrivateRoute exact path='/saves/:id' component={Saves} />
+                <Route component={NotFound} />
+            </Switch>
+        </section>
+    );
 };
 
 export default Routes;
